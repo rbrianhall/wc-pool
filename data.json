@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-06-10T18:00:00Z"
+    "lastUpdated": "2026-06-11T20:35:14+00:00"
   },
   "teams": [
     [
@@ -694,7 +694,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Mexico City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-12T02:00:00Z",
@@ -704,7 +704,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Guadalajara Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-12T19:00:00Z",
@@ -714,7 +714,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Toronto Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-13T01:00:00Z",
@@ -724,7 +724,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-13T19:00:00Z",
@@ -734,7 +734,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "San Francisco Bay Area Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-13T22:00:00Z",
@@ -744,7 +744,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-14T01:00:00Z",
@@ -754,7 +754,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Boston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-14T04:00:00Z",
@@ -764,7 +764,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "BC Place Vancouver"
+      "venue": ""
     },
     {
       "date": "2026-06-14T17:00:00Z",
@@ -774,7 +774,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Houston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-14T20:00:00Z",
@@ -784,7 +784,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-14T23:00:00Z",
@@ -794,7 +794,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Philadelphia Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-15T02:00:00Z",
@@ -804,7 +804,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Monterrey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-15T16:00:00Z",
@@ -814,7 +814,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-15T19:00:00Z",
@@ -824,7 +824,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Seattle Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-15T22:00:00Z",
@@ -834,7 +834,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Miami Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-16T01:00:00Z",
@@ -844,7 +844,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-16T19:00:00Z",
@@ -854,7 +854,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-16T22:00:00Z",
@@ -864,7 +864,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Boston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-17T01:00:00Z",
@@ -874,7 +874,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Kansas City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-17T04:00:00Z",
@@ -884,7 +884,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "San Francisco Bay Area Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-17T17:00:00Z",
@@ -894,7 +894,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Houston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-17T20:00:00Z",
@@ -904,7 +904,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-17T23:00:00Z",
@@ -914,7 +914,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Toronto Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-18T02:00:00Z",
@@ -924,7 +924,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Mexico City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-18T16:00:00Z",
@@ -934,7 +934,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-18T19:00:00Z",
@@ -944,7 +944,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-18T22:00:00Z",
@@ -954,7 +954,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "BC Place Vancouver"
+      "venue": ""
     },
     {
       "date": "2026-06-19T01:00:00Z",
@@ -964,7 +964,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Guadalajara Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-19T19:00:00Z",
@@ -974,7 +974,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Seattle Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-19T22:00:00Z",
@@ -984,27 +984,27 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Boston Stadium"
+      "venue": ""
     },
     {
-      "date": "2026-06-20T01:00:00Z",
+      "date": "2026-06-20T00:30:00Z",
       "stage": "Group C",
       "home": "BRA",
       "away": "HAI",
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Philadelphia Stadium"
+      "venue": ""
     },
     {
-      "date": "2026-06-20T04:00:00Z",
+      "date": "2026-06-20T03:00:00Z",
       "stage": "Group D",
       "home": "TUR",
       "away": "PAR",
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "San Francisco Bay Area Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-20T17:00:00Z",
@@ -1014,7 +1014,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Houston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-20T20:00:00Z",
@@ -1024,7 +1024,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Toronto Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-21T00:00:00Z",
@@ -1034,7 +1034,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Kansas City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-21T04:00:00Z",
@@ -1044,7 +1044,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Monterrey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-21T16:00:00Z",
@@ -1054,7 +1054,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-21T19:00:00Z",
@@ -1064,7 +1064,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-21T22:00:00Z",
@@ -1074,7 +1074,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Miami Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-22T01:00:00Z",
@@ -1084,7 +1084,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "BC Place Vancouver"
+      "venue": ""
     },
     {
       "date": "2026-06-22T17:00:00Z",
@@ -1094,7 +1094,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-22T21:00:00Z",
@@ -1104,7 +1104,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Philadelphia Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-23T00:00:00Z",
@@ -1114,7 +1114,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-23T03:00:00Z",
@@ -1124,7 +1124,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "San Francisco Bay Area Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-23T17:00:00Z",
@@ -1134,7 +1134,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Houston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-23T20:00:00Z",
@@ -1144,7 +1144,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Boston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-23T23:00:00Z",
@@ -1154,7 +1154,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Toronto Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-24T02:00:00Z",
@@ -1164,7 +1164,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Guadalajara Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-24T19:00:00Z",
@@ -1174,7 +1174,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "BC Place Vancouver"
+      "venue": ""
     },
     {
       "date": "2026-06-24T19:00:00Z",
@@ -1184,17 +1184,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Seattle Stadium"
-    },
-    {
-      "date": "2026-06-24T22:00:00Z",
-      "stage": "Group C",
-      "home": "SCO",
-      "away": "BRA",
-      "hs": null,
-      "as": null,
-      "status": "scheduled",
-      "venue": "Miami Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-24T22:00:00Z",
@@ -1204,7 +1194,17 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
+      "venue": ""
+    },
+    {
+      "date": "2026-06-24T22:00:00Z",
+      "stage": "Group C",
+      "home": "SCO",
+      "away": "BRA",
+      "hs": null,
+      "as": null,
+      "status": "scheduled",
+      "venue": ""
     },
     {
       "date": "2026-06-25T01:00:00Z",
@@ -1214,7 +1214,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Mexico City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-25T01:00:00Z",
@@ -1224,17 +1224,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Monterrey Stadium"
-    },
-    {
-      "date": "2026-06-25T20:00:00Z",
-      "stage": "Group E",
-      "home": "CUW",
-      "away": "CIV",
-      "hs": null,
-      "as": null,
-      "status": "scheduled",
-      "venue": "Philadelphia Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-25T20:00:00Z",
@@ -1244,17 +1234,17 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     },
     {
-      "date": "2026-06-25T23:00:00Z",
-      "stage": "Group F",
-      "home": "JPN",
-      "away": "SWE",
+      "date": "2026-06-25T20:00:00Z",
+      "stage": "Group E",
+      "home": "CUW",
+      "away": "CIV",
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-25T23:00:00Z",
@@ -1264,7 +1254,17 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Kansas City Stadium"
+      "venue": ""
+    },
+    {
+      "date": "2026-06-25T23:00:00Z",
+      "stage": "Group F",
+      "home": "JPN",
+      "away": "SWE",
+      "hs": null,
+      "as": null,
+      "status": "scheduled",
+      "venue": ""
     },
     {
       "date": "2026-06-26T02:00:00Z",
@@ -1274,7 +1274,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-26T02:00:00Z",
@@ -1284,7 +1284,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "San Francisco Bay Area Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-26T19:00:00Z",
@@ -1294,7 +1294,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Boston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-26T19:00:00Z",
@@ -1304,17 +1304,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Toronto Stadium"
-    },
-    {
-      "date": "2026-06-27T00:00:00Z",
-      "stage": "Group H",
-      "home": "CPV",
-      "away": "KSA",
-      "hs": null,
-      "as": null,
-      "status": "scheduled",
-      "venue": "Houston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-27T00:00:00Z",
@@ -1324,17 +1314,17 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Guadalajara Stadium"
+      "venue": ""
     },
     {
-      "date": "2026-06-27T03:00:00Z",
-      "stage": "Group G",
-      "home": "EGY",
-      "away": "IRN",
+      "date": "2026-06-27T00:00:00Z",
+      "stage": "Group H",
+      "home": "CPV",
+      "away": "KSA",
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Seattle Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-27T03:00:00Z",
@@ -1344,7 +1334,17 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "BC Place Vancouver"
+      "venue": ""
+    },
+    {
+      "date": "2026-06-27T03:00:00Z",
+      "stage": "Group G",
+      "home": "EGY",
+      "away": "IRN",
+      "hs": null,
+      "as": null,
+      "status": "scheduled",
+      "venue": ""
     },
     {
       "date": "2026-06-27T21:00:00Z",
@@ -1354,7 +1354,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-27T21:00:00Z",
@@ -1364,7 +1364,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Philadelphia Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-27T23:30:00Z",
@@ -1374,7 +1374,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Miami Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-27T23:30:00Z",
@@ -1384,17 +1384,7 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
-    },
-    {
-      "date": "2026-06-28T02:00:00Z",
-      "stage": "Group J",
-      "home": "ALG",
-      "away": "AUT",
-      "hs": null,
-      "as": null,
-      "status": "scheduled",
-      "venue": "Kansas City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-28T02:00:00Z",
@@ -1404,327 +1394,337 @@
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
+    },
+    {
+      "date": "2026-06-28T02:00:00Z",
+      "stage": "Group J",
+      "home": "ALG",
+      "away": "AUT",
+      "hs": null,
+      "as": null,
+      "status": "scheduled",
+      "venue": ""
     },
     {
       "date": "2026-06-28T19:00:00Z",
       "stage": "Round of 32",
-      "home": "2A",
-      "away": "2B",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-29T17:00:00Z",
       "stage": "Round of 32",
-      "home": "1C",
-      "away": "2F",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Houston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-29T20:30:00Z",
       "stage": "Round of 32",
-      "home": "1E",
-      "away": "3ABCDF",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Boston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-30T01:00:00Z",
       "stage": "Round of 32",
-      "home": "1F",
-      "away": "2C",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Monterrey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-30T17:00:00Z",
       "stage": "Round of 32",
-      "home": "2E",
-      "away": "2I",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-06-30T21:00:00Z",
       "stage": "Round of 32",
-      "home": "1I",
-      "away": "3CDFGH",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-01T01:00:00Z",
       "stage": "Round of 32",
-      "home": "1A",
-      "away": "3CEFHI",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Mexico City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-01T16:00:00Z",
       "stage": "Round of 32",
-      "home": "1L",
-      "away": "3EHIJK",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-01T20:00:00Z",
       "stage": "Round of 32",
-      "home": "1G",
-      "away": "3AEHIJ",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Seattle Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-02T00:00:00Z",
       "stage": "Round of 32",
-      "home": "1D",
-      "away": "3BEFIJ",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "San Francisco Bay Area Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-02T19:00:00Z",
       "stage": "Round of 32",
-      "home": "1H",
-      "away": "2J",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-02T23:00:00Z",
       "stage": "Round of 32",
-      "home": "2K",
-      "away": "2L",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Toronto Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-03T03:00:00Z",
       "stage": "Round of 32",
-      "home": "1B",
-      "away": "3EFGIJ",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "BC Place Vancouver"
+      "venue": ""
     },
     {
       "date": "2026-07-03T18:00:00Z",
       "stage": "Round of 32",
-      "home": "2D",
-      "away": "2G",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-03T22:00:00Z",
       "stage": "Round of 32",
-      "home": "1J",
-      "away": "2H",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Miami Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-04T01:30:00Z",
       "stage": "Round of 32",
-      "home": "1K",
-      "away": "3DEIJL",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Kansas City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-04T17:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Houston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-04T21:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Philadelphia Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-05T20:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-06T00:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Mexico City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-06T19:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-07T00:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Seattle Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-07T16:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-07T20:00:00Z",
       "stage": "Round of 16",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "BC Place Vancouver"
+      "venue": ""
     },
     {
       "date": "2026-07-09T20:00:00Z",
       "stage": "Quarter-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Boston Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-10T19:00:00Z",
       "stage": "Quarter-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Los Angeles Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-11T21:00:00Z",
       "stage": "Quarter-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Miami Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-12T01:00:00Z",
       "stage": "Quarter-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Kansas City Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-14T19:00:00Z",
       "stage": "Semi-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Dallas Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-15T19:00:00Z",
       "stage": "Semi-final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Atlanta Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-18T21:00:00Z",
       "stage": "Third-place match",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "Miami Stadium"
+      "venue": ""
     },
     {
       "date": "2026-07-19T19:00:00Z",
       "stage": "Final",
-      "home": "TBD",
-      "away": "TBD",
+      "home": null,
+      "away": null,
       "hs": null,
       "as": null,
       "status": "scheduled",
-      "venue": "New York/New Jersey Stadium"
+      "venue": ""
     }
   ]
 }
