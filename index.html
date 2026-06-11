@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 World Cup Pool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;700;800&family=Saira:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --pitch:#0b1612;        /* night pitch */
+    --panel:#11211a;
+    --panel-2:#16291f;
+    --line:rgba(234,246,238,.13);   /* chalk hairline */
+    --chalk:#eaf6ee;
+    --muted:#8faa9b;
+    --yellow:#ffd23f;       /* yellow card */
+    --red:#ff6464;          /* red card */
+    --green:#52d98b;        /* alive / gained */
+    --mono:'IBM Plex Mono',ui-monospace,monospace;
+    --disp:'Saira Condensed',sans-serif;
+    --body:'Saira',sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--pitch);
+    color:var(--chalk);
+    font-family:var(--body);
+    font-size:15px;
+    line-height:1.45;
+    background-image:
+      radial-gradient(ellipse 90% 50% at 50% -10%, rgba(82,217,139,.06), transparent),
+      repeating-linear-gradient(90deg, transparent 0 119px, rgba(234,246,238,.018) 119px 120px);
+    min-height:100vh;
+  }
+  a{color:inherit}
+
+  /* ---------- LED ticker ribbon ---------- */
+  .ticker{
+    background:#050b08;
+    border-bottom:1px solid var(--line);
+    overflow:hidden;
+    white-space:nowrap;
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.06em;
+    color:var(--yellow);
+    text-shadow:0 0 8px rgba(255,210,63,.35);
+    user-select:none;
+  }
+  .ticker-track{display:inline-block;padding:7px 0;animation:tick 55s linear infinite}
+  .ticker:hover .ticker-track{animation-play-state:paused}
+  .ticker-item{display:inline-block;padding:0 1.6em}
+  .ticker-item .dim{color:#7a8d56;color:rgba(255,210,63,.45)}
+  .ticker-item .live{color:var(--red);text-shadow:0 0 8px rgba(255,100,100,.4)}
+  @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion: reduce){
+    .ticker-track{animation:none;white-space:normal}
+    .ticker{white-space:normal}
+  }
+
+  /* ---------- masthead ---------- */
+  header{
+    max-width:1060px;margin:0 auto;padding:30px 18px 14px;
+    display:flex;flex-wrap:wrap;align-items:flex-end;gap:14px 28px;
+    border-bottom:2px solid var(--line);
+    position:relative;
+  }
+  header::after{ /* center-circle chalk arc */
+    content:"";position:absolute;right:24px;top:-40px;width:180px;height:180px;
+    border:1.5px solid rgba(234,246,238,.07);border-radius:50%;pointer-events:none;
+  }
+  h1{
+    font-family:var(--disp);font-weight:800;text-transform:uppercase;
+    font-size:clamp(34px,6vw,56px);line-height:.92;letter-spacing:.01em;
+  }
+  h1 small{display:block;font-size:.32em;font-weight:600;color:var(--muted);letter-spacing:.28em}
+  .meta-stats{display:flex;gap:26px;margin-left:auto;flex-wrap:wrap}
+  .meta-stat .k{font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+  .meta-stat .v{font-family:var(--mono);font-size:21px;font-weight:600}
+  .meta-stat .v em{font-style:normal;font-size:12px;color:var(--muted)}
+
+  /* ---------- tabs ---------- */
+  nav{
+    position:sticky;top:0;z-index:30;
+    background:rgba(11,22,18,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .tabs{max-width:1060px;margin:0 auto;display:flex;gap:4px;padding:0 12px;overflow-x:auto}
+  .tab{
+    appearance:none;background:none;border:none;cursor:pointer;
+    font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:.10em;
+    font-size:15px;color:var(--muted);padding:13px 14px 11px;
+    border-bottom:3px solid transparent;white-space:nowrap;
+  }
+  .tab:hover{color:var(--chalk)}
+  .tab[aria-selected="true"]{color:var(--chalk);border-bottom-color:var(--yellow)}
+  .tab:focus-visible{outline:2px solid var(--yellow);outline-offset:-2px}
+
+  main{max-width:1060px;margin:0 auto;padding:22px 14px 80px}
+  section[hidden]{display:none}
+  h2{font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+     font-size:14px;color:var(--muted);margin:26px 0 10px}
+
+  /* ---------- leaderboard ---------- */
+  .lb-head{
+    display:grid;grid-template-columns:44px 1fr 86px 86px 78px;gap:8px;
+    font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+    padding:0 14px 6px;
+  }
+  details.lb-row{
+    background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;
+  }
+  details.lb-row[open]{background:var(--panel-2)}
+  details.lb-row.money{border-left:4px solid var(--yellow)}
+  .lb-row summary{
+    list-style:none;cursor:pointer;
+    display:grid;grid-template-columns:44px 1fr 86px 86px 78px;gap:8px;align-items:center;
+    padding:11px 14px;
+  }
+  .lb-row summary::-webkit-details-marker{display:none}
+  .lb-row summary:focus-visible{outline:2px solid var(--yellow);border-radius:8px}
+  .rank{font-family:var(--mono);font-size:19px;font-weight:600;color:var(--muted)}
+  .money .rank{color:var(--yellow)}
+  .lb-row.ai{border-style:dashed}
+  .lb-row.ai .nm{color:var(--muted)}
+  .lb-row.ai .rank{font-size:15px}
+  .ai-badge{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+    border:1px solid var(--line);border-radius:3px;padding:1px 6px;margin-left:8px;color:var(--muted);vertical-align:2px}
+  .who .nm{font-weight:600;font-size:16px}
+  .who .payout{font-family:var(--mono);font-size:11px;color:var(--yellow);margin-left:8px}
+  .picks{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px}
+  .chip{
+    display:inline-flex;align-items:center;gap:5px;
+    font-family:var(--mono);font-size:11.5px;
+    border:1px solid var(--line);border-radius:5px;padding:2px 7px;color:var(--chalk);
+    background:rgba(0,0,0,.18);
+  }
+  .chip .card{width:7px;height:10px;border-radius:1.5px;background:var(--green);flex:none}
+  .chip.third .card{background:var(--yellow)}
+  .chip.out{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red)}
+  .chip.out .card{background:var(--red)}
+  .chip .pts{color:var(--green);font-weight:600}
+  .chip.out .pts{color:var(--muted)}
+  .num{font-family:var(--mono);text-align:right;font-size:17px;font-weight:600}
+  .num.max{color:var(--muted);font-weight:400}
+  .num.behind{color:var(--muted);font-weight:400;font-size:14px}
+  .lb-detail{border-top:1px dashed var(--line);padding:10px 14px 13px}
+  .pick-line{
+    display:grid;grid-template-columns:1fr 70px 90px 90px;gap:8px;align-items:baseline;
+    font-family:var(--mono);font-size:13px;padding:4px 0;
+  }
+  .pick-line .lbl{font-family:var(--body);font-size:14px}
+  .pick-line .lbl .st{font-size:11px;margin-left:7px;letter-spacing:.08em;text-transform:uppercase}
+  .st.alive{color:var(--green)} .st.out{color:var(--red)} .st.third{color:var(--yellow)}
+  .pick-head{color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;
+    display:grid;grid-template-columns:1fr 70px 90px 90px;gap:8px;padding-bottom:4px}
+  .pick-line .r{text-align:right}
+  .pick-head .r{text-align:right}
+
+  /* ---------- matches ---------- */
+  .day{border:1px solid var(--line);border-radius:8px;margin-bottom:10px;background:var(--panel)}
+  .day>summary{
+    list-style:none;cursor:pointer;padding:10px 14px;
+    font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:.12em;font-size:14px;
+    display:flex;justify-content:space-between;color:var(--chalk);
+  }
+  .day>summary::-webkit-details-marker{display:none}
+  .day>summary .n{color:var(--muted);font-family:var(--mono);font-weight:400;font-size:12px;letter-spacing:0}
+  .match{border-top:1px dashed var(--line);padding:10px 14px;display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center}
+  .m-stage{font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);flex:0 0 110px}
+  .m-teams{font-family:var(--mono);font-size:15px;font-weight:500;flex:1;min-width:230px;display:flex;align-items:center;gap:8px}
+  .m-score{font-weight:600;color:var(--yellow);min-width:48px;text-align:center}
+  .m-time{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .m-live{color:var(--red);font-family:var(--mono);font-size:11px;letter-spacing:.12em;animation:pulse 1.6s infinite}
+  @keyframes pulse{50%{opacity:.45}}
+  @media (prefers-reduced-motion:reduce){.m-live{animation:none}}
+  .m-stakes{flex-basis:100%;font-size:12px;color:var(--muted)}
+  .m-stakes b{color:var(--chalk);font-weight:600}
+  .m-stakes .mult{color:var(--muted)}
+  .m-stakes .sep{color:var(--chalk);opacity:.55;font-weight:700;padding:0 9px}
+  .m-stakes .pot-pts{font-family:var(--mono);color:var(--green)}
+
+  /* ---------- teams ---------- */
+  .group-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px}
+  .group{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+  .group h3{font-family:var(--disp);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
+    font-size:13px;color:var(--muted);margin-bottom:8px;border-bottom:1px dashed var(--line);padding-bottom:6px}
+  .t-row{display:grid;grid-template-columns:1fr 52px 56px 58px;gap:6px;align-items:center;
+    font-size:14px;padding:4px 0}
+  .t-row .t-name{display:flex;align-items:center;gap:7px}
+  .t-row .card{width:7px;height:10px;border-radius:1.5px;background:var(--green);flex:none}
+  .t-row.out .card{background:var(--red)}
+  .t-row.third .card{background:var(--yellow)}
+  .t-row.out .t-name{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red)}
+  .t-row .mono{font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--muted)}
+  .t-row .mono.banked{color:var(--green)}
+  .t-head{display:grid;grid-template-columns:1fr 52px 56px 58px;gap:6px;
+    font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding-bottom:3px}
+  .t-head .r{text-align:right}
+
+  /* ---------- stats ---------- */
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+  .stat-card{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px}
+  .stat-card h3{font-family:var(--disp);font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    font-size:13px;color:var(--muted);margin-bottom:10px}
+  .bar-row{display:flex;align-items:center;gap:8px;font-size:13px;padding:3px 0}
+  .bar-row .lbl{flex:0 0 118px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .bar-row .bar{height:8px;background:var(--green);border-radius:4px;min-width:2px;opacity:.85}
+  .bar-row .ct{font-family:var(--mono);font-size:12px;color:var(--muted)}
+  .kv{display:flex;justify-content:space-between;font-size:14px;padding:4px 0;border-bottom:1px dashed var(--line)}
+  .kv:last-child{border-bottom:none}
+  .kv .v{font-family:var(--mono);font-size:13px}
+  .note{font-size:12px;color:var(--muted);margin-top:8px}
+
+  footer{max-width:1060px;margin:0 auto;padding:0 18px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
+  footer .upd{font-family:var(--mono)}
+  .empty{color:var(--muted);font-size:14px;padding:18px;border:1px dashed var(--line);border-radius:8px;text-align:center}
+  @media(max-width:620px){
+    .lb-head{grid-template-columns:32px 1fr 70px 70px;padding:0 11px 6px}
+    .lb-head .h-behind{display:none}
+    .lb-row summary{grid-template-columns:32px 1fr 70px 70px;padding:10px 11px}
+    .num.behind{display:none}
+    .pick-line,.pick-head{grid-template-columns:1fr 54px 70px 70px}
+    header::after{display:none}
+  }
+</style>
+</head>
+<body>
+
+<div class="ticker" aria-hidden="true"><div class="ticker-track" id="ticker"></div></div>
+
+<header>
+  <h1><small>OFFICIAL STANDINGS &middot; JUNE 11 &ndash; JULY 19</small>2026 World Cup Pool</h1>
+  <div class="meta-stats">
+    <div class="meta-stat"><div class="k">Pot</div><div class="v" id="m-pot">&ndash;</div></div>
+    <div class="meta-stat"><div class="k">Entries</div><div class="v" id="m-entries">&ndash;</div></div>
+    <div class="meta-stat"><div class="k">Teams Alive</div><div class="v" id="m-alive">&ndash;</div></div>
+  </div>
+</header>
+
+<nav><div class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true"  data-t="leaderboard">Leaderboard</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="matches">Matches</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="teams">Teams</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="stats">Stats</button>
+</div></nav>
+
+<main>
+  <section id="sec-leaderboard" role="tabpanel">
+    <h2>Standings &mdash; tap an entry for the pick-by-pick breakdown</h2>
+    <div class="lb-head"><div>#</div><div>Entry</div><div style="text-align:right">Points</div><div style="text-align:right">Best case</div><div class="h-behind" style="text-align:right">Behind</div></div>
+    <div id="leaderboard"></div>
+  </section>
+
+  <section id="sec-matches" role="tabpanel" hidden>
+    <div id="matches"></div>
+  </section>
+
+  <section id="sec-teams" role="tabpanel" hidden>
+    <h2>All 48 teams &mdash; multiple, status, owners, points banked</h2>
+    <div class="group-grid" id="teams"></div>
+  </section>
+
+  <section id="sec-stats" role="tabpanel" hidden>
+    <div class="stat-grid" id="stats"></div>
+  </section>
+</main>
+
+<footer>
+  Scoring: advance from group = 3 &middot; R32 win = 10 &middot; R16 win = 10 &middot; QF win = 25 &middot; SF win = 50 &middot; 3rd-place win = 25 &middot; Final win = 100 &mdash; all &times; country multiple.
+  Payouts: 50 / 35 / 15% of pot. <span class="upd" id="updated"></span>
+</footer>
+<script>
+/* ============================================================
+   2026 World Cup Pool — all scoring computed client-side.
+   Data source: data.json in the same folder (auto-refreshed
+   every 60s). If data.json can't be fetched (e.g. previewing
+   this file locally), the embedded DEFAULT_DATA below is used.
+   ============================================================ */
+
+const DEFAULT_DATA = {
+  meta: { title: "2026 World Cup Pool", entryFeeUSD: 35, potUSD: null,
+          payoutSplit: [0.5, 0.35, 0.15], lastUpdated: "2026-06-10T18:00:00Z" },
+
+  /* [code, name, group, multiple, flag] — multiples from the pool sheet */
+  teams: [
+    ["MEX","Mexico","A",4.5,"🇲🇽"],["CZE","Czechia","A",18,"🇨🇿"],["KOR","South Korea","A",19,"🇰🇷"],["RSA","South Africa","A",50,"🇿🇦"],
+    ["SUI","Switzerland","B",5.5,"🇨🇭"],["CAN","Canada","B",7,"🇨🇦"],["BIH","Bosnia","B",25,"🇧🇦"],["QAT","Qatar","B",150,"🇶🇦"],
+    ["BRA","Brazil","C",2,"🇧🇷"],["MAR","Morocco","C",10,"🇲🇦"],["SCO","Scotland","C",16,"🏴󠁧󠁢󠁳󠁣󠁴󠁿"],["HAI","Haiti","C",100,"🇭🇹"],
+    ["TUR","Türkiye","D",5,"🇹🇷"],["USA","USA","D",6.5,"🇺🇸"],["PAR","Paraguay","D",11,"🇵🇾"],["AUS","Australia","D",35,"🇦🇺"],
+    ["GER","Germany","E",2.25,"🇩🇪"],["ECU","Ecuador","E",5.5,"🇪🇨"],["CIV","Côte d'Ivoire","E",23,"🇨🇮"],["CUW","Curaçao","E",150,"🇨🇼"],
+    ["NED","Netherlands","F",3.75,"🇳🇱"],["JPN","Japan","F",8,"🇯🇵"],["SWE","Sweden","F",23,"🇸🇪"],["TUN","Tunisia","F",75,"🇹🇳"],
+    ["BEL","Belgium","G",5.5,"🇧🇪"],["EGY","Egypt","G",20,"🇪🇬"],["IRN","Iran","G",28,"🇮🇷"],["NZL","New Zealand","G",70,"🇳🇿"],
+    ["ESP","Spain","H",1.1,"🇪🇸"],["URU","Uruguay","H",5.5,"🇺🇾"],["CPV","Cabo Verde","H",75,"🇨🇻"],["KSA","Saudi Arabia","H",75,"🇸🇦"],
+    ["FRA","France","I",1.5,"🇫🇷"],["NOR","Norway","I",3,"🇳🇴"],["SEN","Senegal","I",9,"🇸🇳"],["IRQ","Iraq","I",150,"🇮🇶"],
+    ["ARG","Argentina","J",1,"🇦🇷"],["AUT","Austria","J",15,"🇦🇹"],["ALG","Algeria","J",25,"🇩🇿"],["JOR","Jordan","J",100,"🇯🇴"],
+    ["POR","Portugal","K",2.75,"🇵🇹"],["COL","Colombia","K",3,"🇨🇴"],["COD","DR Congo","K",42,"🇨🇩"],["UZB","Uzbekistan","K",55,"🇺🇿"],
+    ["ENG","England","L",1.5,"🏴󠁧󠁢󠁥󠁮󠁧󠁿"],["CRO","Croatia","L",8,"🇭🇷"],["PAN","Panama","L",30,"🇵🇦"],["GHA","Ghana","L",90,"🇬🇭"]
+  ],
+
+  /* Per-team progress. ach: any of advanced,w32,w16,wqf,wsf,w3rd,wf
+     state: alive | third (lost SF, 3rd-place match pending) | out
+     Teams not listed default to { state:"alive", ach:[] }            */
+  status: {},
+
+  /* Finalized entries from Pete's sheet */
+  entries: [
+    {"name": "Aaron R.", "picks": ["EGY", "FRA", "MAR", "KOR", "ESP"]},
+    {"name": "Andrew B. (#1)", "picks": ["CAN", "IRN", "SCO", "KOR", "ESP"]},
+    {"name": "Andrew B. (#2)", "picks": ["COL", "ENG", "GER", "SWE", "USA"]},
+    {"name": "Andrew M.", "picks": ["CAN", "COL", "EGY", "FRA", "ESP"]},
+    {"name": "Andy C.", "picks": ["CRO", "EGY", "KOR", "SWE", "USA"]},
+    {"name": "Ben W.", "picks": ["CAN", "COL", "FRA", "JPN", "POR"]},
+    {"name": "Brett M. (#1)", "picks": ["IRN", "JPN", "NED", "POR", "SCO"]},
+    {"name": "Brett M. (#2)", "picks": ["AUT", "BEL", "GER", "KOR", "SWE"]},
+    {"name": "Brian H.", "picks": ["AUT", "GHA", "MAR", "RSA", "TUN"]},
+    {"name": "Brook S.", "picks": ["BRA", "ENG", "FRA", "JPN", "POR"]},
+    {"name": "Calvin R.", "picks": ["BRA", "MEX", "NED", "URU", "TUR"]},
+    {"name": "Charles V.", "picks": ["COL", "GER", "NED", "NOR", "POR"]},
+    {"name": "ChatGPT", "ai": true, "picks": ["AUT", "COL", "CRO", "JPN", "NOR"], "paid": false},
+    {"name": "Chris K. (#1)", "picks": ["COL", "MAR", "NOR", "POR", "ESP"]},
+    {"name": "Chris K. (#2)", "picks": ["AUT", "BRA", "JPN", "SEN", "USA"]},
+    {"name": "Dan R.", "picks": ["ECU", "FRA", "JPN", "MAR", "SUI"]},
+    {"name": "David O'D.", "picks": ["BEL", "BRA", "COL", "FRA", "GER"]},
+    {"name": "David Or.", "picks": ["BEL", "COL", "ENG", "GER", "SEN"]},
+    {"name": "Google Gemini", "ai": true, "picks": ["AUS", "POR", "KOR", "ESP", "SUI"], "paid": false},
+    {"name": "Graham B.", "picks": ["CAN", "CRO", "MEX", "MAR", "PAR"]},
+    {"name": "Jim F.", "picks": ["ARG", "BRA", "ENG", "FRA", "ESP"]},
+    {"name": "John C. (#1)", "picks": ["ALG", "CZE", "NED", "PAN", "TUR"]},
+    {"name": "John C. (#2)", "picks": ["COL", "EGY", "KSA", "SEN", "KOR"]},
+    {"name": "Justin S.", "picks": ["BIH", "MAR", "PAN", "ESP", "USA"]},
+    {"name": "Kevan F.", "picks": ["BEL", "COL", "GER", "NED", "POR"]},
+    {"name": "Kieran S.", "picks": ["AUT", "ECU", "IRN", "MAR", "URU"]},
+    {"name": "Luke D.", "picks": ["ARG", "ENG", "FRA", "POR", "ESP"]},
+    {"name": "Neal P.", "picks": ["AUT", "CRO", "FRA", "POR", "USA"]},
+    {"name": "Pete C. (#1)", "picks": ["ALG", "ECU", "FRA", "MEX", "TUR"]},
+    {"name": "Pete C. (#2)", "picks": ["AUS", "CIV", "CZE", "ENG", "NED"]},
+    {"name": "Reilly P.", "picks": ["EGY", "GER", "JPN", "KOR", "TUR"]},
+    {"name": "Sarah C.", "picks": ["CAN", "CRO", "GER", "SCO", "ESP"]},
+    {"name": "Tommy W.", "picks": ["ENG", "FRA", "NOR", "ESP", "USA"]}
+  ],
+
+  /* Full official schedule (auto-updater keeps scores/teams current).
+     Knockout slots like 1A / 2B / 3ABCDF fill in as groups finish.
+     status: scheduled | live | finished */
+  matches: [
+    {"date": "2026-06-11T19:00:00Z", "stage": "Group A", "home": "MEX", "away": "RSA", "hs": null, "as": null, "status": "scheduled", "venue": "Mexico City Stadium"},
+    {"date": "2026-06-12T02:00:00Z", "stage": "Group A", "home": "KOR", "away": "CZE", "hs": null, "as": null, "status": "scheduled", "venue": "Guadalajara Stadium"},
+    {"date": "2026-06-12T19:00:00Z", "stage": "Group B", "home": "CAN", "away": "BIH", "hs": null, "as": null, "status": "scheduled", "venue": "Toronto Stadium"},
+    {"date": "2026-06-13T01:00:00Z", "stage": "Group D", "home": "USA", "away": "PAR", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-06-13T19:00:00Z", "stage": "Group B", "home": "QAT", "away": "SUI", "hs": null, "as": null, "status": "scheduled", "venue": "San Francisco Bay Area Stadium"},
+    {"date": "2026-06-13T22:00:00Z", "stage": "Group C", "home": "BRA", "away": "MAR", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"},
+    {"date": "2026-06-14T01:00:00Z", "stage": "Group C", "home": "HAI", "away": "SCO", "hs": null, "as": null, "status": "scheduled", "venue": "Boston Stadium"},
+    {"date": "2026-06-14T04:00:00Z", "stage": "Group D", "home": "AUS", "away": "TUR", "hs": null, "as": null, "status": "scheduled", "venue": "BC Place Vancouver"},
+    {"date": "2026-06-14T17:00:00Z", "stage": "Group E", "home": "GER", "away": "CUW", "hs": null, "as": null, "status": "scheduled", "venue": "Houston Stadium"},
+    {"date": "2026-06-14T20:00:00Z", "stage": "Group F", "home": "NED", "away": "JPN", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-06-14T23:00:00Z", "stage": "Group E", "home": "CIV", "away": "ECU", "hs": null, "as": null, "status": "scheduled", "venue": "Philadelphia Stadium"},
+    {"date": "2026-06-15T02:00:00Z", "stage": "Group F", "home": "SWE", "away": "TUN", "hs": null, "as": null, "status": "scheduled", "venue": "Monterrey Stadium"},
+    {"date": "2026-06-15T16:00:00Z", "stage": "Group H", "home": "ESP", "away": "CPV", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-06-15T19:00:00Z", "stage": "Group G", "home": "BEL", "away": "EGY", "hs": null, "as": null, "status": "scheduled", "venue": "Seattle Stadium"},
+    {"date": "2026-06-15T22:00:00Z", "stage": "Group H", "home": "KSA", "away": "URU", "hs": null, "as": null, "status": "scheduled", "venue": "Miami Stadium"},
+    {"date": "2026-06-16T01:00:00Z", "stage": "Group G", "home": "IRN", "away": "NZL", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-06-16T19:00:00Z", "stage": "Group I", "home": "FRA", "away": "SEN", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"},
+    {"date": "2026-06-16T22:00:00Z", "stage": "Group I", "home": "IRQ", "away": "NOR", "hs": null, "as": null, "status": "scheduled", "venue": "Boston Stadium"},
+    {"date": "2026-06-17T01:00:00Z", "stage": "Group J", "home": "ARG", "away": "ALG", "hs": null, "as": null, "status": "scheduled", "venue": "Kansas City Stadium"},
+    {"date": "2026-06-17T04:00:00Z", "stage": "Group J", "home": "AUT", "away": "JOR", "hs": null, "as": null, "status": "scheduled", "venue": "San Francisco Bay Area Stadium"},
+    {"date": "2026-06-17T17:00:00Z", "stage": "Group K", "home": "POR", "away": "COD", "hs": null, "as": null, "status": "scheduled", "venue": "Houston Stadium"},
+    {"date": "2026-06-17T20:00:00Z", "stage": "Group L", "home": "ENG", "away": "CRO", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-06-17T23:00:00Z", "stage": "Group L", "home": "GHA", "away": "PAN", "hs": null, "as": null, "status": "scheduled", "venue": "Toronto Stadium"},
+    {"date": "2026-06-18T02:00:00Z", "stage": "Group K", "home": "UZB", "away": "COL", "hs": null, "as": null, "status": "scheduled", "venue": "Mexico City Stadium"},
+    {"date": "2026-06-18T16:00:00Z", "stage": "Group A", "home": "CZE", "away": "RSA", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-06-18T19:00:00Z", "stage": "Group B", "home": "SUI", "away": "BIH", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-06-18T22:00:00Z", "stage": "Group B", "home": "CAN", "away": "QAT", "hs": null, "as": null, "status": "scheduled", "venue": "BC Place Vancouver"},
+    {"date": "2026-06-19T01:00:00Z", "stage": "Group A", "home": "MEX", "away": "KOR", "hs": null, "as": null, "status": "scheduled", "venue": "Guadalajara Stadium"},
+    {"date": "2026-06-19T19:00:00Z", "stage": "Group D", "home": "USA", "away": "AUS", "hs": null, "as": null, "status": "scheduled", "venue": "Seattle Stadium"},
+    {"date": "2026-06-19T22:00:00Z", "stage": "Group C", "home": "SCO", "away": "MAR", "hs": null, "as": null, "status": "scheduled", "venue": "Boston Stadium"},
+    {"date": "2026-06-20T01:00:00Z", "stage": "Group C", "home": "BRA", "away": "HAI", "hs": null, "as": null, "status": "scheduled", "venue": "Philadelphia Stadium"},
+    {"date": "2026-06-20T04:00:00Z", "stage": "Group D", "home": "TUR", "away": "PAR", "hs": null, "as": null, "status": "scheduled", "venue": "San Francisco Bay Area Stadium"},
+    {"date": "2026-06-20T17:00:00Z", "stage": "Group F", "home": "NED", "away": "SWE", "hs": null, "as": null, "status": "scheduled", "venue": "Houston Stadium"},
+    {"date": "2026-06-20T20:00:00Z", "stage": "Group E", "home": "GER", "away": "CIV", "hs": null, "as": null, "status": "scheduled", "venue": "Toronto Stadium"},
+    {"date": "2026-06-21T00:00:00Z", "stage": "Group E", "home": "ECU", "away": "CUW", "hs": null, "as": null, "status": "scheduled", "venue": "Kansas City Stadium"},
+    {"date": "2026-06-21T04:00:00Z", "stage": "Group F", "home": "TUN", "away": "JPN", "hs": null, "as": null, "status": "scheduled", "venue": "Monterrey Stadium"},
+    {"date": "2026-06-21T16:00:00Z", "stage": "Group H", "home": "ESP", "away": "KSA", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-06-21T19:00:00Z", "stage": "Group G", "home": "BEL", "away": "IRN", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-06-21T22:00:00Z", "stage": "Group H", "home": "URU", "away": "CPV", "hs": null, "as": null, "status": "scheduled", "venue": "Miami Stadium"},
+    {"date": "2026-06-22T01:00:00Z", "stage": "Group G", "home": "NZL", "away": "EGY", "hs": null, "as": null, "status": "scheduled", "venue": "BC Place Vancouver"},
+    {"date": "2026-06-22T17:00:00Z", "stage": "Group J", "home": "ARG", "away": "AUT", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-06-22T21:00:00Z", "stage": "Group I", "home": "FRA", "away": "IRQ", "hs": null, "as": null, "status": "scheduled", "venue": "Philadelphia Stadium"},
+    {"date": "2026-06-23T00:00:00Z", "stage": "Group I", "home": "NOR", "away": "SEN", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"},
+    {"date": "2026-06-23T03:00:00Z", "stage": "Group J", "home": "JOR", "away": "ALG", "hs": null, "as": null, "status": "scheduled", "venue": "San Francisco Bay Area Stadium"},
+    {"date": "2026-06-23T17:00:00Z", "stage": "Group K", "home": "POR", "away": "UZB", "hs": null, "as": null, "status": "scheduled", "venue": "Houston Stadium"},
+    {"date": "2026-06-23T20:00:00Z", "stage": "Group L", "home": "ENG", "away": "GHA", "hs": null, "as": null, "status": "scheduled", "venue": "Boston Stadium"},
+    {"date": "2026-06-23T23:00:00Z", "stage": "Group L", "home": "PAN", "away": "CRO", "hs": null, "as": null, "status": "scheduled", "venue": "Toronto Stadium"},
+    {"date": "2026-06-24T02:00:00Z", "stage": "Group K", "home": "COL", "away": "COD", "hs": null, "as": null, "status": "scheduled", "venue": "Guadalajara Stadium"},
+    {"date": "2026-06-24T19:00:00Z", "stage": "Group B", "home": "SUI", "away": "CAN", "hs": null, "as": null, "status": "scheduled", "venue": "BC Place Vancouver"},
+    {"date": "2026-06-24T19:00:00Z", "stage": "Group B", "home": "BIH", "away": "QAT", "hs": null, "as": null, "status": "scheduled", "venue": "Seattle Stadium"},
+    {"date": "2026-06-24T22:00:00Z", "stage": "Group C", "home": "SCO", "away": "BRA", "hs": null, "as": null, "status": "scheduled", "venue": "Miami Stadium"},
+    {"date": "2026-06-24T22:00:00Z", "stage": "Group C", "home": "MAR", "away": "HAI", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-06-25T01:00:00Z", "stage": "Group A", "home": "CZE", "away": "MEX", "hs": null, "as": null, "status": "scheduled", "venue": "Mexico City Stadium"},
+    {"date": "2026-06-25T01:00:00Z", "stage": "Group A", "home": "RSA", "away": "KOR", "hs": null, "as": null, "status": "scheduled", "venue": "Monterrey Stadium"},
+    {"date": "2026-06-25T20:00:00Z", "stage": "Group E", "home": "CUW", "away": "CIV", "hs": null, "as": null, "status": "scheduled", "venue": "Philadelphia Stadium"},
+    {"date": "2026-06-25T20:00:00Z", "stage": "Group E", "home": "ECU", "away": "GER", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"},
+    {"date": "2026-06-25T23:00:00Z", "stage": "Group F", "home": "JPN", "away": "SWE", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-06-25T23:00:00Z", "stage": "Group F", "home": "TUN", "away": "NED", "hs": null, "as": null, "status": "scheduled", "venue": "Kansas City Stadium"},
+    {"date": "2026-06-26T02:00:00Z", "stage": "Group D", "home": "TUR", "away": "USA", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-06-26T02:00:00Z", "stage": "Group D", "home": "PAR", "away": "AUS", "hs": null, "as": null, "status": "scheduled", "venue": "San Francisco Bay Area Stadium"},
+    {"date": "2026-06-26T19:00:00Z", "stage": "Group I", "home": "NOR", "away": "FRA", "hs": null, "as": null, "status": "scheduled", "venue": "Boston Stadium"},
+    {"date": "2026-06-26T19:00:00Z", "stage": "Group I", "home": "SEN", "away": "IRQ", "hs": null, "as": null, "status": "scheduled", "venue": "Toronto Stadium"},
+    {"date": "2026-06-27T00:00:00Z", "stage": "Group H", "home": "CPV", "away": "KSA", "hs": null, "as": null, "status": "scheduled", "venue": "Houston Stadium"},
+    {"date": "2026-06-27T00:00:00Z", "stage": "Group H", "home": "URU", "away": "ESP", "hs": null, "as": null, "status": "scheduled", "venue": "Guadalajara Stadium"},
+    {"date": "2026-06-27T03:00:00Z", "stage": "Group G", "home": "EGY", "away": "IRN", "hs": null, "as": null, "status": "scheduled", "venue": "Seattle Stadium"},
+    {"date": "2026-06-27T03:00:00Z", "stage": "Group G", "home": "NZL", "away": "BEL", "hs": null, "as": null, "status": "scheduled", "venue": "BC Place Vancouver"},
+    {"date": "2026-06-27T21:00:00Z", "stage": "Group L", "home": "PAN", "away": "ENG", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"},
+    {"date": "2026-06-27T21:00:00Z", "stage": "Group L", "home": "CRO", "away": "GHA", "hs": null, "as": null, "status": "scheduled", "venue": "Philadelphia Stadium"},
+    {"date": "2026-06-27T23:30:00Z", "stage": "Group K", "home": "COL", "away": "POR", "hs": null, "as": null, "status": "scheduled", "venue": "Miami Stadium"},
+    {"date": "2026-06-27T23:30:00Z", "stage": "Group K", "home": "COD", "away": "UZB", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-06-28T02:00:00Z", "stage": "Group J", "home": "ALG", "away": "AUT", "hs": null, "as": null, "status": "scheduled", "venue": "Kansas City Stadium"},
+    {"date": "2026-06-28T02:00:00Z", "stage": "Group J", "home": "JOR", "away": "ARG", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-06-28T19:00:00Z", "stage": "Round of 32", "home": "2A", "away": "2B", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-06-29T17:00:00Z", "stage": "Round of 32", "home": "1C", "away": "2F", "hs": null, "as": null, "status": "scheduled", "venue": "Houston Stadium"},
+    {"date": "2026-06-29T20:30:00Z", "stage": "Round of 32", "home": "1E", "away": "3ABCDF", "hs": null, "as": null, "status": "scheduled", "venue": "Boston Stadium"},
+    {"date": "2026-06-30T01:00:00Z", "stage": "Round of 32", "home": "1F", "away": "2C", "hs": null, "as": null, "status": "scheduled", "venue": "Monterrey Stadium"},
+    {"date": "2026-06-30T17:00:00Z", "stage": "Round of 32", "home": "2E", "away": "2I", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-06-30T21:00:00Z", "stage": "Round of 32", "home": "1I", "away": "3CDFGH", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"},
+    {"date": "2026-07-01T01:00:00Z", "stage": "Round of 32", "home": "1A", "away": "3CEFHI", "hs": null, "as": null, "status": "scheduled", "venue": "Mexico City Stadium"},
+    {"date": "2026-07-01T16:00:00Z", "stage": "Round of 32", "home": "1L", "away": "3EHIJK", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-07-01T20:00:00Z", "stage": "Round of 32", "home": "1G", "away": "3AEHIJ", "hs": null, "as": null, "status": "scheduled", "venue": "Seattle Stadium"},
+    {"date": "2026-07-02T00:00:00Z", "stage": "Round of 32", "home": "1D", "away": "3BEFIJ", "hs": null, "as": null, "status": "scheduled", "venue": "San Francisco Bay Area Stadium"},
+    {"date": "2026-07-02T19:00:00Z", "stage": "Round of 32", "home": "1H", "away": "2J", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-07-02T23:00:00Z", "stage": "Round of 32", "home": "2K", "away": "2L", "hs": null, "as": null, "status": "scheduled", "venue": "Toronto Stadium"},
+    {"date": "2026-07-03T03:00:00Z", "stage": "Round of 32", "home": "1B", "away": "3EFGIJ", "hs": null, "as": null, "status": "scheduled", "venue": "BC Place Vancouver"},
+    {"date": "2026-07-03T18:00:00Z", "stage": "Round of 32", "home": "2D", "away": "2G", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-07-03T22:00:00Z", "stage": "Round of 32", "home": "1J", "away": "2H", "hs": null, "as": null, "status": "scheduled", "venue": "Miami Stadium"},
+    {"date": "2026-07-04T01:30:00Z", "stage": "Round of 32", "home": "1K", "away": "3DEIJL", "hs": null, "as": null, "status": "scheduled", "venue": "Kansas City Stadium"},
+    {"date": "2026-07-04T17:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Houston Stadium"},
+    {"date": "2026-07-04T21:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Philadelphia Stadium"},
+    {"date": "2026-07-05T20:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"},
+    {"date": "2026-07-06T00:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Mexico City Stadium"},
+    {"date": "2026-07-06T19:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-07-07T00:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Seattle Stadium"},
+    {"date": "2026-07-07T16:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-07-07T20:00:00Z", "stage": "Round of 16", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "BC Place Vancouver"},
+    {"date": "2026-07-09T20:00:00Z", "stage": "Quarter-final", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Boston Stadium"},
+    {"date": "2026-07-10T19:00:00Z", "stage": "Quarter-final", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Los Angeles Stadium"},
+    {"date": "2026-07-11T21:00:00Z", "stage": "Quarter-final", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Miami Stadium"},
+    {"date": "2026-07-12T01:00:00Z", "stage": "Quarter-final", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Kansas City Stadium"},
+    {"date": "2026-07-14T19:00:00Z", "stage": "Semi-final", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Dallas Stadium"},
+    {"date": "2026-07-15T19:00:00Z", "stage": "Semi-final", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Atlanta Stadium"},
+    {"date": "2026-07-18T21:00:00Z", "stage": "Third-place match", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "Miami Stadium"},
+    {"date": "2026-07-19T19:00:00Z", "stage": "Final", "home": "TBD", "away": "TBD", "hs": null, "as": null, "status": "scheduled", "venue": "New York/New Jersey Stadium"}
+  ]
+};
+
+/* ---------------- scoring engine ---------------- */
+const PTS  = { advanced:3, w32:10, w16:10, wqf:25, wsf:50, w3rd:25, wf:100 };
+const PATH = ["advanced","w32","w16","wqf","wsf","wf"];
+const ACH_LABEL = { advanced:"Advanced from group", w32:"Won R32", w16:"Won R16",
+                    wqf:"Won quarter-final", wsf:"Won semi-final", w3rd:"Won 3rd-place match", wf:"WON THE WORLD CUP" };
+
+const teamStatus = (D, code) => D.status[code] || { state:"alive", ach:[] };
+const bankedRaw  = st => (st.ach||[]).reduce((s,a)=>s+(PTS[a]||0),0);
+function remainingRaw(st){
+  if (st.state === "out")   return 0;
+  if (st.state === "third") return PTS.w3rd;
+  let i = -1; PATH.forEach((a,k)=>{ if ((st.ach||[]).includes(a)) i = k; });
+  return PATH.slice(i+1).reduce((s,a)=>s+PTS[a],0);
+}
+function entryCalc(D, e){
+  const per = e.picks.map(c=>{
+    const t = D.teamMap[c], st = teamStatus(D,c);
+    const cur = bankedRaw(st)*t.mult, max = cur + remainingRaw(st)*t.mult;
+    return { t, st, cur, max };
+  });
+  return { per, cur: per.reduce((s,p)=>s+p.cur,0), max: per.reduce((s,p)=>s+p.max,0),
+           alive: per.filter(p=>p.st.state!=="out").length };
+}
+/* Best case = picks assigned to the best legal combination of finishing
+   positions: one champion (198 raw), one runner-up (98), one third (73),
+   one fourth (48), quarter-final exits (23) beyond that. Respects each
+   team's current banked points and elimination state. */
+const SLOT_RAW = { wc:198, ru:98, third:73, fourth:48, qf:23 };
+function slotValue(p, kind){
+  const b = bankedRaw(p.st), m = p.t.mult;
+  if (p.st.state === "out")   return b*m;
+  if (p.st.state === "third") return (kind === "third" ? b + PTS.w3rd : b)*m;
+  return Math.max(b, SLOT_RAW[kind])*m;
+}
+function bestCase(per){
+  const rem = { wc:1, ru:1, third:1, fourth:1, qf:4 };
+  let best = 0;
+  (function go(i, sum){
+    if (i === per.length){ if (sum > best) best = sum; return; }
+    for (const k in rem) if (rem[k] > 0){ rem[k]--; go(i+1, sum + slotValue(per[i], k)); rem[k]++; }
+  })(0, 0);
+  return best;
+}
+
+function stakeFor(stage){
+  const s = stage.toLowerCase();
+  if (s.includes("group")) return { pts:PTS.advanced, what:"to advance" };
+  if (s.includes("32"))    return { pts:PTS.w32,  what:"for the win" };
+  if (s.includes("16"))    return { pts:PTS.w16,  what:"for the win" };
+  if (s.includes("quarter")) return { pts:PTS.wqf, what:"for the win" };
+  if (s.includes("semi"))  return { pts:PTS.wsf,  what:"for the win" };
+  if (s.includes("third") || s.includes("3rd")) return { pts:PTS.w3rd, what:"for the win" };
+  if (s.includes("final")) return { pts:PTS.wf,   what:"for the title" };
+  return { pts:0, what:"" };
+}
+
+/* ---------------- helpers ---------------- */
+const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const fmt = n => Number.isInteger(n) ? n.toLocaleString() : n.toLocaleString(undefined,{maximumFractionDigits:1});
+const money = n => "$" + Math.round(n).toLocaleString();
+const dShort = iso => new Date(iso).toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"});
+const tShort = iso => new Date(iso).toLocaleTimeString(undefined,{hour:"numeric",minute:"2-digit"});
+
+/* ---------------- renderers ---------------- */
+function render(D){
+  D.teamMap = {};
+  D.teams.forEach(([code,name,group,mult,flag]) => D.teamMap[code] = {code,name,group,mult,flag});
+  const calcs = D.entries.map(e => { const c = entryCalc(D,e); return { e, ...c, best: bestCase(c.per) }; })
+                         .sort((a,b)=> b.cur-a.cur || b.best-a.best || a.e.name.localeCompare(b.e.name));
+  const paidN = D.entries.filter(e=>e.paid!==false).length;
+  const pot = D.meta.potUSD ?? paidN * (D.meta.entryFeeUSD||35);
+  const payouts = (D.meta.payoutSplit||[0.5,0.35,0.15]).map(p=>p*pot);
+  const aliveCount = D.teams.filter(t=>teamStatus(D,t[0]).state!=="out").length;
+
+  document.getElementById("m-pot").innerHTML = money(pot) + (D.meta.potUSD==null ? " <em>est.</em>" : "");
+  const nAI = D.entries.filter(e=>e.ai).length;
+  document.getElementById("m-entries").innerHTML = (D.entries.length - nAI) + (nAI ? ` <em>+${nAI} AI</em>` : "");
+  document.getElementById("m-alive").textContent = aliveCount + " / 48";
+  document.getElementById("updated").textContent = "Updated " + new Date(D.meta.lastUpdated||Date.now()).toLocaleString();
+
+  renderTicker(D, calcs, pot);
+  renderLeaderboard(D, calcs, payouts);
+  renderMatches(D, calcs);
+  renderTeams(D);
+  renderStats(D, calcs, pot, payouts);
+}
+
+function chip(p){
+  const cls = p.st.state==="out" ? "out" : p.st.state==="third" ? "third" : "";
+  const pts = p.cur > 0 ? ` <span class="pts">+${fmt(p.cur)}</span>` : "";
+  return `<span class="chip ${cls}" title="${esc(p.t.name)} — ×${p.t.mult}"><span class="card"></span>${p.t.flag} ${p.t.code}${pts}</span>`;
+}
+
+function renderLeaderboard(D, calcs, payouts){
+  const leaderCur = (calcs.find(c=>!c.e.ai) || {cur:0}).cur;
+  let html = "", lastPts = null, rank = 0, humanSeen = 0;
+  calcs.forEach((c,i)=>{
+    const isAI = !!c.e.ai;
+    if (!isAI){ humanSeen++; if (c.cur !== lastPts){ rank = humanSeen; lastPts = c.cur; } }
+    const inMoney = !isAI && rank <= 3 && leaderCur > 0;
+    const payout = inMoney ? `<span class="payout">${money(payouts[rank-1])}</span>` : "";
+    const badge = isAI ? `<span class="ai-badge">AI · exhibition</span>` : "";
+    const behind = c.cur >= leaderCur ? "—" : "−"+fmt(leaderCur - c.cur);
+    const detail = c.per.map(p=>{
+      const stTxt = p.st.state==="out" ? "out" : p.st.state==="third" ? "3rd-place match" : "alive";
+      const last = (p.st.ach||[]).length ? ACH_LABEL[p.st.ach[p.st.ach.length-1]] : "Group stage";
+      return `<div class="pick-line">
+        <div class="lbl">${p.t.flag} ${esc(p.t.name)} <span class="st ${p.st.state}">${stTxt}</span><br>
+          <span style="font-size:11px;color:var(--muted)">${last}</span></div>
+        <div class="r">×${p.t.mult}</div>
+        <div class="r" style="color:var(--green)">${fmt(p.cur)}</div>
+        <div class="r" style="color:var(--muted)">${fmt(p.max)}</div></div>`;
+    }).join("");
+    html += `<details class="lb-row ${inMoney?'money':''} ${isAI?'ai':''}">
+      <summary>
+        <div class="rank">${isAI ? "🤖" : rank}</div>
+        <div class="who"><span class="nm">${esc(c.e.name)}</span>${badge}${payout}
+          <div class="picks">${c.per.map(chip).join("")}</div></div>
+        <div class="num">${fmt(c.cur)}</div>
+        <div class="num max">${fmt(c.best)}</div>
+        <div class="num behind">${behind}</div>
+      </summary>
+      <div class="lb-detail">
+        <div class="pick-head"><div>Pick</div><div class="r">Mult</div><div class="r">Points</div><div class="r">Solo max</div></div>
+        ${detail}
+      </div></details>`;
+  });
+  document.getElementById("leaderboard").innerHTML = html || `<div class="empty">No entries yet — add them to data.json</div>`;
+}
+
+function renderMatches(D, calcs){
+  const el = document.getElementById("matches");
+  if (!D.matches.length){ el.innerHTML = `<div class="empty">No fixtures loaded. Run the auto-updater or add matches to data.json.</div>`; return; }
+  const owners = code => D.entries.filter(e=>e.picks.includes(code)).map(e=>e.name);
+  const matchRow = m => {
+    const ph = c => ({ code:c, name:c, mult:0, flag:"" });
+    const h = D.teamMap[m.home] || ph(m.home), a = D.teamMap[m.away] || ph(m.away);
+    const stake = stakeFor(m.stage);
+    const score = m.status==="scheduled" ? `<span class="m-time">${tShort(m.date)}</span>`
+      : `<span class="m-score">${m.hs ?? "–"}&ndash;${m.as ?? "–"}</span>${m.status==="live" ? ' <span class="m-live">● LIVE</span>' : ""}`;
+    const stakes = [[h,owners(m.home)],[a,owners(m.away)]]
+      .filter(([,o])=>o.length)
+      .map(([t,o])=>`<b>${t.code}</b> <span class="mult">(×${t.mult})</span> → ${o.map(esc).join(", ")} <span class="pot-pts">+${fmt(stake.pts*t.mult)} ${stake.what}</span>`)
+      .join(`<span class="sep">|</span>`);
+    return `<div class="match">
+      <div class="m-stage">${esc(m.stage)}</div>
+      <div class="m-teams">${h.flag} ${h.code} ${score} ${a.code} ${a.flag}</div>
+      ${m.venue?`<div class="m-time">${esc(m.venue)}</div>`:""}
+      ${stakes?`<div class="m-stakes">In this pool — ${stakes}</div>`:""}
+    </div>`;
+  };
+  const live = D.matches.filter(m=>m.status==="live");
+  const sched = D.matches.filter(m=>m.status==="scheduled").sort((x,y)=>x.date.localeCompare(y.date));
+  const done = D.matches.filter(m=>m.status==="finished").sort((x,y)=>y.date.localeCompare(x.date));
+  const byDay = list => {
+    const days = {};
+    list.forEach(m=>{ const k=dShort(m.date); (days[k]=days[k]||[]).push(m); });
+    const today = dShort(new Date().toISOString());
+    return Object.entries(days).map(([day,ms],i)=>
+      `<details class="day" ${day===today||i===0?"open":""}><summary>${day}<span class="n">${ms.length} match${ms.length>1?"es":""}</span></summary>${ms.map(matchRow).join("")}</details>`).join("");
+  };
+  el.innerHTML =
+    (live.length ? `<h2>Live now</h2>` + live.map(matchRow).map(r=>`<div class="day" style="padding-bottom:2px">${r}</div>`).join("") : "") +
+    (sched.length ? `<h2>Upcoming</h2>` + byDay(sched) : "") +
+    (done.length ? `<h2>Results</h2>` + byDay(done) : "");
+}
+
+function renderTeams(D){
+  const owners = code => D.entries.filter(e=>e.picks.includes(code)).length;
+  const groups = {};
+  D.teams.forEach(t=>{ (groups[t[2]]=groups[t[2]]||[]).push(t); });
+  document.getElementById("teams").innerHTML = Object.keys(groups).sort().map(g=>{
+    const rows = groups[g].map(([code,name,,mult,flag])=>{
+      const st = teamStatus(D,code), b = bankedRaw(st)*mult;
+      return `<div class="t-row ${st.state}">
+        <div class="t-name"><span class="card"></span>${flag} ${esc(name)}</div>
+        <div class="mono">×${mult}</div>
+        <div class="mono">${owners(code)||"—"}</div>
+        <div class="mono banked">${b?fmt(b):"·"}</div></div>`;
+    }).join("");
+    return `<div class="group"><h3>Group ${g}</h3>
+      <div class="t-head"><div>Team</div><div class="r">Mult</div><div class="r">Owners</div><div class="r">Pts</div></div>${rows}</div>`;
+  }).join("");
+}
+
+function renderStats(D, calcs, pot, payouts){
+  const counts = {};
+  D.entries.forEach(e=>e.picks.forEach(c=>counts[c]=(counts[c]||0)+1));
+  const popular = Object.entries(counts).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  const maxCt = popular.length ? popular[0][1] : 1;
+  const unique = Object.entries(counts).filter(([,n])=>n===1).map(([c])=>D.teamMap[c]);
+  const unpicked = D.teams.filter(t=>!counts[t[0]]);
+  const ceiling = [...calcs].sort((a,b)=>b.best-a.best);
+  const earned = D.teams.map(([code,name,,mult,flag])=>({code,name,flag,pts:bankedRaw(teamStatus(D,code))*mult}))
+                        .filter(t=>t.pts>0).sort((a,b)=>b.pts-a.pts).slice(0,8);
+  const deadTickets = calcs.filter(c=>c.alive===0).length;
+
+  const card = (title, body, note) => `<div class="stat-card"><h3>${title}</h3>${body}${note?`<div class="note">${note}</div>`:""}</div>`;
+  let html = "";
+
+  html += card("Most-picked teams", popular.map(([c,n])=>{
+    const t=D.teamMap[c];
+    return `<div class="bar-row"><div class="lbl">${t.flag} ${esc(t.name)}</div><div class="bar" style="width:${(n/maxCt)*60}%"></div><div class="ct">${n} of ${D.entries.length}</div></div>`;
+  }).join("") || `<div class="note">No picks yet.</div>`);
+
+  html += card("Pot &amp; payouts",
+    `<div class="kv"><span>Total pot</span><span class="v">${money(pot)}${D.meta.potUSD==null?" est.":""}</span></div>
+     <div class="kv"><span>🥇 1st (50%)</span><span class="v">${money(payouts[0])}</span></div>
+     <div class="kv"><span>🥈 2nd (35%)</span><span class="v">${money(payouts[1])}</span></div>
+     <div class="kv"><span>🥉 3rd (15%)</span><span class="v">${money(payouts[2])}</span></div>`,
+    D.meta.potUSD==null ? "Estimate = paid entries × $35 USD (CAD entries differ). Set meta.potUSD in data.json for the exact figure." : "");
+
+  html += card("Best-case finishes", ceiling.slice(0,5).map((c,i)=>
+    `<div class="kv"><span>${i+1}. ${esc(c.e.name)}${c.e.ai?" 🤖":""}</span><span class="v">${fmt(c.best)} max</span></div>`).join(""),
+    "Picks slotted into the best legal combination of finishes — one champion, one runner-up, one third, one fourth, QF exits beyond that.");
+
+  html += card("Contrarian picks", unique.length
+    ? unique.map(t=>`<div class="kv"><span>${t.flag} ${esc(t.name)}</span><span class="v">×${t.mult}</span></div>`).join("")
+    : `<div class="note">No single-owner teams.</div>`,
+    "Teams owned by exactly one entry — nobody shares these points.");
+
+  html += card("Top point earners", earned.length
+    ? earned.map(t=>`<div class="kv"><span>${t.flag} ${esc(t.name)}</span><span class="v">${fmt(t.pts)} pts</span></div>`).join("")
+    : `<div class="note">Nothing banked yet — points land when teams advance or win knockout matches.</div>`);
+
+  html += card("Pool health",
+    `<div class="kv"><span>Entries with all 5 alive</span><span class="v">${calcs.filter(c=>c.alive===5).length}</span></div>
+     <div class="kv"><span>Busted tickets (0 alive)</span><span class="v">${deadTickets}</span></div>
+     <div class="kv"><span>Teams nobody picked</span><span class="v">${unpicked.length} of 48</span></div>
+     <div class="kv"><span>Avg combined multiple</span><span class="v">×${fmt(calcs.reduce((s,c)=>s+c.per.reduce((x,p)=>x+p.t.mult,0),0)/Math.max(calcs.length,1))}</span></div>`);
+
+  document.getElementById("stats").innerHTML = html;
+}
+
+function renderTicker(D, calcs, pot){
+  const items = [];
+  D.matches.filter(m=>m.status==="live").forEach(m=>
+    items.push(`<span class="live">● LIVE</span> ${m.home} ${m.hs ?? 0}&ndash;${m.as ?? 0} ${m.away}`));
+  D.matches.filter(m=>m.status==="scheduled").sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6).forEach(m=>
+    items.push(`<span class="dim">${dShort(m.date).toUpperCase()}</span> ${m.home} v ${m.away} <span class="dim">${tShort(m.date)}</span>`));
+  const lead = calcs.find(c=>!c.e.ai);
+  if (lead && lead.cur > 0) items.push(`LEADER: ${esc(lead.e.name.toUpperCase())} ${fmt(lead.cur)} PTS`);
+  items.push(`POT ${money(pot)}`);
+  const half = items.map(i=>`<span class="ticker-item">${i}</span>`).join("<span class='ticker-item dim'>///</span>");
+  document.getElementById("ticker").innerHTML = half + "<span class='ticker-item dim'>///</span>" + half;
+}
+
+/* ---------------- tabs + data loading ---------------- */
+document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected", b===btn ? "true":"false"));
+  document.querySelectorAll("main section").forEach(s=>s.hidden = (s.id !== "sec-"+btn.dataset.t));
+}));
+
+async function load(){
+  try{
+    const r = await fetch("data.json?t=" + Date.now(), { cache:"no-store" });
+    if (!r.ok) throw 0;
+    render(await r.json());
+  }catch(_){ render(DEFAULT_DATA); }
+}
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
