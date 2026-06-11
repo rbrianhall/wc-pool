@@ -3,13 +3,12 @@ name: Update World Cup results
 # Two-speed polling:
 #   - A cron dispatcher fires every 30 minutes.
 #   - The job polls the API once. If a match is live (or kicks off within
-#     25 min), it stays alive and keeps polling every 60 seconds — through
-#     stoppage time, extra time, and penalties — committing data.json only
-#     when something actually changed. When no matches are live or imminent,
-#     it exits immediately and costs nothing until the next tick.
-# GitHub's cron is best-effort (ticks can run several minutes late), but the
-# long-lived polling loop means that once a match window opens, updates flow
-# every ~60s regardless of cron jitter.
+#     25 min), it keeps polling every 60 seconds — through stoppage time,
+#     extra time, and penalties — committing data.json only when something
+#     changed. Otherwise it exits immediately.
+#   - After each push it explicitly requests a GitHub Pages rebuild,
+#     because commits made by the workflow bot do NOT trigger the Pages
+#     deploy workflow on their own.
 
 on:
   schedule:
@@ -18,32 +17,50 @@ on:
 
 permissions:
   contents: write
+  pages: write
 
 concurrency:
-  group: results-updater     # never two pollers at once; extras queue
+  group: results-updater
   cancel-in-progress: false
 
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 350     # hard cap below GitHub's 6h job limit
+    timeout-minutes: 350
     steps:
       - uses: actions/checkout@v4
 
-      - name: Poll football-data.org (60s loop while matches are live)
+      - name: Poll ESPN scoreboard (60s loop while matches are live)
         env:
-          FOOTBALL_DATA_TOKEN: ${{ secrets.FOOTBALL_DATA_TOKEN }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
         run: |
           git config user.name "pool-bot"
           git config user.email "actions@users.noreply.github.com"
+          fails=0
           for i in $(seq 1 330); do
-            out=$(python3 scripts/update_results.py) || { echo "$out"; echo "API call failed; retrying next tick"; sleep 60; continue; }
-            echo "$out"
+            if out=$(python3 scripts/update_results.py 2>&1); then
+              fails=0
+              echo "$out"
+            else
+              echo "$out"
+              fails=$((fails+1))
+              if [ "$fails" -ge 5 ]; then
+                echo "::error::5 consecutive API failures — check the messages above"
+                exit 1
+              fi
+              sleep 60; continue
+            fi
             state=$(echo "$out" | sed -n 's/^LIVE_STATE: //p')
             if ! git diff --quiet data.json; then
               git add data.json
               git commit -m "Live update $(date -u +'%Y-%m-%d %H:%M UTC')"
               git pull --rebase origin main && git push
+              curl -s -X POST \
+                -H "Authorization: Bearer $GH_TOKEN" \
+                -H "Accept: application/vnd.github+json" \
+                "https://api.github.com/repos/$REPO/pages/builds" \
+                -o /dev/null -w "Pages rebuild requested (HTTP %{http_code})\n" || true
             fi
             if [ "$state" != "live" ] && [ "$state" != "soon" ]; then
               echo "No live or imminent matches — sleeping until next cron tick."
