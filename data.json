@@ -605,6 +605,16 @@
       ]
     },
     {
+      "name": "Kevin B.",
+      "picks": [
+        "BEL",
+        "BRA",
+        "COL",
+        "ECU",
+        "JPN"
+      ]
+    },
+    {
       "name": "Kieran S.",
       "picks": [
         "AUT",
@@ -622,6 +632,36 @@
         "FRA",
         "POR",
         "ESP"
+      ]
+    },
+    {
+      "name": "Marcus SK. (#1)",
+      "picks": [
+        "CRO",
+        "JPN",
+        "MAR",
+        "NOR",
+        "SUI"
+      ]
+    },
+    {
+      "name": "Marcus SK. (#2)",
+      "picks": [
+        "CIV",
+        "CRO",
+        "CZE",
+        "MAR",
+        "KSA"
+      ]
+    },
+    {
+      "name": "Marcus SK. (#3)",
+      "picks": [
+        "AUS",
+        "CIV",
+        "IRN",
+        "MAR",
+        "SWE"
       ]
     },
     {
@@ -672,6 +712,16 @@
         "GER",
         "SCO",
         "ESP"
+      ]
+    },
+    {
+      "name": "Steve K.",
+      "picks": [
+        "GHA",
+        "IRN",
+        "QAT",
+        "KSA",
+        "TUN"
       ]
     },
     {
