@@ -159,6 +159,12 @@
     display:grid;grid-template-columns:1fr 70px 90px 90px;gap:8px;padding-bottom:4px}
   .pick-line .r{text-align:right}
   .pick-head .r{text-align:right}
+  .pick-res{font-family:var(--mono);font-size:11px;margin-top:2px;color:var(--muted)}
+  .pick-res .res{white-space:nowrap}
+  .pick-res .res.W{color:var(--green)}
+  .pick-res .res.L{color:var(--red)}
+  .pick-res .res.D{color:var(--yellow)}
+  .pick-res .res-sep{padding:0 5px;color:var(--muted);opacity:.5}
 
   /* ---------- matches ---------- */
   .m-nav{
@@ -572,12 +578,23 @@ function renderLeaderboard(D, calcs, payouts){
     const payout = inMoney ? `<span class="payout">${money(payouts[rank-1])}</span>` : "";
     const badge = isAI ? `<span class="ai-badge">AI · exhibition</span>` : "";
     const behind = c.cur >= leaderCur ? "—" : "−"+fmt(leaderCur - c.cur);
+    const resultChips = code => D.matches
+      .filter(m=>m.status==="finished" && (m.home===code || m.away===code))
+      .sort((x,y)=>x.date.localeCompare(y.date))
+      .map(m=>{
+        const us = m.home===code ? m.hs : m.as, them = m.home===code ? m.as : m.hs;
+        const opp = m.home===code ? m.away : m.home;
+        const r = us>them ? "W" : us<them ? "L" : "D";
+        return `<span class="res ${r}">${r} ${us}&ndash;${them} ${opp}</span>`;
+      }).join(`<span class="res-sep">·</span>`);
     const detail = c.per.map(p=>{
       const stTxt = p.st.state==="out" ? "out" : p.st.state==="third" ? "3rd-place match" : "alive";
       const last = (p.st.ach||[]).length ? ACH_LABEL[p.st.ach[p.st.ach.length-1]] : "Group stage";
+      const chips = resultChips(p.t.code);
       return `<div class="pick-line">
         <div class="lbl">${p.t.flag} ${esc(p.t.name)} <span class="st ${p.st.state}">${stTxt}</span><br>
-          <span style="font-size:11px;color:var(--muted)">${last}</span></div>
+          <span style="font-size:11px;color:var(--muted)">${last}</span>
+          ${chips?`<div class="pick-res">${chips}</div>`:""}</div>
         <div class="r">×${p.t.mult}</div>
         <div class="r" style="color:var(--green)">${fmt(p.cur)}</div>
         <div class="r" style="color:var(--muted)">${fmt(p.max)}</div></div>`;

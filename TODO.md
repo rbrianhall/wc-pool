@@ -30,13 +30,6 @@ updated at least after every completed match.
   leaderboard expansion (see T6). Keep the displayed precision honest (whole
   percentages).
 
-### T6 — Leaderboard expansion: per-pick results + probabilities
-When a row is expanded, each pick currently shows MULT / POINTS / SOLO MAX.
-Add: (a) the team's results so far — compact result chips like `W 2–0 RSA ·
-D 1–1 CZE` built by filtering `matches` for that code; (b) once T3 lands,
-P(advance) or P(next stage). Lives in `renderLeaderboard()`'s detail block;
-mind mobile column widths (the `.pick-line` grid).
-
 ### Ideas / later
 - `scripts/sync_default_data.py` — regenerate `DEFAULT_DATA` in index.html
   from data.json instead of hand-syncing (removes gotcha #1 in CLAUDE.md).
@@ -46,6 +39,13 @@ mind mobile column widths (the `.pick-line` grid).
   computable from `matches`.
 
 ## Done
+
+### T6 — Leaderboard expansion: per-pick result chips (2026-06-12)
+Expanded rows now show each pick's results so far — `W 2–1 CZE`-style chips
+(green/yellow/red for W/D/L, opponent's perspective-correct score) under the
+team label in `renderLeaderboard()`'s detail block. Chips wrap inside the
+label column; verified no overflow at 375 px. The probabilities half of the
+original T6 folds into T3's UI work.
 
 ### T5 — Matches tab: rebalance live / recent / upcoming (2026-06-12)
 `renderMatches()` now orders sections Live → Results → Upcoming. Results
