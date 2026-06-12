@@ -161,6 +161,16 @@
   .pick-head .r{text-align:right}
 
   /* ---------- matches ---------- */
+  .m-nav{
+    position:sticky;top:51px;z-index:20;display:flex;gap:20px;
+    background:rgba(11,22,18,.92);backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);padding:9px 2px;
+  }
+  .m-nav a{font-family:var(--disp);font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+    font-size:12.5px;color:var(--muted);text-decoration:none}
+  .m-nav a:hover{color:var(--chalk)}
+  .m-nav a.live{color:var(--red)}
+  #matches h2{scroll-margin-top:96px}
   .day{border:1px solid var(--line);border-radius:8px;margin-bottom:10px;background:var(--panel)}
   .day>summary{
     list-style:none;cursor:pointer;padding:10px 14px;
@@ -613,17 +623,31 @@ function renderMatches(D, calcs){
   const live = D.matches.filter(m=>m.status==="live");
   const sched = D.matches.filter(m=>m.status==="scheduled").sort((x,y)=>x.date.localeCompare(y.date));
   const done = D.matches.filter(m=>m.status==="finished").sort((x,y)=>y.date.localeCompare(x.date));
-  const byDay = list => {
-    const days = {};
-    list.forEach(m=>{ const k=dShort(m.date); (days[k]=days[k]||[]).push(m); });
-    const today = dShort(new Date().toISOString());
-    return Object.entries(days).map(([day,ms],i)=>
-      `<details class="day" ${day===today||i===0?"open":""}><summary>${day}<span class="n">${ms.length} match${ms.length>1?"es":""}</span></summary>${ms.map(matchRow).join("")}</details>`).join("");
+  const dayDiff = iso => {                     // calendar days from today, viewer-local
+    const d = new Date(iso); d.setHours(0,0,0,0);
+    const t = new Date();    t.setHours(0,0,0,0);
+    return Math.round((d - t) / 86400000);
   };
+  const byDay = (list, isOpen) => {
+    const days = [];
+    list.forEach(m=>{
+      const k = dShort(m.date), last = days[days.length-1];
+      if (last && last.day===k) last.ms.push(m);
+      else days.push({ day:k, diff:dayDiff(m.date), ms:[m] });
+    });
+    return days.map(({day,diff,ms})=>
+      `<details class="day" ${isOpen(diff)?"open":""}><summary>${day}<span class="n">${ms.length} match${ms.length>1?"es":""}</span></summary>${ms.map(matchRow).join("")}</details>`).join("");
+  };
+  const nav = [
+    live.length  ? `<a href="#m-live" class="live">● Live</a>` : "",
+    done.length  ? `<a href="#m-results">Results</a>` : "",
+    sched.length ? `<a href="#m-upcoming">Upcoming</a>` : ""
+  ].filter(Boolean).join("");
   el.innerHTML =
-    (live.length ? `<h2>Live now</h2>` + live.map(matchRow).map(r=>`<div class="day" style="padding-bottom:2px">${r}</div>`).join("") : "") +
-    (sched.length ? `<h2>Upcoming</h2>` + byDay(sched) : "") +
-    (done.length ? `<h2>Results</h2>` + byDay(done) : "");
+    `<div class="m-nav">${nav}</div>` +
+    (live.length ? `<h2 id="m-live">Live now</h2>` + live.map(matchRow).map(r=>`<div class="day" style="padding-bottom:2px">${r}</div>`).join("") : "") +
+    (done.length ? `<h2 id="m-results">Results</h2>` + byDay(done, d=>d>=-1) : "") +
+    (sched.length ? `<h2 id="m-upcoming">Upcoming</h2>` + byDay(sched, d=>d<=2) : "");
 }
 
 function renderTeams(D){

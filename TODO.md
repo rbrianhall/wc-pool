@@ -30,15 +30,6 @@ updated at least after every completed match.
   leaderboard expansion (see T6). Keep the displayed precision honest (whole
   percentages).
 
-### T5 — Matches tab: rebalance live / recent / upcoming
-Problems: live matches render below the fold once Results grow; finished
-matches require deep scrolling; 35 collapsed day-groups is a wall.
-Direction: reorder sections to **Live (pinned, always first) → Recent results
-(yesterday + today expanded, rest collapsed) → Upcoming (next 2–3 days
-expanded, rest collapsed)**; add a sticky mini-nav or "jump to today" anchor.
-All in `renderMatches()`; the day-grouping helper already exists. Consider
-auto-expanding any day-group containing a live match.
-
 ### T6 — Leaderboard expansion: per-pick results + probabilities
 When a row is expanded, each pick currently shows MULT / POINTS / SOLO MAX.
 Add: (a) the team's results so far — compact result chips like `W 2–0 RSA ·
@@ -55,6 +46,14 @@ mind mobile column widths (the `.pick-line` grid).
   computable from `matches`.
 
 ## Done
+
+### T5 — Matches tab: rebalance live / recent / upcoming (2026-06-12)
+`renderMatches()` now orders sections Live → Results → Upcoming. Results
+expands today + yesterday's day-groups; Upcoming expands today through +2
+days; everything else stays collapsed. A sticky mini-nav (Live/Results/
+Upcoming anchors) sits under the tab bar; `scroll-margin-top` keeps jumped-to
+headings clear of the sticky stack. Live matches stay pinned outside the day
+groups, so the "day-group containing a live match" case can't occur.
 
 ### T4 — Ticker drops finished matches (2026-06-12)
 `renderTicker()` now inserts `FT MEX 2–0 RSA` items between the live and
