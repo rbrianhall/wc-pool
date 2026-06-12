@@ -30,12 +30,6 @@ updated at least after every completed match.
   leaderboard expansion (see T6). Keep the displayed precision honest (whole
   percentages).
 
-### T4 — Ticker drops finished matches (bug)
-The MEX–RSA final score vanished from the crawl when the match ended.
-`renderTicker()` in index.html only includes `live` and `scheduled` matches.
-Add the last 3–5 `finished` matches as `FT MEX 2–0 RSA` items (most recent
-first), between the live items and the upcoming ones.
-
 ### T5 — Matches tab: rebalance live / recent / upcoming
 Problems: live matches render below the fold once Results grow; finished
 matches require deep scrolling; 35 collapsed day-groups is a wall.
@@ -61,6 +55,11 @@ mind mobile column widths (the `.pick-line` grid).
   computable from `matches`.
 
 ## Done
+
+### T4 — Ticker drops finished matches (2026-06-12)
+`renderTicker()` now inserts `FT MEX 2–0 RSA` items between the live and
+upcoming sections — finished matches from the current day plus the previous
+2 days (viewer-local), most recent first, so the crawl stays bounded.
 
 ### T1 — Import late entries from Pete's updated workbook (2026-06-12)
 `scripts/import_entries.py <xlsx> [--dry-run] [--force]` — stdlib-only parser

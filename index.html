@@ -697,6 +697,11 @@ function renderTicker(D, calcs, pot){
   const items = [];
   D.matches.filter(m=>m.status==="live").forEach(m=>
     items.push(`<span class="live">● LIVE</span> ${m.home} ${m.hs ?? 0}&ndash;${m.as ?? 0} ${m.away}`));
+  const todayStart = new Date(); todayStart.setHours(0,0,0,0);
+  const ftCutoff = todayStart.getTime() - 2*86400000;   // today + previous 2 days, viewer-local
+  D.matches.filter(m=>m.status==="finished" && new Date(m.date).getTime() >= ftCutoff)
+    .sort((a,b)=>b.date.localeCompare(a.date)).forEach(m=>
+    items.push(`<span class="dim">FT</span> ${m.home} ${m.hs ?? 0}&ndash;${m.as ?? 0} ${m.away}`));
   D.matches.filter(m=>m.status==="scheduled").sort((a,b)=>a.date.localeCompare(b.date)).slice(0,6).forEach(m=>
     items.push(`<span class="dim">${dShort(m.date).toUpperCase()}</span> ${m.home} v ${m.away} <span class="dim">${tShort(m.date)}</span>`));
   const lead = calcs.find(c=>!c.e.ai);
