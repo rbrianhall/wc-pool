@@ -106,10 +106,18 @@
 
   /* ---------- leaderboard ---------- */
   .lb-head{
-    display:grid;grid-template-columns:44px 1fr 86px 86px 78px;gap:8px;
+    display:grid;grid-template-columns:44px 1fr 80px 80px 80px 70px;gap:8px;
     font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
     padding:0 14px 6px;
   }
+  .h-sort{
+    background:none;border:none;padding:0;margin:0;cursor:pointer;width:100%;
+    font:inherit;color:inherit;letter-spacing:inherit;text-transform:inherit;text-align:right;
+  }
+  .h-sort:hover{color:var(--chalk)}
+  .h-sort.on{color:var(--chalk)}
+  .h-sort.on::after{content:" \25BE";color:var(--yellow)}
+  .h-sort:focus-visible{outline:2px solid var(--yellow);outline-offset:2px}
   details.lb-row{
     background:var(--panel);border:1px solid var(--line);border-radius:8px;margin-bottom:8px;
   }
@@ -117,7 +125,7 @@
   details.lb-row.money{border-left:4px solid var(--yellow)}
   .lb-row summary{
     list-style:none;cursor:pointer;
-    display:grid;grid-template-columns:44px 1fr 86px 86px 78px;gap:8px;align-items:center;
+    display:grid;grid-template-columns:44px 1fr 80px 80px 80px 70px;gap:8px;align-items:center;
     padding:11px 14px;
   }
   .lb-row summary::-webkit-details-marker{display:none}
@@ -146,17 +154,18 @@
   .chip.out .pts{color:var(--muted)}
   .num{font-family:var(--mono);text-align:right;font-size:17px;font-weight:600}
   .num.max{color:var(--muted);font-weight:400}
+  .num.proj{color:var(--yellow);font-weight:400}
   .num.behind{color:var(--muted);font-weight:400;font-size:14px}
   .lb-detail{border-top:1px dashed var(--line);padding:10px 14px 13px}
   .pick-line{
-    display:grid;grid-template-columns:1fr 70px 90px 90px;gap:8px;align-items:baseline;
+    display:grid;grid-template-columns:1fr 64px 80px 80px 80px;gap:8px;align-items:baseline;
     font-family:var(--mono);font-size:13px;padding:4px 0;
   }
   .pick-line .lbl{font-family:var(--body);font-size:14px}
   .pick-line .lbl .st{font-size:11px;margin-left:7px;letter-spacing:.08em;text-transform:uppercase}
   .st.alive{color:var(--green)} .st.out{color:var(--red)} .st.third{color:var(--yellow)}
   .pick-head{color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.14em;
-    display:grid;grid-template-columns:1fr 70px 90px 90px;gap:8px;padding-bottom:4px}
+    display:grid;grid-template-columns:1fr 64px 80px 80px 80px;gap:8px;padding-bottom:4px}
   .pick-line .r{text-align:right}
   .pick-head .r{text-align:right}
   .pick-res{font-family:var(--mono);font-size:11px;margin-top:2px;color:var(--muted)}
@@ -204,16 +213,18 @@
   .group{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
   .group h3{font-family:var(--disp);font-weight:700;letter-spacing:.14em;text-transform:uppercase;
     font-size:13px;color:var(--muted);margin-bottom:8px;border-bottom:1px dashed var(--line);padding-bottom:6px}
-  .t-row{display:grid;grid-template-columns:1fr 52px 56px 58px;gap:6px;align-items:center;
+  .t-row{display:grid;grid-template-columns:1fr 42px 38px 46px 48px;gap:6px;align-items:center;
     font-size:14px;padding:4px 0}
-  .t-row .t-name{display:flex;align-items:center;gap:7px}
+  .t-row .t-name{display:flex;align-items:center;gap:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .t-row .card{width:7px;height:10px;border-radius:1.5px;background:var(--green);flex:none}
   .t-row.out .card{background:var(--red)}
   .t-row.third .card{background:var(--yellow)}
   .t-row.out .t-name{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red)}
   .t-row .mono{font-family:var(--mono);font-size:12.5px;text-align:right;color:var(--muted)}
   .t-row .mono.banked{color:var(--green)}
-  .t-head{display:grid;grid-template-columns:1fr 52px 56px 58px;gap:6px;
+  .t-row .mono.adv{color:var(--chalk)}
+  .t-row.out .mono.adv{color:var(--muted)}
+  .t-head{display:grid;grid-template-columns:1fr 42px 38px 46px 48px;gap:6px;
     font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);padding-bottom:3px}
   .t-head .r{text-align:right}
 
@@ -235,11 +246,13 @@
   footer .upd{font-family:var(--mono)}
   .empty{color:var(--muted);font-size:14px;padding:18px;border:1px dashed var(--line);border-radius:8px;text-align:center}
   @media(max-width:620px){
-    .lb-head{grid-template-columns:32px 1fr 70px 70px;padding:0 11px 6px}
+    .lb-head{grid-template-columns:28px 1fr 56px 56px 56px;padding:0 11px 6px;gap:6px}
     .lb-head .h-behind{display:none}
-    .lb-row summary{grid-template-columns:32px 1fr 70px 70px;padding:10px 11px}
+    .lb-row summary{grid-template-columns:28px 1fr 56px 56px 56px;padding:10px 11px;gap:6px}
+    .num{font-size:14.5px}
     .num.behind{display:none}
-    .pick-line,.pick-head{grid-template-columns:1fr 54px 70px 70px}
+    .pick-line,.pick-head{grid-template-columns:1fr 44px 62px 62px}
+    .pick-line .c-max,.pick-head .h-max{display:none}
     header::after{display:none}
   }
 </style>
@@ -266,8 +279,12 @@
 
 <main>
   <section id="sec-leaderboard" role="tabpanel">
-    <h2>Standings &mdash; tap an entry for the pick-by-pick breakdown</h2>
-    <div class="lb-head"><div>#</div><div>Entry</div><div style="text-align:right">Points</div><div style="text-align:right">Best case</div><div class="h-behind" style="text-align:right">Behind</div></div>
+    <h2>Standings &mdash; tap an entry for the pick-by-pick breakdown, headers to sort</h2>
+    <div class="lb-head"><div>#</div><div>Entry</div>
+      <button class="h-sort on" data-sort="cur" title="Points banked so far">Points</button>
+      <button class="h-sort" data-sort="proj" title="Market-implied expected final score (DraftKings match lines + Polymarket title odds, simulated)">Proj</button>
+      <button class="h-sort" data-sort="best" title="Maximum still possible">Best case</button>
+      <div class="h-behind" style="text-align:right">Behind</div></div>
     <div id="leaderboard"></div>
   </section>
 
@@ -287,7 +304,9 @@
 
 <footer>
   Scoring: advance from group = 3 &middot; R32 win = 10 &middot; R16 win = 10 &middot; QF win = 25 &middot; SF win = 50 &middot; 3rd-place win = 25 &middot; Final win = 100 &mdash; all &times; country multiple.
-  Payouts: 50 / 35 / 15% of pot. <span class="upd" id="updated"></span>
+  Payouts: 50 / 35 / 15% of pot.
+  Proj &amp; probabilities are market-implied: DraftKings match lines (via ESPN) + Polymarket title odds, Monte-Carlo'd over the remaining bracket after every result.
+  <span class="upd" id="updated"></span>
 </footer>
 <script>
 /* ============================================================
@@ -490,12 +509,16 @@ function remainingRaw(st){
   return PATH.slice(i+1).reduce((s,a)=>s+PTS[a],0);
 }
 function entryCalc(D, e){
+  const pt = D.probs && D.probs.teams;
   const per = e.picks.map(c=>{
     const t = D.teamMap[c], st = teamStatus(D,c);
     const cur = bankedRaw(st)*t.mult, max = cur + remainingRaw(st)*t.mult;
-    return { t, st, cur, max };
+    const pr = (pt && pt[c]) || null;             // market-implied milestone probabilities
+    const proj = pr ? pr.exp*t.mult : null;       // expected final points for this pick
+    return { t, st, cur, max, pr, proj };
   });
   return { per, cur: per.reduce((s,p)=>s+p.cur,0), max: per.reduce((s,p)=>s+p.max,0),
+           proj: pt ? per.reduce((s,p)=>s+(p.proj ?? p.cur),0) : null,
            alive: per.filter(p=>p.st.state!=="out").length };
 }
 /* Best case = picks assigned to the best legal combination of finishing
@@ -540,6 +563,7 @@ const tShort = iso => new Date(iso).toLocaleTimeString(undefined,{hour:"numeric"
 
 /* ---------------- renderers ---------------- */
 function render(D){
+  lastData = D;
   D.teamMap = {};
   D.teams.forEach(([code,name,group,mult,flag]) => D.teamMap[code] = {code,name,group,mult,flag});
   const calcs = D.entries.map(e => { const c = entryCalc(D,e); return { e, ...c, best: bestCase(c.per) }; })
@@ -570,10 +594,18 @@ function chip(p){
 
 function renderLeaderboard(D, calcs, payouts){
   const leaderCur = (calcs.find(c=>!c.e.ai) || {cur:0}).cur;
-  let html = "", lastPts = null, rank = 0, humanSeen = 0;
-  calcs.forEach((c,i)=>{
-    const isAI = !!c.e.ai;
-    if (!isAI){ humanSeen++; if (c.cur !== lastPts){ rank = humanSeen; lastPts = c.cur; } }
+  // ranks/payouts are always by points banked; sorting only reorders the display
+  let lastPts = null, rank = 0, humanSeen = 0;
+  calcs.forEach(c=>{
+    if (!c.e.ai){ humanSeen++; if (c.cur !== lastPts){ rank = humanSeen; lastPts = c.cur; } }
+    c.rank = rank;
+  });
+  const key = { cur:c=>c.cur, proj:c=>c.proj ?? c.cur, best:c=>c.best }[lbSort] || (c=>c.cur);
+  const shown = lbSort === "cur" ? calcs
+    : [...calcs].sort((a,b)=> key(b)-key(a) || b.cur-a.cur || a.e.name.localeCompare(b.e.name));
+  let html = "";
+  shown.forEach(c=>{
+    const isAI = !!c.e.ai, rank = c.rank;
     const inMoney = !isAI && rank <= 3 && leaderCur > 0;
     const payout = inMoney ? `<span class="payout">${money(payouts[rank-1])}</span>` : "";
     const badge = isAI ? `<span class="ai-badge">AI · exhibition</span>` : "";
@@ -589,7 +621,9 @@ function renderLeaderboard(D, calcs, payouts){
       }).join(`<span class="res-sep">·</span>`);
     const detail = c.per.map(p=>{
       const stTxt = p.st.state==="out" ? "out" : p.st.state==="third" ? "3rd-place match" : "alive";
-      const last = (p.st.ach||[]).length ? ACH_LABEL[p.st.ach[p.st.ach.length-1]] : "Group stage";
+      let last = (p.st.ach||[]).length ? ACH_LABEL[p.st.ach[p.st.ach.length-1]] : "Group stage";
+      if (p.pr && p.st.state==="alive" && !(p.st.ach||[]).includes("advanced"))
+        last += ` &middot; ${Math.round(p.pr.advanced*100)}% to advance`;
       const chips = resultChips(p.t.code);
       return `<div class="pick-line">
         <div class="lbl">${p.t.flag} ${esc(p.t.name)} <span class="st ${p.st.state}">${stTxt}</span><br>
@@ -597,7 +631,8 @@ function renderLeaderboard(D, calcs, payouts){
           ${chips?`<div class="pick-res">${chips}</div>`:""}</div>
         <div class="r">×${p.t.mult}</div>
         <div class="r" style="color:var(--green)">${fmt(p.cur)}</div>
-        <div class="r" style="color:var(--muted)">${fmt(p.max)}</div></div>`;
+        <div class="r" style="color:var(--yellow)">${p.proj==null?"&mdash;":fmt(Math.round(p.proj))}</div>
+        <div class="r c-max" style="color:var(--muted)">${fmt(p.max)}</div></div>`;
     }).join("");
     html += `<details class="lb-row ${inMoney?'money':''} ${isAI?'ai':''}">
       <summary>
@@ -605,11 +640,12 @@ function renderLeaderboard(D, calcs, payouts){
         <div class="who"><span class="nm">${esc(c.e.name)}</span>${badge}${payout}
           <div class="picks">${c.per.map(chip).join("")}</div></div>
         <div class="num">${fmt(c.cur)}</div>
+        <div class="num proj">${c.proj==null?"&mdash;":fmt(Math.round(c.proj))}</div>
         <div class="num max">${fmt(c.best)}</div>
         <div class="num behind">${behind}</div>
       </summary>
       <div class="lb-detail">
-        <div class="pick-head"><div>Pick</div><div class="r">Mult</div><div class="r">Points</div><div class="r">Solo max</div></div>
+        <div class="pick-head"><div>Pick</div><div class="r">Mult</div><div class="r">Points</div><div class="r">Proj</div><div class="r h-max">Solo max</div></div>
         ${detail}
       </div></details>`;
   });
@@ -669,19 +705,28 @@ function renderMatches(D, calcs){
 
 function renderTeams(D){
   const owners = code => D.entries.filter(e=>e.picks.includes(code)).length;
+  const pt = D.probs && D.probs.teams;
   const groups = {};
   D.teams.forEach(t=>{ (groups[t[2]]=groups[t[2]]||[]).push(t); });
   document.getElementById("teams").innerHTML = Object.keys(groups).sort().map(g=>{
     const rows = groups[g].map(([code,name,,mult,flag])=>{
       const st = teamStatus(D,code), b = bankedRaw(st)*mult;
-      return `<div class="t-row ${st.state}">
+      const pr = pt && pt[code];
+      const pct = ms => Math.round(pr[ms]*100);
+      const adv = !pr ? "·"
+        : st.state==="out" ? "—"
+        : (st.ach||[]).includes("advanced") ? "✓"
+        : pct("advanced")+"%";
+      const tip = pr ? ` title="advance ${pct("advanced")}% · R32 win ${pct("w32")}% · R16 win ${pct("w16")}% · QF win ${pct("wqf")}% · SF win ${pct("wsf")}% · title ${pct("wf")}%"` : "";
+      return `<div class="t-row ${st.state}"${tip}>
         <div class="t-name"><span class="card"></span>${flag} ${esc(name)}</div>
         <div class="mono">×${mult}</div>
         <div class="mono">${owners(code)||"—"}</div>
+        <div class="mono adv">${adv}</div>
         <div class="mono banked">${b?fmt(b):"·"}</div></div>`;
     }).join("");
     return `<div class="group"><h3>Group ${g}</h3>
-      <div class="t-head"><div>Team</div><div class="r">Mult</div><div class="r">Owners</div><div class="r">Pts</div></div>${rows}</div>`;
+      <div class="t-head"><div>Team</div><div class="r">Mult</div><div class="r">Own</div><div class="r">Adv</div><div class="r">Pts</div></div>${rows}</div>`;
   }).join("");
 }
 
@@ -711,6 +756,15 @@ function renderStats(D, calcs, pot, payouts){
      <div class="kv"><span>🥈 2nd (35%)</span><span class="v">${money(payouts[1])}</span></div>
      <div class="kv"><span>🥉 3rd (15%)</span><span class="v">${money(payouts[2])}</span></div>`,
     D.meta.potUSD==null ? "Estimate = paid entries × $35 USD (CAD entries differ). Set meta.potUSD in data.json for the exact figure." : "");
+
+  const pt = D.probs && D.probs.teams;
+  if (pt){
+    const fav = D.teams.map(([code,name,,mult,flag])=>({code,name,flag,mult,wf:(pt[code]||{}).wf||0}))
+      .filter(t=>t.wf>=0.005).sort((a,b)=>b.wf-a.wf).slice(0,8);
+    html += card("Title odds (market)", fav.map(t=>
+      `<div class="kv"><span>${t.flag} ${esc(t.name)} <span style="color:var(--muted)">×${t.mult}</span></span><span class="v">${Math.round(t.wf*100)}%</span></div>`).join(""),
+      "Implied by Polymarket title odds + DraftKings match lines, simulated over the remaining bracket.");
+  }
 
   html += card("Best-case finishes", ceiling.slice(0,5).map((c,i)=>
     `<div class="kv"><span>${i+1}. ${esc(c.e.name)}${c.e.ai?" 🤖":""}</span><span class="v">${fmt(c.best)} max</span></div>`).join(""),
@@ -752,10 +806,17 @@ function renderTicker(D, calcs, pot){
   document.getElementById("ticker").innerHTML = half + "<span class='ticker-item dim'>///</span>" + half;
 }
 
-/* ---------------- tabs + data loading ---------------- */
+/* ---------------- tabs + sorting + data loading ---------------- */
 document.querySelectorAll(".tab").forEach(btn=>btn.addEventListener("click",()=>{
   document.querySelectorAll(".tab").forEach(b=>b.setAttribute("aria-selected", b===btn ? "true":"false"));
   document.querySelectorAll("main section").forEach(s=>s.hidden = (s.id !== "sec-"+btn.dataset.t));
+}));
+
+let lbSort = "cur", lastData = null;             // leaderboard sort key + last payload
+document.querySelectorAll(".lb-head .h-sort").forEach(btn=>btn.addEventListener("click",()=>{
+  lbSort = btn.dataset.sort;
+  document.querySelectorAll(".lb-head .h-sort").forEach(b=>b.classList.toggle("on", b===btn));
+  if (lastData) render(lastData);
 }));
 
 async function load(){

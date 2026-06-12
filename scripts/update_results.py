@@ -3,11 +3,16 @@
 Auto-updater for the 2026 World Cup Pool site.
 
 Pulls all 104 fixtures + live scores from ESPN's public scoreboard API
-(no API key required) and rewrites the `matches` and `status` sections of
-data.json. Entries, teams, multiples, and meta are never touched (except
-meta.lastUpdated). Run by the GitHub Action, or by hand:
+(no API key required) and rewrites the `matches`, `status`, and `probs`
+sections of data.json. Entries, teams, multiples, and meta are never touched
+(except meta.lastUpdated). Run by the GitHub Action, or by hand:
 
     python3 scripts/update_results.py
+
+Match odds (devigged DraftKings 1X2 from the same ESPN payload) are attached
+to unfinished matches, and probs.py Monte Carlos advancement probabilities
+from them plus Polymarket title odds. Both inputs use hysteresis (2pts / 1pt)
+so routine line drift never causes a commit.
 """
 
 import json
@@ -16,6 +21,9 @@ import sys
 import urllib.request
 from datetime import datetime, timezone
 from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import probs as probs_mod  # noqa: E402
 
 DATA_PATH = Path(__file__).resolve().parent.parent / "data.json"
 API_URL = ("https://site.api.espn.com/apis/site/v2/sports/soccer/"
@@ -62,6 +70,8 @@ def main() -> int:
 
     matches, status, third_event = [], {}, None
     unmapped = set()
+    old_odds = {(m["date"], m["home"], m["away"]): m["odds"]
+                for m in data.get("matches", []) if m.get("odds")}
 
     def code_of(team: dict) -> str:
         ab = (team.get("abbreviation") or "").strip()
@@ -106,11 +116,22 @@ def main() -> int:
         if stage == "Group" and home in group_label:
             stage = group_label[home]
 
-        matches.append({
+        match = {
             "date": date, "stage": stage, "home": home or "TBD", "away": away or "TBD",
             "hs": hs, "as": as_, "status": ui_status,
             "venue": (comp.get("venue") or {}).get("fullName", "") or "",
-        })
+        }
+        if ui_status != "finished":
+            new_odds = probs_mod.implied_from_event(e)
+            old = old_odds.get((match["date"], match["home"], match["away"]))
+            if new_odds is None:
+                if old:                          # ESPN dropped the line (e.g. live) - keep last seen
+                    match["odds"] = old
+            elif old and max(abs(n - o) for n, o in zip(new_odds, old)) < 0.02:
+                match["odds"] = old              # hysteresis: ignore routine drift
+            else:
+                match["odds"] = new_odds
+        matches.append(match)
 
         # ----- derive team progress from knockout appearances/results -----
         real_h, real_a = home in valid_codes, away in valid_codes
@@ -155,11 +176,30 @@ def main() -> int:
         st["ach"] = [a for a in ACH_ORDER if a in st["ach"]]
     matches.sort(key=lambda x: x["date"])
 
+    # ----- advancement probabilities (T3) -----
+    old_probs = data.get("probs") or {}
+    champ = probs_mod.fetch_champ({t[1]: t[0] for t in data["teams"]})
+    if champ is None:
+        champ = old_probs.get("champ") or {}
+    else:
+        champ = probs_mod.apply_hysteresis(champ, old_probs.get("champ"), 0.01)
+    probs = old_probs
+    if champ:
+        h = probs_mod.inputs_hash(matches, status, champ)
+        if h != old_probs.get("inputsHash"):
+            result = probs_mod.compute(data["teams"], matches, status, champ)
+            probs = {**result, "champ": champ, "inputsHash": h,
+                     "updated": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+            print(f"Recomputed probs ({result['nSims']} sims, BT k={result['btK']}).")
+
     # Only rewrite (-> commit -> Pages redeploy) when something real changed
-    changed = (matches != data.get("matches")) or (status != data.get("status"))
+    changed = (matches != data.get("matches")) or (status != data.get("status")) \
+        or (probs != data.get("probs"))
     if changed:
         data["matches"] = matches
         data["status"] = status
+        if probs:
+            data["probs"] = probs
         data["meta"]["lastUpdated"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
         DATA_PATH.write_text(json.dumps(data, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print(f"Wrote {len(matches)} matches, {len(status)} team statuses.")

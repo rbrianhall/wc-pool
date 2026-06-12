@@ -9,28 +9,12 @@ session can start cold. Ordered roughly by priority.
 
 ## Want to do
 
-### T3 — Advancement probabilities per team ("live-ish" odds)
-Goal: P(advance from group) per team, eventually P(reach each scoring stage),
-updated at least after every completed match.
-- **MVP (recommended):** model it rather than scrape it. Derive team strengths
-  once from the pool multiples (they're championship odds: strength ∝
-  1/multiple is a serviceable prior), then Monte Carlo the remaining group
-  fixtures (10k sims) using actual results so far + the top-2-plus-8-best-
-  thirds advancement rule. Pure Python in the updater, stdlib only; write
-  `probs: {CODE: {advance: 0.87, r16: 0.55, ...}}` into data.json on each run.
-- **Market-based alternative:** The Odds API (free tier ~500 req/mo) has match
-  and outright markets; prediction markets (Kalshi/Polymarket) have public
-  read APIs with team advancement contracts. More accurate, more moving parts,
-  rate limits during 4-match days. Could blend: market match-odds feeding the
-  same Monte Carlo.
-- **In-game (stretch):** ESPN's per-event summary endpoint exposes live win
-  probability for some soccer events — investigate
-  `site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event={id}`.
-- UI: probability column in the Teams tab; per-pick percentages in the
-  leaderboard expansion (see T6). Keep the displayed precision honest (whole
-  percentages).
-
 ### Ideas / later
+- T3 stretch: ESPN's per-event summary endpoint exposes live win probability
+  for some soccer events — could feed in-game prob updates:
+  `site.api.espn.com/apis/site/v2/sports/soccer/fifa.world/summary?event={id}`.
+- T3 refinement: live matches are simulated as undecided from their pre-match
+  odds (current scoreline ignored) — could condition on the live score.
 - `scripts/sync_default_data.py` — regenerate `DEFAULT_DATA` in index.html
   from data.json instead of hand-syncing (removes gotcha #1 in CLAUDE.md).
 - Freeze script for July 19: final standings banner + payout amounts.
@@ -39,6 +23,24 @@ updated at least after every completed match.
   computable from `matches`.
 
 ## Done
+
+### T3 — Market-implied probabilities + sortable leaderboard (2026-06-12)
+Went with the market-based path — both sources are free and keyless:
+DraftKings 1X2 moneylines ride along in the ESPN scoreboard payload the
+updater already fetches (all 70 remaining group matches priced), and
+Polymarket's `world-cup-winner` event (gamma-api, no auth) prices P(champion)
+per team. `scripts/probs.py` devigs the match lines, fits Bradley-Terry
+strengths anchored to the title odds (exponent calibrated against the match
+lines), and Monte Carlos the remaining tournament 8k× — group tables with
+pts/GD/GF tiebreaks, best-thirds slot constraints, and the verified FIFA
+knockout bracket (M73–104 wiring encoded in `BRACKET`). Output:
+`probs.teams[CODE] = {advanced..wf, exp}` in data.json. Commit churn is
+suppressed via odds hysteresis (2pts match / 1pt title) + input-hash-seeded
+deterministic sims; bump `MODEL_VERSION` after model changes. UI: leaderboard
+sortable by Points / Proj (= Σ exp × multiple) / Best case (ranks stay
+points-based), per-pick Proj + advance %, Teams-tab Adv column with full-path
+tooltip, "Title odds (market)" stats card. Polymarket outage → stored champ
+odds are reused; no probs at all → UI shows "—".
 
 ### T6 — Leaderboard expansion: per-pick result chips (2026-06-12)
 Expanded rows now show each pick's results so far — `W 2–1 CZE`-style chips

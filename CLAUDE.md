@@ -16,10 +16,15 @@ Live site: https://<username>.github.io/wc-pool/  (deploy = commit to main)
   framework. Embedded `DEFAULT_DATA` is a fallback used only when `data.json`
   can't be fetched (e.g., opening the file directly).
 - `data.json` — the single source of truth: `meta`, `teams`, `status`,
-  `entries`, `matches`.
+  `entries`, `matches`, `probs`.
 - `scripts/update_results.py` — stdlib-only poller; rewrites `matches` +
-  `status` from ESPN, never touches `entries`/`teams`/`meta` (except
-  `meta.lastUpdated`).
+  `status` + `probs` from ESPN/Polymarket, never touches
+  `entries`/`teams`/`meta` (except `meta.lastUpdated`).
+- `scripts/probs.py` — market-implied probabilities: devigs the DraftKings
+  moneylines embedded in the ESPN payload + Polymarket title odds, Monte
+  Carlos the remaining tournament (verified FIFA bracket in `BRACKET`),
+  emits `probs.teams`. Deterministic (input-hash seed); bump `MODEL_VERSION`
+  to force a recompute after code changes.
 - `scripts/import_entries.py` — imports entries from Pete's xlsx; updates
   `data.json` AND the `DEFAULT_DATA` entries block in index.html.
 - `.github/workflows/update-results.yml` — two-speed poller (see below).
@@ -48,6 +53,12 @@ Points × team multiple: advance from group **3**, R32 win **10**, R16 win
   index.html): picks are assigned the best legal combination of finishes —
   one champion (198 raw), one runner-up (98), one third (73), one fourth (48),
   QF exits (23) for the rest — respecting banked points and eliminations.
+- `probs.teams[CODE] = {advanced, w32, w16, wqf, wsf, w3rd, wf, exp}` —
+  market-implied P(milestone achieved by tournament end); banked milestones
+  are 1.0, `exp` = expected raw points (the client multiplies by the team
+  multiple for "Proj"). Unfinished `matches` may carry `odds: [pH, pD, pA]`
+  (devigged DraftKings). `probs` is NOT mirrored in `DEFAULT_DATA` — the UI
+  shows "—" when it's absent, by design.
 
 ## Critical gotchas (each of these bit us once — don't regress them)
 
@@ -73,6 +84,12 @@ Points × team multiple: advance from group **3**, R32 win **10**, R16 win
    window — ET and penalties included — capped at 350 min with a `concurrency`
    group preventing overlap. The 35-min window exists so the :30 cron tick
    latches onto top-of-hour kickoffs despite GitHub cron jitter.
+7. **Odds churn must not become commit churn.** Match odds update only on a
+   ≥2-point move, Polymarket title odds on ≥1 point (`apply_hysteresis`), and
+   the Monte Carlo is seeded from `inputs_hash(...)` so identical inputs give
+   byte-identical `probs`. Don't add `Date.now()`-style nondeterminism to
+   probs.py, and after changing the model bump `MODEL_VERSION` — otherwise
+   the cached `inputsHash` skips the recompute.
 
 ## Commands
 

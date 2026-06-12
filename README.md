@@ -54,8 +54,9 @@ leaderboard but are excluded from ranks, payouts, and the pot.
 | File | Role |
 | --- | --- |
 | `index.html` | The entire app — CSS, markup, JS. Embedded `DEFAULT_DATA` fallback for offline/local viewing. |
-| `data.json` | Single source of truth: `meta`, `teams`, `status`, `entries`, `matches`. |
-| `scripts/update_results.py` | Stdlib-only ESPN poller; rewrites `matches` + `status` only. |
+| `data.json` | Single source of truth: `meta`, `teams`, `status`, `entries`, `matches`, `probs`. |
+| `scripts/update_results.py` | Stdlib-only ESPN poller; rewrites `matches` + `status` + `probs` only. |
+| `scripts/probs.py` | Market-implied probabilities: DraftKings match lines (via ESPN) + Polymarket title odds → Monte Carlo of the remaining bracket → the leaderboard's "Proj" column. |
 | `scripts/import_entries.py` | Imports entries from the commissioner's `.xlsx`; updates `data.json` and `DEFAULT_DATA`. |
 | `.github/workflows/update-results.yml` | Two-speed poller (30-min cron; 60 s loop during matches). |
 | `OPERATIONS.md` | Commissioner runbook: manual scoring, automation notes, recovery. |

@@ -67,6 +67,28 @@ no secrets:
 
 Manual refresh: Actions tab → "Update World Cup results" → Run workflow.
 
+### Probabilities (the `probs` block and "Proj" column)
+
+Each run also recomputes market-implied advancement probabilities
+(`scripts/probs.py`): devigged DraftKings 1X2 lines (already inside the ESPN
+payload) + Polymarket title odds (`gamma-api.polymarket.com`, free, no key)
+feed an 8,000-run Monte Carlo of the remaining tournament, written to
+`data.json` under `probs`. Things to know:
+
+- **Polymarket down or changed?** The script warns and reuses the stored
+  `probs.champ` values — the site keeps working with slightly stale title
+  odds. Nothing goes red.
+- **Commit churn is suppressed by design**: match odds only update when an
+  outcome probability moves ≥ 2 points, title odds ≥ 1 point, and the Monte
+  Carlo is seeded from a hash of its inputs (identical inputs → identical
+  output → no commit). Expect a handful of odds-drift commits per day, not
+  one per poll.
+- **Changed the model code?** Bump `MODEL_VERSION` in `scripts/probs.py`,
+  or the cached `inputsHash` will skip the recompute until the next real
+  result.
+- **Want it gone?** Delete the `probs` key from `data.json` and the probs
+  section of `update_results.py`; the UI degrades gracefully (Proj shows "—").
+
 ### When the workflow goes red
 
 It fails on purpose after 5 consecutive ESPN failures. ESPN's endpoint
