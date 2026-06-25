@@ -242,6 +242,35 @@
   .kv .v{font-family:var(--mono);font-size:13px}
   .note{font-size:12px;color:var(--muted);margin-top:8px}
 
+  /* ---------- rules / reference ---------- */
+  .rules{max-width:800px}
+  .rule-block{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:15px 18px;margin-bottom:14px}
+  .rule-block h3{font-family:var(--disp);font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    font-size:15px;color:var(--chalk);margin-bottom:10px}
+  .rule-block p{font-size:14px;line-height:1.6;color:var(--chalk);margin:0 0 10px}
+  .rule-block p:last-child{margin-bottom:0}
+  .rule-block .muted{color:var(--muted)}
+  .rule-block b{color:var(--chalk);font-weight:600}
+  .rule-block code{font-family:var(--mono);font-size:12.5px;background:rgba(0,0,0,.25);padding:1px 5px;border-radius:4px;color:var(--yellow)}
+  ul.rule-list{margin:0;padding-left:20px;font-size:14px;line-height:1.6;color:var(--chalk)}
+  ul.rule-list li{margin-bottom:5px}
+  ul.rule-list li:last-child{margin-bottom:0}
+  .score-table{width:100%;border-collapse:collapse;font-size:14px;margin:2px 0 4px}
+  .score-table th{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+    text-align:left;padding:0 8px 6px;font-weight:600}
+  .score-table th.r,.score-table td.r{text-align:right}
+  .score-table td{padding:7px 8px;border-top:1px dashed var(--line)}
+  .score-table td.pts{font-family:var(--mono);color:var(--green);font-weight:600}
+  .score-table td.stage b{font-weight:600}
+  .rule-eg{background:rgba(0,0,0,.2);border-left:3px solid var(--yellow);border-radius:0 6px 6px 0;
+    padding:10px 13px;font-size:13.5px;line-height:1.55;color:var(--chalk);margin:4px 0 0}
+  .rule-eg .mono{font-family:var(--mono);color:var(--green)}
+  .rule-pay{display:flex;gap:10px;flex-wrap:wrap;margin-top:4px}
+  .rule-pay .p{flex:1;min-width:110px;background:rgba(0,0,0,.2);border:1px solid var(--line);border-radius:7px;padding:10px 12px}
+  .rule-pay .p .pl{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+  .rule-pay .p .pv{font-family:var(--mono);font-size:18px;font-weight:600;color:var(--yellow);margin-top:3px}
+  .rule-pay .p.first .pv{color:var(--green)}
+
   footer{max-width:1060px;margin:0 auto;padding:0 18px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
   footer .upd{font-family:var(--mono)}
   footer .upd .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px;vertical-align:1px}
@@ -278,6 +307,7 @@
   <button class="tab" role="tab" aria-selected="false" data-t="matches">Matches</button>
   <button class="tab" role="tab" aria-selected="false" data-t="teams">Teams</button>
   <button class="tab" role="tab" aria-selected="false" data-t="stats">Stats</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="rules">Rules</button>
 </div></nav>
 
 <main>
@@ -302,6 +332,116 @@
 
   <section id="sec-stats" role="tabpanel" hidden>
     <div class="stat-grid" id="stats"></div>
+  </section>
+
+  <section id="sec-rules" role="tabpanel" hidden>
+    <h2>How the pool works &mdash; a reference for everyone in</h2>
+    <div class="rules">
+
+      <div class="rule-block">
+        <h3>The basics</h3>
+        <p>Everyone in the pool picked <b>5 countries</b> from the 48 in the
+          2026 World Cup, before the tournament kicked off. Your picks are
+          locked &mdash; no trades, no swaps. You earn points as your teams
+          advance and win knockout matches, and the highest total when the
+          dust settles after the July&nbsp;19 final takes the pot.</p>
+        <p class="muted">There are currently <span id="r-entries">&ndash;</span>
+          entries. Entry fee is <span id="r-fee">&ndash;</span> each.</p>
+      </div>
+
+      <div class="rule-block">
+        <h3>The twist: country multiples</h3>
+        <p>Every country carries a <b>multiple</b> set from its pre-tournament
+          championship odds. Favorites are low (Spain <code>×1.1</code>,
+          Argentina <code>×1</code>); long shots are high (Ghana
+          <code>×90</code>, Qatar <code>×150</code>). <b>Every point a team
+          earns is multiplied by its number.</b></p>
+        <p>So a favorite that goes deep scores modestly, while a dark horse
+          that overperforms can be worth a fortune. Picking is a balance
+          between safe points and high-multiple upside.</p>
+      </div>
+
+      <div class="rule-block">
+        <h3>Scoring rubric</h3>
+        <p class="muted">Base points below, then <b>&times; the country
+          multiple</b>. Knockout points require <i>winning</i> the match,
+          not just appearing in it.</p>
+        <table class="score-table">
+          <thead><tr><th class="stage">Achievement</th><th class="r">Base pts</th></tr></thead>
+          <tbody>
+            <tr><td class="stage"><b>Advance</b> from group stage</td><td class="r pts">3</td></tr>
+            <tr><td class="stage">Win <b>Round of 32</b> match</td><td class="r pts">10</td></tr>
+            <tr><td class="stage">Win <b>Round of 16</b> match</td><td class="r pts">10</td></tr>
+            <tr><td class="stage">Win <b>Quarter-final</b></td><td class="r pts">25</td></tr>
+            <tr><td class="stage">Win <b>Semi-final</b></td><td class="r pts">50</td></tr>
+            <tr><td class="stage">Win <b>Third-place match</b></td><td class="r pts">25</td></tr>
+            <tr><td class="stage">Win the <b>Final</b> (champions)</td><td class="r pts">100</td></tr>
+          </tbody>
+        </table>
+        <p class="rule-eg">Example: you own <b>Ghana</b> <code>×90</code>.
+          Ghana advances from its group (<span class="mono">3 × 90 = 270</span>)
+          and wins its Round-of-32 match (<span class="mono">10 × 90 = 900</span>)
+          &mdash; that's <b>1,170 points</b> from one team. A team that went all
+          the way at <code>×90</code> would bank the full
+          <span class="mono">198 base × 90 = 17,820</span>.</p>
+      </div>
+
+      <div class="rule-block">
+        <h3>How a team advances</h3>
+        <p>48 teams, 12 groups of four. The <b>top two of every group</b>, plus
+          the <b>eight best third-placed teams</b>, reach the 32-team knockout
+          bracket. From the Round of 32 on it's single elimination &mdash; lose
+          and you're out (except a semi-final loser, who drops into the
+          third-place match).</p>
+      </div>
+
+      <div class="rule-block">
+        <h3>Reading the leaderboard</h3>
+        <ul class="rule-list">
+          <li><b>Points</b> &mdash; what you've actually banked so far. This is
+            what decides ranks and the payout.</li>
+          <li><b>Proj</b> &mdash; a <i>projection</i> of your final score:
+            current betting markets simulated over the rest of the bracket.
+            A live forecast, not money in the bank. Tap the headers to sort by it.</li>
+          <li><b>Best case</b> &mdash; the most you could still finish with if
+            every one of your live teams ran the table.</li>
+          <li><b>Behind</b> &mdash; how far back of first place you are, on
+            banked points.</li>
+        </ul>
+        <p class="muted" style="margin-top:10px">Tap any entry to see its five
+          picks broken out, with each team's results and its chance to advance.
+          The <b>Teams</b> tab lists all 48 with multiples, owners, and live
+          advance odds.</p>
+      </div>
+
+      <div class="rule-block">
+        <h3>The pot &amp; payouts</h3>
+        <p>The pot is split <b><span id="r-split">&ndash;</span></b> among the
+          top three. At the current pot of <b><span id="r-pot">&ndash;</span></b>
+          that's:</p>
+        <div class="rule-pay">
+          <div class="p first"><div class="pl">🥇 1st</div><div class="pv" id="r-pay1">&ndash;</div></div>
+          <div class="p"><div class="pl">🥈 2nd</div><div class="pv" id="r-pay2">&ndash;</div></div>
+          <div class="p"><div class="pl">🥉 3rd</div><div class="pv" id="r-pay3">&ndash;</div></div>
+        </div>
+        <p class="muted" style="margin-top:10px">Two entries marked
+          <b>AI&nbsp;·&nbsp;exhibition</b> (ChatGPT and Gemini) play along for
+          fun &mdash; they show on the leaderboard but are excluded from ranks,
+          payouts, and the pot.</p>
+      </div>
+
+      <div class="rule-block">
+        <h3>Live updates</h3>
+        <p>This page is fully automatic. Scores and team progress refresh from
+          ESPN minute-by-minute during matches; the projection and advance odds
+          come from live betting markets and recompute after every result. The
+          footer shows how fresh the data is &mdash; a green dot means current,
+          amber/red means it's been a while. The page reloads itself every
+          minute, or hard-refresh (Cmd/Ctrl&nbsp;+&nbsp;Shift&nbsp;+&nbsp;R) to
+          force it.</p>
+      </div>
+
+    </div>
   </section>
 </main>
 
@@ -606,6 +746,20 @@ function render(D){
   renderMatches(D, calcs);
   renderTeams(D);
   renderStats(D, calcs, pot, payouts);
+  renderRules(D, pot, payouts);
+}
+
+function renderRules(D, pot, payouts){
+  const set = (id, html) => { const el = document.getElementById(id); if (el) el.innerHTML = html; };
+  const nAI = D.entries.filter(e=>e.ai).length;
+  const split = (D.meta.payoutSplit||[0.5,0.35,0.15]).map(p=>Math.round(p*100));
+  set("r-entries", (D.entries.length - nAI) + (nAI ? ` <span class="muted">(+${nAI} AI exhibition)</span>` : ""));
+  set("r-fee", money(D.meta.entryFeeUSD||35) + " USD");
+  set("r-split", split.join(" / ") + "%");
+  set("r-pot", money(pot) + (D.meta.potUSD==null ? " est." : ""));
+  set("r-pay1", money(payouts[0]));
+  set("r-pay2", money(payouts[1]));
+  set("r-pay3", money(payouts[2]));
 }
 
 function chip(p){
