@@ -12,7 +12,10 @@ name: Update World Cup results
 
 on:
   schedule:
-    - cron: "*/30 * * * *"   # delete after the final on July 19
+    - cron: "*/15 * * * *"   # idle cadence; tightened to catch ESPN's
+                             # post-match / bracket-population lag sooner.
+                             # Live matches still drive the 60s loop below.
+                             # Delete after the final on July 19.
   workflow_dispatch: {}      # manual refresh from the Actions tab
 
 permissions:

@@ -244,6 +244,9 @@
 
   footer{max-width:1060px;margin:0 auto;padding:0 18px 40px;color:var(--muted);font-size:12px;border-top:1px solid var(--line);padding-top:14px}
   footer .upd{font-family:var(--mono)}
+  footer .upd .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:5px;vertical-align:1px}
+  footer .upd.warn{color:var(--yellow)} footer .upd.warn .dot{background:var(--yellow)}
+  footer .upd.stale{color:var(--red)} footer .upd.stale .dot{background:var(--red);animation:pulse 1.6s infinite}
   .empty{color:var(--muted);font-size:14px;padding:18px;border:1px dashed var(--line);border-radius:8px;text-align:center}
   @media(max-width:620px){
     .lb-head{grid-template-columns:28px 1fr 56px 56px 56px;padding:0 11px 6px;gap:6px}
@@ -554,6 +557,23 @@ function stakeFor(stage){
   return { pts:0, what:"" };
 }
 
+/* Live "updated Xm ago" freshness label. Thresholds tighten while a match is
+   live (data should arrive every ~60s) vs idle (30-min cron cadence). */
+const freshState = { at:0, live:false };
+function renderFreshness(){
+  const el = document.getElementById("updated");
+  if (!el || !freshState.at) return;
+  const mins = (Date.now() - freshState.at) / 60000;
+  const ago = mins < 1 ? "just now"
+    : mins < 60 ? `${Math.floor(mins)}m ago`
+    : `${Math.floor(mins/60)}h ${Math.floor(mins%60)}m ago`;
+  const [warn, stale] = freshState.live ? [5, 15] : [40, 120];
+  el.className = "upd" + (mins >= stale ? " stale" : mins >= warn ? " warn" : "");
+  const title = new Date(freshState.at).toLocaleString();
+  el.innerHTML = `<span class="dot"></span>Updated ${ago}`;
+  el.title = title + (freshState.live ? " · match in progress" : "");
+}
+
 /* ---------------- helpers ---------------- */
 const esc = s => String(s).replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const fmt = n => Number.isInteger(n) ? n.toLocaleString() : n.toLocaleString(undefined,{maximumFractionDigits:1});
@@ -577,7 +597,9 @@ function render(D){
   const nAI = D.entries.filter(e=>e.ai).length;
   document.getElementById("m-entries").innerHTML = (D.entries.length - nAI) + (nAI ? ` <em>+${nAI} AI</em>` : "");
   document.getElementById("m-alive").textContent = aliveCount + " / 48";
-  document.getElementById("updated").textContent = "Updated " + new Date(D.meta.lastUpdated||Date.now()).toLocaleString();
+  freshState.at = D.meta.lastUpdated ? new Date(D.meta.lastUpdated).getTime() : Date.now();
+  freshState.live = D.matches.some(m=>m.status==="live");
+  renderFreshness();
 
   renderTicker(D, calcs, pot);
   renderLeaderboard(D, calcs, payouts);
@@ -828,6 +850,7 @@ async function load(){
 }
 load();
 setInterval(load, 60000);
+setInterval(renderFreshness, 30000);   // keep the "Xm ago" label ticking between data fetches
 </script>
 </body>
 </html>
