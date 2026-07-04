@@ -242,6 +242,34 @@
   .kv .v{font-family:var(--mono);font-size:13px}
   .note{font-size:12px;color:var(--muted);margin-top:8px}
 
+  /* ---------- odds / projections ---------- */
+  .o-block{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:14px 16px;margin-bottom:14px}
+  .o-block h3{font-family:var(--disp);font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    font-size:13px;color:var(--muted);margin-bottom:10px}
+  .o-note{font-size:12px;color:var(--muted);margin-top:10px;line-height:1.5}
+  .o-head{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+    padding-bottom:5px;border-bottom:1px dashed var(--line)}
+  .o-row{align-items:center;font-size:14px;padding:6px 0;border-bottom:1px dashed var(--line)}
+  .o-row:last-of-type{border-bottom:none}
+  .o-row .mono,.o-head .r{font-family:var(--mono)}
+  .o-head,.o-row{display:grid;gap:10px}
+  .o-win .o-head,.o-win .o-row{grid-template-columns:26px 1fr 76px 76px 76px}
+  .o-champ .o-head,.o-champ .o-row{grid-template-columns:minmax(120px,1fr) 58px 1.1fr 1.1fr 1.1fr}
+  .o-head .r,.o-row .r{text-align:right}
+  .o-row .rank{font-family:var(--mono);color:var(--muted)}
+  .o-row .winbar{position:relative;display:flex;align-items:center;gap:8px;min-width:0}
+  .o-row .winbar .nm{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .o-row .winbar .bar{height:7px;background:var(--green);border-radius:4px;opacity:.7;flex:none}
+  .o-row.elim{color:var(--muted)}
+  .o-row.elim .winbar .nm{text-decoration:line-through;text-decoration-color:var(--red)}
+  .o-row .pwin{font-family:var(--mono);color:var(--yellow);font-weight:600}
+  .o-row.elim .pwin{color:var(--muted);font-weight:400}
+  .o-row .claim{font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .o-row .claim .cp{font-family:var(--mono);color:var(--green)}
+  .o-row .claim.c2 .cp,.o-row .claim.c3 .cp{color:var(--muted)}
+  .o-row .tname{display:flex;align-items:center;gap:7px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .o-row .tp{font-family:var(--mono);color:var(--yellow)}
+
   /* ---------- rules / reference ---------- */
   .rules{max-width:800px}
   .rule-block{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:15px 18px;margin-bottom:14px}
@@ -285,6 +313,10 @@
     .num.behind{display:none}
     .pick-line,.pick-head{grid-template-columns:1fr 44px 62px 62px}
     .pick-line .c-max,.pick-head .h-max{display:none}
+    .o-win .o-head,.o-win .o-row{grid-template-columns:22px 1fr 58px 58px;gap:7px}
+    .o-win .h-pts,.o-win .c-pts{display:none}
+    .o-champ .o-head,.o-champ .o-row{grid-template-columns:minmax(96px,1fr) 44px 1.2fr;gap:7px}
+    .o-champ .claim.c2,.o-champ .claim.c3,.o-champ .h-c2,.o-champ .h-c3{display:none}
     header::after{display:none}
   }
 </style>
@@ -307,6 +339,7 @@
   <button class="tab" role="tab" aria-selected="false" data-t="matches">Matches</button>
   <button class="tab" role="tab" aria-selected="false" data-t="teams">Teams</button>
   <button class="tab" role="tab" aria-selected="false" data-t="stats">Stats</button>
+  <button class="tab" role="tab" aria-selected="false" data-t="odds">Odds</button>
   <button class="tab" role="tab" aria-selected="false" data-t="rules">Rules</button>
 </div></nav>
 
@@ -332,6 +365,11 @@
 
   <section id="sec-stats" role="tabpanel" hidden>
     <div class="stat-grid" id="stats"></div>
+  </section>
+
+  <section id="sec-odds" role="tabpanel" hidden>
+    <h2>Pool projections &mdash; every remaining bracket enumerated, priced by live markets</h2>
+    <div id="odds"></div>
   </section>
 
   <section id="sec-rules" role="tabpanel" hidden>
@@ -411,7 +449,9 @@
         <p class="muted" style="margin-top:10px">Tap any entry to see its five
           picks broken out, with each team's results and its chance to advance.
           The <b>Teams</b> tab lists all 48 with multiples, owners, and live
-          advance odds.</p>
+          advance odds. The <b>Odds</b> tab projects the pool itself &mdash;
+          each entry's chance to win, and who takes it under every possible
+          champion.</p>
       </div>
 
       <div class="rule-block">
@@ -746,7 +786,68 @@ function render(D){
   renderMatches(D, calcs);
   renderTeams(D);
   renderStats(D, calcs, pot, payouts);
+  renderOdds(D, calcs);
   renderRules(D, pot, payouts);
+}
+
+function renderOdds(D, calcs){
+  const el = document.getElementById("odds");
+  const pool = D.probs && D.probs.pool;
+  if (!pool){
+    el.innerHTML = `<div class="empty">Pool projections unlock once the knockout bracket is set — check back after the group stage.</div>`;
+    return;
+  }
+  const pct = v => v<=0 ? "0%" : v<0.01 ? "<1%" : (v>0.99 && v<1) ? ">99%" : Math.round(v*100)+"%";
+  const curOf = {};
+  calcs.forEach(c=>{ curOf[c.e.name] = c.cur; });
+
+  // ---- table 1: pool win odds, all entries ----
+  const elim = new Set(pool.eliminated);
+  const rows = Object.entries(pool.win)
+    .sort((a,b)=> b[1]-a[1] || pool.podium[b[0]]-pool.podium[a[0]] || (curOf[b[0]]||0)-(curOf[a[0]]||0)
+                || elim.has(a[0])-elim.has(b[0]) || a[0].localeCompare(b[0]));
+  const maxWin = rows.length ? Math.max(rows[0][1], 0.01) : 1;
+  const winRows = rows.map(([n,v],i)=>{
+    const isElim = elim.has(n);
+    const bar = v>0 ? `<span class="bar" style="width:${Math.max((v/maxWin)*90,2)}px"></span>` : "";
+    return `<div class="o-row ${isElim?'elim':''}">
+      <div class="rank">${i+1}</div>
+      <div class="winbar"><span class="nm">${esc(n)}</span>${bar}</div>
+      <div class="r mono c-pts">${fmt(curOf[n] ?? 0)}</div>
+      <div class="r pwin">${isElim?"&mdash;":pct(v)}</div>
+      <div class="r mono">${isElim?"&mdash;":pct(pool.podium[n])}</div>
+    </div>`;
+  }).join("");
+  const t1 = `<div class="o-block o-win">
+    <h3>Pool win odds</h3>
+    <div class="o-head"><div>#</div><div>Entry</div><div class="r h-pts">Points</div><div class="r">Win</div><div class="r">Top 3</div></div>
+    ${winRows}
+    <div class="o-note">Every remaining bracket outcome enumerated exactly, weighted by live market odds
+      (DraftKings match lines + Polymarket stage &amp; title markets). &mdash; = mathematically eliminated
+      from the podium: no possible combination of remaining results reaches the top 3.</div>
+  </div>`;
+
+  // ---- table 2: champion -> pool winner ----
+  const bc = Object.entries(pool.byChamp).sort((a,b)=>b[1].p-a[1].p);
+  const claim = (c, cls) => c ? `<div class="claim ${cls}">${esc(c[0])} <span class="cp">${pct(c[1])}</span></div>` : `<div class="claim ${cls}">&mdash;</div>`;
+  const champRows = bc.map(([code,v])=>{
+    const t = D.teamMap[code] || {flag:"",name:code};
+    return `<div class="o-row">
+      <div class="tname">${t.flag} ${esc(t.name)}</div>
+      <div class="r tp">${pct(v.p)}</div>
+      ${claim(v.top[0],"c1")}${claim(v.top[1],"c2")}${claim(v.top[2],"c3")}
+    </div>`;
+  }).join("");
+  const t2 = `<div class="o-block o-champ">
+    <h3>If they win the Cup, who wins the pool?</h3>
+    <div class="o-head"><div>Champion</div><div class="r">Title</div><div>Most likely winner</div><div class="h-c2">2nd claim</div><div class="h-c3">3rd claim</div></div>
+    ${champRows}
+    <div class="o-note">Title = that team's market-implied chance of winning it all. The claims are each entry's
+      probability of finishing 1st in the pool <i>given</i> that champion — they reflect how the rest of the
+      bracket tends to break when that team goes all the way.</div>
+  </div>`;
+
+  el.innerHTML = t1 + t2;
 }
 
 function renderRules(D, pot, payouts){
@@ -940,26 +1041,6 @@ function renderStats(D, calcs, pot, payouts){
     html += card("Title odds (market)", fav.map(t=>
       `<div class="kv"><span>${t.flag} ${esc(t.name)} <span style="color:var(--muted)">×${t.mult}</span></span><span class="v">${Math.round(t.wf*100)}%</span></div>`).join(""),
       "Implied by Polymarket title odds + DraftKings match lines, simulated over the remaining bracket.");
-  }
-
-  const pool = D.probs && D.probs.pool;
-  if (pool){
-    const pct = v => v<=0 ? "0%" : v<0.01 ? "<1%" : (v>0.99 && v<1) ? ">99%" : Math.round(v*100)+"%";
-    const winners = Object.entries(pool.win)
-      .sort((a,b)=> b[1]-a[1] || pool.podium[b[0]]-pool.podium[a[0]]).slice(0,10);
-    html += card("Pool win odds", winners.map(([n,v],i)=>
-      `<div class="kv"><span>${i+1}. ${esc(n)}</span><span class="v">${pct(v)} <span style="color:var(--muted)">· top-3 ${pct(pool.podium[n])}</span></span></div>`).join(""),
-      "Every remaining bracket outcome enumerated exactly, weighted by live market odds."
-      + (pool.eliminated.length ? ` Mathematically eliminated from the podium: ${pool.eliminated.map(esc).join(", ")}.` : ""));
-
-    const bc = Object.entries(pool.byChamp).sort((a,b)=>b[1].p-a[1].p);
-    html += card("If they win the Cup, who wins the pool?", bc.map(([code,v])=>{
-      const t = D.teamMap[code] || {flag:"",name:code};
-      const top = v.top[0], second = v.top[1];
-      return `<div class="kv"><span>${t.flag} ${esc(t.name)} <span style="color:var(--muted)">${pct(v.p)}</span></span>
-        <span class="v">${top?`${esc(top[0])} ${pct(top[1])}`:"&mdash;"}${second?` <span style="color:var(--muted)">· ${esc(second[0])} ${pct(second[1])}</span>`:""}</span></div>`;
-    }).join(""),
-      "Grey % after the team = its title chance; right side = most likely pool winner if that team lifts the trophy, plus the next-best claim.");
   }
 
   html += card("Best-case finishes", ceiling.slice(0,5).map((c,i)=>
