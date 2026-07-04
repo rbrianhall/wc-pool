@@ -942,6 +942,26 @@ function renderStats(D, calcs, pot, payouts){
       "Implied by Polymarket title odds + DraftKings match lines, simulated over the remaining bracket.");
   }
 
+  const pool = D.probs && D.probs.pool;
+  if (pool){
+    const pct = v => v<=0 ? "0%" : v<0.01 ? "<1%" : (v>0.99 && v<1) ? ">99%" : Math.round(v*100)+"%";
+    const winners = Object.entries(pool.win)
+      .sort((a,b)=> b[1]-a[1] || pool.podium[b[0]]-pool.podium[a[0]]).slice(0,10);
+    html += card("Pool win odds", winners.map(([n,v],i)=>
+      `<div class="kv"><span>${i+1}. ${esc(n)}</span><span class="v">${pct(v)} <span style="color:var(--muted)">· top-3 ${pct(pool.podium[n])}</span></span></div>`).join(""),
+      "Every remaining bracket outcome enumerated exactly, weighted by live market odds."
+      + (pool.eliminated.length ? ` Mathematically eliminated from the podium: ${pool.eliminated.map(esc).join(", ")}.` : ""));
+
+    const bc = Object.entries(pool.byChamp).sort((a,b)=>b[1].p-a[1].p);
+    html += card("If they win the Cup, who wins the pool?", bc.map(([code,v])=>{
+      const t = D.teamMap[code] || {flag:"",name:code};
+      const top = v.top[0], second = v.top[1];
+      return `<div class="kv"><span>${t.flag} ${esc(t.name)} <span style="color:var(--muted)">${pct(v.p)}</span></span>
+        <span class="v">${top?`${esc(top[0])} ${pct(top[1])}`:"&mdash;"}${second?` <span style="color:var(--muted)">· ${esc(second[0])} ${pct(second[1])}</span>`:""}</span></div>`;
+    }).join(""),
+      "Grey % after the team = its title chance; right side = most likely pool winner if that team lifts the trophy, plus the next-best claim.");
+  }
+
   html += card("Best-case finishes", ceiling.slice(0,5).map((c,i)=>
     `<div class="kv"><span>${i+1}. ${esc(c.e.name)}${c.e.ai?" 🤖":""}</span><span class="v">${fmt(c.best)} max</span></div>`).join(""),
     "Picks slotted into the best legal combination of finishes — one champion, one runner-up, one third, one fourth, QF exits beyond that.");

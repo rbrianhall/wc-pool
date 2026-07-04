@@ -194,13 +194,18 @@ def main() -> int:
             stage[ms] = old_stage[ms]
     probs = old_probs
     if champ:
-        h = probs_mod.inputs_hash(matches, status, champ, stage)
+        h = probs_mod.inputs_hash(matches, status, champ, stage, data["entries"])
         if h != old_probs.get("inputsHash"):
             result = probs_mod.compute(data["teams"], matches, status, champ, stage)
+            pool = probs_mod.pool_odds(data["teams"], matches, status, champ,
+                                       stage, data["entries"])
             probs = {**result, "champ": champ, "stage": stage, "inputsHash": h,
                      "updated": datetime.now(timezone.utc).isoformat(timespec="seconds")}
+            if pool:
+                probs["pool"] = pool
             print(f"Recomputed probs ({result['nSims']} sims, BT k={result['btK']}, "
-                  f"market-anchored={result['anchored']}).")
+                  f"market-anchored={result['anchored']}, "
+                  f"pool={'yes' if pool else 'n/a'}).")
 
     # Only rewrite (-> commit -> Pages redeploy) when something real changed
     changed = (matches != data.get("matches")) or (status != data.get("status")) \

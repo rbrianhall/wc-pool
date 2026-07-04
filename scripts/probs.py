@@ -306,14 +306,171 @@ def calibrate_rounds(teams, matches, status, champ, stage_raw):
     return strength, k, (u_qf if wqf_t else None), (u_deep if wf_t else None)
 
 
-def inputs_hash(matches, status, champ, stage=None):
+def inputs_hash(matches, status, champ, stage=None, entries=None):
     sig = json.dumps([
         MODEL_VERSION,
         [[m["date"], m["stage"], m["home"], m["away"], m["hs"], m["as"],
           m["status"], m.get("odds")] for m in matches],
         status, champ, stage or {},
+        [[e["name"], e["picks"], bool(e.get("ai"))] for e in (entries or [])],
     ], sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(sig.encode()).hexdigest()[:16]
+
+
+def pool_odds(teams, matches, status, champ, stage, entries):
+    """Exact enumeration of every remaining bracket outcome (<= 2^16 incl. the
+    3rd-place match), weighted by the same market-anchored match probabilities
+    the sim uses. Returns per-entry P(win pool) / P(podium), the entries
+    mathematically eliminated from the podium, and the most likely pool
+    winners conditional on each champion — or None until the R16 bracket
+    holds 16 real teams. Deterministic (no randomness). AI entries excluded."""
+    codes = [t[0] for t in teams]
+    code_set = set(codes)
+    mult = {t[0]: t[3] for t in teams}
+    strength, _k, u_qf, u_deep = calibrate_rounds(teams, matches, status, champ, stage)
+    u_qf, u_deep = u_qf or strength, u_deep or strength
+    w16_t = devig_stage((stage or {}).get("w16", {}), 8, status, "w16", code_set)
+
+    ko = {s: [] for s in list(WIN_ACH) + ["Third-place match"]}
+    for m in matches:
+        if m["stage"] in ko:
+            ko[m["stage"]].append(m)
+    for s in ko:
+        ko[s].sort(key=lambda m: m["date"])
+    r16, qf, sf, fin = (ko["Round of 16"], ko["Quarter-final"],
+                        ko["Semi-final"], ko["Final"])
+    tp = ko["Third-place match"][0] if ko["Third-place match"] else None
+    if (len(r16) != 8 or len(qf) != 4 or len(sf) != 2 or len(fin) != 1 or
+            any(m["home"] not in code_set or m["away"] not in code_set for m in r16)):
+        return None
+
+    def share(h, a, u):
+        return u[h] / (u[h] + u[a])
+
+    def fixture_p(m, h, a, u, ach):
+        """P(h beats a), honoring a finished result and fixture odds in
+        either orientation; falls back to round strengths."""
+        if m is not None:
+            if m["status"] == "finished":
+                w = _ko_winner(m, ach, status)
+                if w == h:
+                    return 1.0
+                if w == a:
+                    return 0.0
+            o = m.get("odds")
+            if o and m["home"] == h and m["away"] == a:
+                return min(1.0, o[0] + o[1] * share(h, a, u))
+            if o and m["home"] == a and m["away"] == h:
+                return max(0.0, 1.0 - min(1.0, o[0] + o[1] * share(a, h, u)))
+        return share(h, a, u)
+
+    R16 = []
+    for m in r16:
+        h, a = m["home"], m["away"]
+        p = fixture_p(m, h, a, strength, "w16")
+        if m["status"] != "finished" and not m.get("odds") and h in w16_t and a in w16_t:
+            p = w16_t[h] / (w16_t[h] + w16_t[a])
+        R16.append((h, a, p))
+    QF_F, SF_F = BRACKET["Quarter-final"], BRACKET["Semi-final"]
+
+    humans = [e for e in entries if not e.get("ai")]
+    banked = {e["name"]: sum(
+        sum(PTS[x] for x in status.get(c, {}).get("ach", [])) * mult[c]
+        for c in e["picks"]) for e in humans}
+    pick_list = {e["name"]: [(c, mult[c]) for c in e["picks"]] for e in humans}
+    names = [e["name"] for e in humans]
+
+    win, pod = {n: 0.0 for n in names}, {n: 0.0 for n in names}
+    ever = {n: False for n in names}
+    champ_p, cond = {}, {}
+    W16, WQF, WSF, WF, W3 = (PTS["w16"], PTS["wqf"], PTS["wsf"],
+                             PTS["wf"], PTS["w3rd"])
+
+    def credit(add, p, champion):
+        totals = sorted(
+            ((banked[n] + sum(add.get(c, 0) * m for c, m in pick_list[n]), n)
+             for n in names), reverse=True)
+        i, rank = 0, 1
+        while i < len(totals) and rank <= 3:
+            j = i
+            while j < len(totals) and totals[j][0] == totals[i][0]:
+                j += 1
+            tied = [n for _s, n in totals[i:j]]
+            podium_ranks = sum(1 for r in range(rank, rank + len(tied)) if r <= 3)
+            if podium_ranks:
+                for n in tied:
+                    pod[n] += p * podium_ranks / len(tied)
+                    ever[n] = True
+                if rank == 1:
+                    for n in tied:
+                        win[n] += p / len(tied)
+                        cond.setdefault(champion, {})[n] = \
+                            cond.setdefault(champion, {}).get(n, 0.0) + p / len(tied)
+            rank += len(tied)
+            i = j
+        champ_p[champion] = champ_p.get(champion, 0.0) + p
+
+    for m16 in range(256):
+        w16w, p16 = [], 1.0
+        for g in range(8):
+            h, a, ph = R16[g]
+            t, pb = (h, ph) if (m16 >> g) & 1 else (a, 1 - ph)
+            w16w.append(t); p16 *= pb
+        if p16 == 0.0:
+            continue
+        add16 = {t: W16 for t in w16w}
+        qf_pairs = [(w16w[fa], w16w[fb]) for fa, fb in QF_F]
+        qf_p = [fixture_p(qf[g], *qf_pairs[g], u_qf, "wqf") for g in range(4)]
+        for mqf in range(16):
+            wqfw, pqf = [], p16
+            for g in range(4):
+                h, a = qf_pairs[g]
+                t, pb = (h, qf_p[g]) if (mqf >> g) & 1 else (a, 1 - qf_p[g])
+                wqfw.append(t); pqf *= pb
+            if pqf == 0.0:
+                continue
+            sf_pairs = [(wqfw[fa], wqfw[fb]) for fa, fb in SF_F]
+            sf_p = [fixture_p(sf[g], *sf_pairs[g], u_deep, "wsf") for g in range(2)]
+            for msf in range(4):
+                wsfw, lsfw, psf = [], [], pqf
+                for g in range(2):
+                    h, a = sf_pairs[g]
+                    hw = (msf >> g) & 1
+                    wsfw.append(h if hw else a); lsfw.append(a if hw else h)
+                    psf *= sf_p[g] if hw else 1 - sf_p[g]
+                if psf == 0.0:
+                    continue
+                pf_h = fixture_p(fin[0], wsfw[0], wsfw[1], u_deep, "wf")
+                p3_h = fixture_p(tp, lsfw[0], lsfw[1], u_deep, "w3rd") if tp else 0.5
+                for mf in range(2):
+                    champion = wsfw[0] if mf else wsfw[1]
+                    pf = psf * (pf_h if mf else 1 - pf_h)
+                    if pf == 0.0:
+                        continue
+                    for m3 in range(2):
+                        third = lsfw[0] if m3 else lsfw[1]
+                        p = pf * (p3_h if m3 else 1 - p3_h)
+                        if p == 0.0:
+                            continue
+                        add = dict(add16)
+                        for t in wqfw:
+                            add[t] += WQF
+                        for t in wsfw:
+                            add[t] += WSF
+                        add[champion] += WF
+                        add[third] = add.get(third, 0) + W3
+                        credit(add, p, champion)
+
+    by_champ = {t: {"p": round(cp, 4),
+                    "top": [[n, round(v / cp, 3)] for n, v in
+                            sorted(cond.get(t, {}).items(), key=lambda kv: -kv[1])[:3]]}
+                for t, cp in champ_p.items() if cp > 1e-9}
+    return {
+        "win": {n: round(win[n], 4) for n in names},
+        "podium": {n: round(pod[n], 4) for n in names},
+        "eliminated": sorted(n for n in names if not ever[n]),
+        "byChamp": by_champ,
+    }
 
 
 def compute(teams, matches, status, champ, stage=None):
