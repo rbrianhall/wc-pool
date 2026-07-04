@@ -76,8 +76,11 @@ feed an 8,000-run Monte Carlo of the remaining tournament, written to
 `data.json` under `probs`. Things to know:
 
 - **Polymarket down or changed?** The script warns and reuses the stored
-  `probs.champ` values — the site keeps working with slightly stale title
-  odds. Nothing goes red.
+  `probs.champ` / `probs.stage` values — the site keeps working with
+  slightly stale odds. Nothing goes red. (`probs.stage` holds the
+  reach-quarterfinals / reach-semifinals market prices that anchor the
+  knockout rounds; if those markets vanish the model falls back to pure
+  Bradley-Terry strengths automatically.)
 - **Commit churn is suppressed by design**: match odds only update when an
   outcome probability moves ≥ 2 points, title odds ≥ 1 point, and the Monte
   Carlo is seeded from a hash of its inputs (identical inputs → identical

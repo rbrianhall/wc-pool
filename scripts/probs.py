@@ -26,6 +26,7 @@ Stdlib only — runs in the GitHub Action with no pip installs.
 
 import hashlib
 import json
+import math
 import random
 import sys
 import urllib.request
@@ -49,7 +50,7 @@ WIN_ACH = {"Round of 32": "w32", "Round of 16": "w16", "Quarter-final": "wqf",
 CHAMP_FLOOR = 0.001     # strength floor for teams the market prices at ~0
 DRAW_SHARE = 0.24       # group-match draw probability when no market odds exist
 N_SIMS = 8000
-MODEL_VERSION = 2       # bump to force a recompute after model/code changes
+MODEL_VERSION = 3       # bump to force a recompute after model/code changes
 
 # Knockout bracket wiring, FIFA matches 73–104, verified against the official
 # schedule (Wikipedia "2026 FIFA World Cup knockout stage" + fifa.com, June
@@ -98,35 +99,69 @@ def implied_from_event(event):
     return [round(h / s, 3), round(d / s, 3), round(a / s, 3)] if s > 0 else None
 
 
-def fetch_champ(name_to_code):
-    """{code: P(champion)} from Polymarket's world-cup-winner event, or None
-    on any failure (caller keeps the previously stored values)."""
+def _pm_lookup(name_to_code):
     lookup = dict(name_to_code)
     for pm_name, our_name in PM_ALIASES.items():
         if our_name in name_to_code:
             lookup[pm_name] = name_to_code[our_name]
+    return lookup
+
+
+def _fetch_pm_event(slug, split_token, lookup, min_teams):
+    """Generic Polymarket event fetch: parse 'Will <team> <split_token>...'
+    questions into {code: yes_price}. None on any failure."""
     try:
         req = urllib.request.Request(
-            POLYMARKET_URL, headers={"User-Agent": "Mozilla/5.0 (pool tracker)"})
+            "https://gamma-api.polymarket.com/events?slug=" + slug,
+            headers={"User-Agent": "Mozilla/5.0 (pool tracker)"})
         with urllib.request.urlopen(req, timeout=20) as resp:
             markets = json.load(resp)[0]["markets"]
     except Exception as e:                                    # noqa: BLE001
-        print(f"WARN: Polymarket fetch failed ({e}); keeping stored champ odds.",
-              file=sys.stderr)
+        print(f"WARN: Polymarket fetch failed for {slug} ({e}); "
+              "keeping stored values.", file=sys.stderr)
         return None
-    champ = {}
+    out = {}
     for m in markets:
         q = m.get("question", "")
-        if not q.startswith("Will ") or " win the 2026 FIFA World Cup" not in q:
+        if not q.startswith("Will ") or split_token not in q:
             continue
-        code = lookup.get(q[5:q.index(" win the 2026")])
+        code = lookup.get(q[5:q.index(split_token)])
         if not code:
             continue
         try:
-            champ[code] = round(float(json.loads(m["outcomePrices"])[0]), 3)
+            out[code] = round(float(json.loads(m["outcomePrices"])[0]), 3)
         except (KeyError, ValueError, IndexError, TypeError):
             continue
-    return champ if len(champ) >= 24 else None
+    return out if len(out) >= min_teams else None
+
+
+def fetch_champ(name_to_code):
+    """{code: P(champion)} from Polymarket's world-cup-winner event, or None
+    on any failure (caller keeps the previously stored values)."""
+    return _fetch_pm_event("world-cup-winner", " win the 2026",
+                           _pm_lookup(name_to_code), 24)
+
+
+# Stage-advancement markets (open mid-tournament): milestone -> (slug, token).
+# w16 = win R16 = reach QF; wqf = win QF = reach SF. There is no market for
+# reach-final or the 3rd-place match — those rounds interpolate between the
+# reach-SF anchor and the champion anchor via calibrated strengths.
+STAGE_MARKETS = {
+    "w16": ("world-cup-nation-to-reach-quarterfinals", " reach the Quarterfinals"),
+    "wqf": ("world-cup-nation-to-reach-semifinals", " reach the Semifinals"),
+}
+
+
+def fetch_stage_markets(name_to_code):
+    """{milestone: {code: raw_yes_price}} for the stage markets that exist.
+    Missing/failed markets are simply absent from the result."""
+    lookup = _pm_lookup(name_to_code)
+    out = {}
+    for ms, (slug, token) in STAGE_MARKETS.items():
+        got = _fetch_pm_event(slug, token, lookup, 8)
+        if got:
+            out[ms] = got
+    return out
 
 
 def apply_hysteresis(new, old, threshold):
@@ -167,32 +202,142 @@ def _sample(rng, pairs):
     return pairs[-1][0]
 
 
-def inputs_hash(matches, status, champ):
+def devig_stage(raw, slots, status, milestone, code_set):
+    """Market yes-prices -> calibration targets: keep alive, undecided teams
+    and scale so the total equals the number of slots still unclaimed."""
+    banked = sum(1 for c, v in status.items() if milestone in v.get("ach", []))
+    pool = {c: p for c, p in raw.items()
+            if c in code_set and 0.0 < p < 1.0
+            and status.get(c, {}).get("state") != "out"
+            and milestone not in status.get(c, {}).get("ach", [])}
+    s = sum(pool.values())
+    remaining = max(slots - banked, 0)
+    if s <= 0 or remaining == 0:
+        return {}
+    return {c: min(p * remaining / s, 0.995) for c, p in pool.items()}
+
+
+def _ko_winner(m, ach_key, status):
+    """Winner of a finished knockout match (status carries pens results)."""
+    if m["hs"] is not None and m["hs"] != m["as"]:
+        return m["home"] if m["hs"] > m["as"] else m["away"]
+    for c in (m["home"], m["away"]):
+        if c in status and ach_key in status[c].get("ach", []):
+            return c
+    return None
+
+
+def calibrate_rounds(teams, matches, status, champ, stage_raw):
+    """Fit per-round strengths to the market's stage anchors so the model
+    reproduces P(win QF) = reach-SF market and P(champion) = title market.
+    Only possible once the R16 bracket holds 16 real teams. Returns
+    (strength, u_qf, u_deep) — u_* are None when calibration isn't available.
+    Deterministic: pure fixed-point iteration, no randomness."""
+    codes = [t[0] for t in teams]
+    code_set = set(codes)
+    champ_full = {c: max(champ.get(c, 0.0), CHAMP_FLOOR) for c in codes}
+    market_matches = [(m["home"], m["away"], *m["odds"]) for m in matches
+                      if m.get("odds") and m["home"] in code_set and m["away"] in code_set]
+    strength, k = fit_strengths(champ_full, market_matches)
+
+    ko = {s: [] for s in list(WIN_ACH)}
+    for m in matches:
+        if m["stage"] in ko:
+            ko[m["stage"]].append(m)
+    for s in ko:
+        ko[s].sort(key=lambda m: m["date"])
+    r16, qf, sf, fin = (ko["Round of 16"], ko["Quarter-final"],
+                        ko["Semi-final"], ko["Final"])
+    if (len(r16) != 8 or len(qf) != 4 or len(sf) != 2 or len(fin) != 1 or
+            any(m["home"] not in code_set or m["away"] not in code_set for m in r16)):
+        return strength, k, None, None
+
+    w16_t = devig_stage((stage_raw or {}).get("w16", {}), 8, status, "w16", code_set)
+    wqf_t = devig_stage((stage_raw or {}).get("wqf", {}), 4, status, "wqf", code_set)
+    wf_t = devig_stage(champ, 1, status, "wf", code_set)
+
+    def pair_p(h, a, m, u):
+        odds = m.get("odds") if (m["home"] == h and m["away"] == a) else None
+        if odds:
+            return min(1.0, odds[0] + odds[1] * u[h] / (u[h] + u[a]))
+        if u is strength and h in w16_t and a in w16_t:   # R16: market fallback
+            return w16_t[h] / (w16_t[h] + w16_t[a])
+        return u[h] / (u[h] + u[a])
+
+    def game_dist(m, dh, da, u, ach):
+        if m["status"] == "finished":
+            w = _ko_winner(m, ach, status)
+            if w:
+                return {w: 1.0}
+        out = {}
+        for t, pt in dh.items():
+            for o, po in da.items():
+                w = pair_p(t, o, m, u)
+                out[t] = out.get(t, 0.0) + pt * po * w
+                out[o] = out.get(o, 0.0) + pt * po * (1 - w)
+        return out
+
+    def marginals(u_qf, u_deep):
+        d16 = [game_dist(m, {m["home"]: 1.0}, {m["away"]: 1.0}, strength, "w16")
+               for m in r16]
+        dqf = [game_dist(qf[i], d16[fa], d16[fb], u_qf, "wqf")
+               for i, (fa, fb) in enumerate(BRACKET["Quarter-final"])]
+        dsf = [game_dist(sf[i], dqf[fa], dqf[fb], u_deep, "wsf")
+               for i, (fa, fb) in enumerate(BRACKET["Semi-final"])]
+        dfin = game_dist(fin[0], dsf[0], dsf[1], u_deep, "wf")
+        wqf_m = {}
+        for dist in dqf:
+            wqf_m.update(dist)
+        return wqf_m, dfin
+
+    u_qf, u_deep = dict(strength), dict(strength)
+    for _ in range(80):
+        wqf_m, wf_m = marginals(u_qf, u_deep)
+        worst = 0.0
+        for tgt, mod, u in ((wqf_t, wqf_m, u_qf), (wf_t, wf_m, u_deep)):
+            for t, v in tgt.items():
+                p = mod.get(t, 0.0)
+                if p > 1e-9:
+                    r = min(max((v / p) ** 0.5, 0.5), 2.0)
+                    u[t] *= r
+                    worst = max(worst, abs(math.log(r)))
+        if worst < 0.004:
+            break
+    return strength, k, (u_qf if wqf_t else None), (u_deep if wf_t else None)
+
+
+def inputs_hash(matches, status, champ, stage=None):
     sig = json.dumps([
         MODEL_VERSION,
         [[m["date"], m["stage"], m["home"], m["away"], m["hs"], m["as"],
           m["status"], m.get("odds")] for m in matches],
-        status, champ,
+        status, champ, stage or {},
     ], sort_keys=True, ensure_ascii=False)
     return hashlib.sha256(sig.encode()).hexdigest()[:16]
 
 
-def compute(teams, matches, status, champ):
+def compute(teams, matches, status, champ, stage=None):
     """Monte Carlo the remaining tournament. Returns the data.json `probs`
-    payload (without bookkeeping fields, which the caller adds)."""
+    payload (without bookkeeping fields, which the caller adds).
+    `stage` = raw Polymarket stage-market prices ({milestone: {code: p}}):
+    when the knockout bracket is set, per-round strengths are calibrated so
+    P(win QF) matches the reach-SF market and P(champion) the title market;
+    without them the global Bradley-Terry strengths are used as before."""
     codes = [t[0] for t in teams]
     code_set = set(codes)
     group_of = {t[0]: t[2] for t in teams}
     groups = sorted({t[2] for t in teams})
 
     champ_full = {c: max(champ.get(c, 0.0), CHAMP_FLOOR) for c in codes}
-    market_matches = [(m["home"], m["away"], *m["odds"]) for m in matches
-                      if m.get("odds") and m["home"] in code_set and m["away"] in code_set]
-    strength, bt_k = fit_strengths(champ_full, market_matches)
+    strength, bt_k, u_qf, u_deep = calibrate_rounds(teams, matches, status,
+                                                    champ, stage)
+    w16_t = devig_stage((stage or {}).get("w16", {}), 8, status, "w16", code_set)
+    stage_u = {"Round of 32": None, "Round of 16": None,
+               "Quarter-final": u_qf, "Semi-final": u_deep, "Final": u_deep}
 
-    def bt(a, b):
-        ra, rb = strength[a], strength[b]
-        return ra / (ra + rb)
+    def bt(a, b, u=None):
+        u = u or strength
+        return u[a] / (u[a] + u[b])
 
     # ---- static prep ------------------------------------------------------
     base_tables = {g: {} for g in groups}            # code -> [pts, gd, gf]
@@ -247,12 +392,16 @@ def compute(teams, matches, status, champ):
                 return c
         return None
 
-    def p_advance(h, a, odds):
-        """P(home advances) in a knockout tie; draws resolved by BT share."""
+    def p_advance(h, a, odds, u=None, r16=False):
+        """P(home advances) in a knockout tie. Priority: sportsbook match
+        odds, then (R16 only) the reach-QF market pair ratio, then the
+        round-calibrated (or global) strengths."""
         if odds:
             ph, pd = odds[0], odds[1]
-            return min(1.0, ph + pd * bt(h, a))
-        return bt(h, a)
+            return min(1.0, ph + pd * bt(h, a, u))
+        if r16 and h in w16_t and a in w16_t:
+            return w16_t[h] / (w16_t[h] + w16_t[a])
+        return bt(h, a, u)
 
     def assign_thirds(best8, rng):
         """Match the 8 advancing third-place groups to constrained slots via
@@ -281,7 +430,7 @@ def compute(teams, matches, status, champ):
                 out[si] = pool[si % len(pool)]
         return out
 
-    rng = random.Random(int(inputs_hash(matches, status, champ_full), 16))
+    rng = random.Random(int(inputs_hash(matches, status, champ_full, stage), 16))
     counts = {c: {ms: 0 for ms in MILESTONES} for c in codes}
 
     # ---- simulate ----------------------------------------------------------
@@ -348,13 +497,15 @@ def compute(teams, matches, status, champ):
                 if h is None or a is None:
                     winners.append(None)
                     continue
+                u = stage_u.get(stage)
+                is_r16 = stage == "Round of 16"
                 if m["status"] == "finished":
                     w = ko_winner(m, ach)
                     if w is None:
-                        w = h if rng.random() < p_advance(h, a, m.get("odds")) else a
+                        w = h if rng.random() < p_advance(h, a, m.get("odds"), u, is_r16) else a
                 else:
                     odds = m.get("odds") if (m["home"] == h and m["away"] == a) else None
-                    w = h if rng.random() < p_advance(h, a, odds) else a
+                    w = h if rng.random() < p_advance(h, a, odds, u, is_r16) else a
                 counts[w][ach] += 1
                 winners.append(w)
                 if stage == "Semi-final":
@@ -374,7 +525,7 @@ def compute(teams, matches, status, champ):
                     w = ko_winner(tp, "w3rd")
                 else:
                     odds = tp.get("odds") if (tp["home"] == h and tp["away"] == a) else None
-                    w = h if rng.random() < p_advance(h, a, odds) else a
+                    w = h if rng.random() < p_advance(h, a, odds, u_deep) else a
                 if w:
                     counts[w]["w3rd"] += 1
 
@@ -396,4 +547,5 @@ def compute(teams, matches, status, champ):
             probs[ms] = round(p, 3)
         probs["exp"] = round(sum(PTS[ms] * probs[ms] for ms in MILESTONES), 1)
         out[c] = probs
-    return {"teams": out, "btK": bt_k, "nSims": N_SIMS}
+    return {"teams": out, "btK": bt_k, "nSims": N_SIMS,
+            "anchored": bool(u_qf or u_deep)}

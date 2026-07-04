@@ -23,7 +23,10 @@ Live site: https://<username>.github.io/wc-pool/  (deploy = commit to main)
 - `scripts/probs.py` — market-implied probabilities: devigs the DraftKings
   moneylines embedded in the ESPN payload + Polymarket title odds, Monte
   Carlos the remaining tournament (verified FIFA bracket in `BRACKET`),
-  emits `probs.teams`. Deterministic (input-hash seed); bump `MODEL_VERSION`
+  emits `probs.teams`. Once the R16 bracket is set, per-round strengths are
+  calibrated to Polymarket's stage markets (reach-QF / reach-SF / champion —
+  no market exists for reach-final or the 3rd-place match; those interpolate
+  between anchors). Deterministic (input-hash seed); bump `MODEL_VERSION`
   to force a recompute after code changes.
 - `scripts/import_entries.py` — imports entries from Pete's xlsx; updates
   `data.json` AND the `DEFAULT_DATA` entries block in index.html.

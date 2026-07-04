@@ -178,19 +178,29 @@ def main() -> int:
 
     # ----- advancement probabilities (T3) -----
     old_probs = data.get("probs") or {}
-    champ = probs_mod.fetch_champ({t[1]: t[0] for t in data["teams"]})
+    name_to_code = {t[1]: t[0] for t in data["teams"]}
+    champ = probs_mod.fetch_champ(name_to_code)
     if champ is None:
         champ = old_probs.get("champ") or {}
     else:
         champ = probs_mod.apply_hysteresis(champ, old_probs.get("champ"), 0.01)
+    stage_new = probs_mod.fetch_stage_markets(name_to_code)
+    old_stage = old_probs.get("stage") or {}
+    stage = {}
+    for ms in probs_mod.STAGE_MARKETS:            # per-market fallback to stored
+        if ms in stage_new:
+            stage[ms] = probs_mod.apply_hysteresis(stage_new[ms], old_stage.get(ms), 0.01)
+        elif ms in old_stage:
+            stage[ms] = old_stage[ms]
     probs = old_probs
     if champ:
-        h = probs_mod.inputs_hash(matches, status, champ)
+        h = probs_mod.inputs_hash(matches, status, champ, stage)
         if h != old_probs.get("inputsHash"):
-            result = probs_mod.compute(data["teams"], matches, status, champ)
-            probs = {**result, "champ": champ, "inputsHash": h,
+            result = probs_mod.compute(data["teams"], matches, status, champ, stage)
+            probs = {**result, "champ": champ, "stage": stage, "inputsHash": h,
                      "updated": datetime.now(timezone.utc).isoformat(timespec="seconds")}
-            print(f"Recomputed probs ({result['nSims']} sims, BT k={result['btK']}).")
+            print(f"Recomputed probs ({result['nSims']} sims, BT k={result['btK']}, "
+                  f"market-anchored={result['anchored']}).")
 
     # Only rewrite (-> commit -> Pages redeploy) when something real changed
     changed = (matches != data.get("matches")) or (status != data.get("status")) \
