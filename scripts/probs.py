@@ -50,7 +50,7 @@ WIN_ACH = {"Round of 32": "w32", "Round of 16": "w16", "Quarter-final": "wqf",
 CHAMP_FLOOR = 0.001     # strength floor for teams the market prices at ~0
 DRAW_SHARE = 0.24       # group-match draw probability when no market odds exist
 N_SIMS = 8000
-MODEL_VERSION = 3       # bump to force a recompute after model/code changes
+MODEL_VERSION = 4       # bump to force a recompute after model/code changes
 
 # Knockout bracket wiring, FIFA matches 73–104, verified against the official
 # schedule (Wikipedia "2026 FIFA World Cup knockout stage" + fifa.com, June
@@ -377,6 +377,9 @@ def pool_odds(teams, matches, status, champ, stage, entries):
     banked = {e["name"]: sum(
         sum(PTS[x] for x in status.get(c, {}).get("ach", [])) * mult[c]
         for c in e["picks"]) for e in humans}
+    # Milestones already banked in `status` are inside `banked` — the replay
+    # of finished rounds below must not award them a second time.
+    banked_ach = {c: set(status.get(c, {}).get("ach", [])) for c in codes}
     pick_list = {e["name"]: [(c, mult[c]) for c in e["picks"]] for e in humans}
     names = [e["name"] for e in humans]
 
@@ -418,7 +421,7 @@ def pool_odds(teams, matches, status, champ, stage, entries):
             w16w.append(t); p16 *= pb
         if p16 == 0.0:
             continue
-        add16 = {t: W16 for t in w16w}
+        add16 = {t: W16 for t in w16w if "w16" not in banked_ach[t]}
         qf_pairs = [(w16w[fa], w16w[fb]) for fa, fb in QF_F]
         qf_p = [fixture_p(qf[g], *qf_pairs[g], u_qf, "wqf") for g in range(4)]
         for mqf in range(16):
@@ -454,11 +457,15 @@ def pool_odds(teams, matches, status, champ, stage, entries):
                             continue
                         add = dict(add16)
                         for t in wqfw:
-                            add[t] += WQF
+                            if "wqf" not in banked_ach[t]:
+                                add[t] = add.get(t, 0) + WQF
                         for t in wsfw:
-                            add[t] += WSF
-                        add[champion] += WF
-                        add[third] = add.get(third, 0) + W3
+                            if "wsf" not in banked_ach[t]:
+                                add[t] = add.get(t, 0) + WSF
+                        if "wf" not in banked_ach[champion]:
+                            add[champion] = add.get(champion, 0) + WF
+                        if "w3rd" not in banked_ach[third]:
+                            add[third] = add.get(third, 0) + W3
                         credit(add, p, champion)
 
     by_champ = {t: {"p": round(cp, 4),
