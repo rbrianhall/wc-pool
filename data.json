@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-10T21:01:02+00:00"
+    "lastUpdated": "2026-07-10T21:15:01+00:00"
   },
   "teams": [
     [
@@ -567,22 +567,6 @@
         "advanced"
       ]
     },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
     "IRN": {
       "state": "out",
       "ach": []
@@ -591,23 +575,7 @@
       "state": "out",
       "ach": []
     },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "PAN": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
+    "TUR": {
       "state": "out",
       "ach": []
     },
@@ -615,7 +583,19 @@
       "state": "out",
       "ach": []
     },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
     "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
       "state": "out",
       "ach": []
     },
@@ -623,11 +603,31 @@
       "state": "out",
       "ach": []
     },
-    "QAT": {
+    "CZE": {
       "state": "out",
       "ach": []
     },
     "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
       "state": "out",
       "ach": []
     }
@@ -2033,7 +2033,7 @@
       "date": "2026-07-14T19:00:00Z",
       "stage": "Semi-final",
       "home": "FRA",
-      "away": "QFW2",
+      "away": "ESP",
       "hs": null,
       "as": null,
       "status": "scheduled",
@@ -2116,9 +2116,9 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.263,
+        "wqf": 0.261,
         "wsf": 0.067,
-        "w3rd": 0.043,
+        "w3rd": 0.044,
         "wf": 0.012,
         "exp": 35.2
       },
@@ -2357,10 +2357,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.389,
-        "w3rd": 0.337,
-        "wf": 0.211,
-        "exp": 97.0
+        "wsf": 0.384,
+        "w3rd": 0.344,
+        "wf": 0.197,
+        "exp": 95.5
       },
       "URU": {
         "advanced": 0.0,
@@ -2397,20 +2397,20 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.611,
-        "w3rd": 0.261,
-        "wf": 0.38,
-        "exp": 123.1
+        "wsf": 0.616,
+        "w3rd": 0.254,
+        "wf": 0.392,
+        "exp": 124.4
       },
       "NOR": {
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.355,
-        "wsf": 0.176,
-        "w3rd": 0.066,
-        "wf": 0.065,
-        "exp": 48.8
+        "wqf": 0.352,
+        "wsf": 0.169,
+        "w3rd": 0.069,
+        "wf": 0.059,
+        "exp": 47.9
       },
       "SEN": {
         "advanced": 1.0,
@@ -2436,11 +2436,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.737,
-        "wsf": 0.4,
-        "w3rd": 0.159,
-        "wf": 0.178,
-        "exp": 83.2
+        "wqf": 0.739,
+        "wsf": 0.407,
+        "w3rd": 0.156,
+        "wf": 0.185,
+        "exp": 84.2
       },
       "AUT": {
         "advanced": 1.0,
@@ -2516,11 +2516,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.645,
+        "wqf": 0.648,
         "wsf": 0.357,
-        "w3rd": 0.134,
-        "wf": 0.153,
-        "exp": 75.6
+        "w3rd": 0.132,
+        "wf": 0.156,
+        "exp": 76.0
       },
       "CRO": {
         "advanced": 1.0,
@@ -2678,11 +2678,11 @@
         "JPN": 0.0,
         "TUN": 0.0,
         "SWE": 0.0,
-        "BEL": 0.029,
+        "BEL": 0.001,
         "IRN": 0.0,
         "EGY": 0.001,
         "NZL": 0.0,
-        "ESP": 0.969,
+        "ESP": 1.0,
         "URU": 0.0,
         "KSA": 0.0,
         "CPV": 0.0,
@@ -2704,8 +2704,8 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "7f3b436cacc512a0",
-    "updated": "2026-07-10T21:01:02+00:00",
+    "inputsHash": "1ed08a82d04103c6",
+    "updated": "2026-07-10T21:15:01+00:00",
     "pool": {
       "win": {
         "Aaron R.": 0.6938,
