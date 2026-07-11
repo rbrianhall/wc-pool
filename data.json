@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-11T20:58:56+00:00"
+    "lastUpdated": "2026-07-11T21:54:50+00:00"
   },
   "teams": [
     [
@@ -567,15 +567,19 @@
         "advanced"
       ]
     },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
     "QAT": {
       "state": "out",
       "ach": []
     },
-    "PAN": {
+    "JOR": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
       "state": "out",
       "ach": []
     },
@@ -583,11 +587,15 @@
       "state": "out",
       "ach": []
     },
-    "IRN": {
+    "PAN": {
       "state": "out",
       "ach": []
     },
-    "CUW": {
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
       "state": "out",
       "ach": []
     },
@@ -599,27 +607,7 @@
       "state": "out",
       "ach": []
     },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "SCO": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
+    "HAI": {
       "state": "out",
       "ach": []
     },
@@ -627,7 +615,19 @@
       "state": "out",
       "ach": []
     },
-    "CZE": {
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
       "state": "out",
       "ach": []
     }
@@ -2004,9 +2004,9 @@
       "stage": "Quarter-final",
       "home": "NOR",
       "away": "ENG",
-      "hs": null,
-      "as": null,
-      "status": "scheduled",
+      "hs": 1,
+      "as": 1,
+      "status": "live",
       "venue": "Hard Rock Stadium",
       "odds": [
         0.221,
@@ -2121,11 +2121,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.253,
-        "wsf": 0.066,
-        "w3rd": 0.041,
-        "wf": 0.012,
-        "exp": 34.9
+        "wqf": 0.245,
+        "wsf": 0.065,
+        "w3rd": 0.037,
+        "wf": 0.011,
+        "exp": 34.4
       },
       "CAN": {
         "advanced": 1.0,
@@ -2362,10 +2362,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.405,
-        "w3rd": 0.331,
-        "wf": 0.217,
-        "exp": 98.2
+        "wsf": 0.398,
+        "w3rd": 0.336,
+        "wf": 0.21,
+        "exp": 97.3
       },
       "URU": {
         "advanced": 0.0,
@@ -2402,20 +2402,20 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.595,
+        "wsf": 0.602,
         "w3rd": 0.275,
-        "wf": 0.392,
-        "exp": 123.8
+        "wf": 0.393,
+        "exp": 124.3
       },
       "NOR": {
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.328,
-        "wsf": 0.157,
-        "w3rd": 0.061,
-        "wf": 0.05,
-        "exp": 45.6
+        "wqf": 0.336,
+        "wsf": 0.158,
+        "w3rd": 0.065,
+        "wf": 0.054,
+        "exp": 46.3
       },
       "SEN": {
         "advanced": 1.0,
@@ -2441,11 +2441,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.747,
-        "wsf": 0.416,
-        "w3rd": 0.157,
-        "wf": 0.184,
-        "exp": 84.8
+        "wqf": 0.754,
+        "wsf": 0.415,
+        "w3rd": 0.158,
+        "wf": 0.181,
+        "exp": 84.7
       },
       "AUT": {
         "advanced": 1.0,
@@ -2521,11 +2521,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.672,
-        "wsf": 0.361,
-        "w3rd": 0.136,
-        "wf": 0.145,
-        "exp": 75.8
+        "wqf": 0.664,
+        "wsf": 0.362,
+        "w3rd": 0.129,
+        "wf": 0.15,
+        "exp": 75.9
       },
       "CRO": {
         "advanced": 1.0,
@@ -2666,7 +2666,7 @@
         "RSA": 0.0,
         "CZE": 0.0,
         "CAN": 0.004,
-        "SUI": 0.257,
+        "SUI": 0.244,
         "QAT": 0.0,
         "BRA": 0.0,
         "MAR": 0.002,
@@ -2693,7 +2693,7 @@
         "CPV": 0.0,
         "FRA": 1.0,
         "SEN": 0.0,
-        "NOR": 0.325,
+        "NOR": 0.335,
         "IRQ": 0.0,
         "ARG": 0.755,
         "AUT": 0.0,
@@ -2703,17 +2703,17 @@
         "COL": 0.001,
         "UZB": 0.0,
         "COD": 0.0,
-        "ENG": 0.675,
+        "ENG": 0.645,
         "CRO": 0.0,
         "PAN": 0.0,
         "GHA": 0.0
       }
     },
-    "inputsHash": "1d7c5639de6db1cf",
-    "updated": "2026-07-11T20:58:56+00:00",
+    "inputsHash": "290714bb6fdfcd1a",
+    "updated": "2026-07-11T21:54:50+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.7127,
+        "Aaron R.": 0.7136,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2721,13 +2721,13 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.1155,
+        "Brian H.": 0.1161,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
-        "Chris K. (#1)": 0.0248,
+        "Chris K. (#1)": 0.0257,
         "Chris K. (#2)": 0.0,
-        "Dan R.": 0.0687,
+        "Dan R.": 0.0661,
         "David O'D.": 0.0,
         "David Or.": 0.0,
         "Graham B.": 0.0,
@@ -2739,7 +2739,7 @@
         "Kevin B.": 0.0,
         "Kieran S.": 0.0,
         "Luke D.": 0.0,
-        "Marcus SK. (#1)": 0.0782,
+        "Marcus SK. (#1)": 0.0785,
         "Marcus SK. (#2)": 0.0,
         "Marcus SK. (#3)": 0.0,
         "Neal P.": 0.0,
@@ -2751,21 +2751,21 @@
         "Tommy W.": 0.0
       },
       "podium": {
-        "Aaron R.": 0.9323,
+        "Aaron R.": 0.9326,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
-        "Andrew M.": 0.6241,
+        "Andrew M.": 0.6231,
         "Andy C.": 0.0,
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.7296,
+        "Brian H.": 0.7303,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
-        "Chris K. (#1)": 0.1056,
+        "Chris K. (#1)": 0.108,
         "Chris K. (#2)": 0.0,
-        "Dan R.": 0.1774,
+        "Dan R.": 0.1713,
         "David O'D.": 0.0,
         "David Or.": 0.0,
         "Graham B.": 0.0,
@@ -2777,7 +2777,7 @@
         "Kevin B.": 0.0,
         "Kieran S.": 0.0,
         "Luke D.": 0.0,
-        "Marcus SK. (#1)": 0.1991,
+        "Marcus SK. (#1)": 0.1976,
         "Marcus SK. (#2)": 0.0,
         "Marcus SK. (#3)": 0.0,
         "Neal P.": 0.0,
@@ -2786,7 +2786,7 @@
         "Reilly P.": 0.0,
         "Sarah C.": 0.0,
         "Steve K.": 0.0,
-        "Tommy W.": 0.2319
+        "Tommy W.": 0.237
       },
       "eliminated": [
         "Andrew B. (#1)",
@@ -2824,12 +2824,12 @@
           "p": 0.0133,
           "top": [
             [
-              "Dan R.",
-              0.516
+              "Marcus SK. (#1)",
+              0.51
             ],
             [
-              "Marcus SK. (#1)",
-              0.484
+              "Dan R.",
+              0.49
             ]
           ]
         },
@@ -2842,11 +2842,11 @@
             ],
             [
               "Marcus SK. (#1)",
-              0.121
+              0.123
             ],
             [
               "Chris K. (#1)",
-              0.041
+              0.043
             ]
           ]
         },
@@ -2855,11 +2855,11 @@
           "top": [
             [
               "Aaron R.",
-              0.866
+              0.869
             ],
             [
               "Dan R.",
-              0.119
+              0.116
             ],
             [
               "Marcus SK. (#1)",
@@ -2872,15 +2872,15 @@
           "top": [
             [
               "Aaron R.",
-              0.635
+              0.632
             ],
             [
               "Brian H.",
-              0.294
+              0.299
             ],
             [
               "Dan R.",
-              0.044
+              0.043
             ]
           ]
         },
@@ -2889,11 +2889,11 @@
           "top": [
             [
               "Marcus SK. (#1)",
-              0.692
+              0.685
             ],
             [
               "Chris K. (#1)",
-              0.308
+              0.315
             ]
           ]
         },
@@ -2902,11 +2902,11 @@
           "top": [
             [
               "Aaron R.",
-              0.602
+              0.603
             ],
             [
               "Brian H.",
-              0.398
+              0.397
             ]
           ]
         }
