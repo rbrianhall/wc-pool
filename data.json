@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-11T23:26:36+00:00"
+    "lastUpdated": "2026-07-11T23:31:41+00:00"
   },
   "teams": [
     [
@@ -567,43 +567,7 @@
         "advanced"
       ]
     },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
     "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "PAN": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
       "state": "out",
       "ach": []
     },
@@ -611,15 +575,11 @@
       "state": "out",
       "ach": []
     },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
     "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
       "state": "out",
       "ach": []
     },
@@ -627,7 +587,47 @@
       "state": "out",
       "ach": []
     },
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
     "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
       "state": "out",
       "ach": []
     }
@@ -2121,11 +2121,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.252,
+        "wqf": 0.242,
         "wsf": 0.074,
-        "w3rd": 0.038,
-        "wf": 0.015,
-        "exp": 35.5
+        "w3rd": 0.035,
+        "wf": 0.014,
+        "exp": 35.0
       },
       "CAN": {
         "advanced": 1.0,
@@ -2362,10 +2362,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.405,
-        "w3rd": 0.332,
-        "wf": 0.217,
-        "exp": 98.2
+        "wsf": 0.411,
+        "w3rd": 0.34,
+        "wf": 0.221,
+        "exp": 99.2
       },
       "URU": {
         "advanced": 0.0,
@@ -2402,20 +2402,20 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.595,
-        "w3rd": 0.28,
-        "wf": 0.384,
-        "exp": 123.2
+        "wsf": 0.589,
+        "w3rd": 0.291,
+        "wf": 0.381,
+        "exp": 122.8
       },
       "NOR": {
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.217,
-        "wsf": 0.076,
-        "w3rd": 0.034,
+        "wqf": 0.226,
+        "wsf": 0.08,
+        "w3rd": 0.036,
         "wf": 0.019,
-        "exp": 35.0
+        "exp": 35.5
       },
       "SEN": {
         "advanced": 1.0,
@@ -2441,11 +2441,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.748,
-        "wsf": 0.404,
-        "w3rd": 0.161,
-        "wf": 0.171,
-        "exp": 83.0
+        "wqf": 0.758,
+        "wsf": 0.406,
+        "w3rd": 0.154,
+        "wf": 0.177,
+        "exp": 83.8
       },
       "AUT": {
         "advanced": 1.0,
@@ -2521,11 +2521,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.783,
-        "wsf": 0.447,
-        "w3rd": 0.155,
-        "wf": 0.193,
-        "exp": 88.1
+        "wqf": 0.774,
+        "wsf": 0.44,
+        "w3rd": 0.144,
+        "wf": 0.188,
+        "exp": 86.8
       },
       "CRO": {
         "advanced": 1.0,
@@ -2693,7 +2693,7 @@
         "CPV": 0.0,
         "FRA": 1.0,
         "SEN": 0.0,
-        "NOR": 0.135,
+        "NOR": 0.11,
         "IRQ": 0.0,
         "ARG": 0.755,
         "AUT": 0.0,
@@ -2703,14 +2703,14 @@
         "COL": 0.001,
         "UZB": 0.0,
         "COD": 0.0,
-        "ENG": 0.87,
+        "ENG": 0.9,
         "CRO": 0.0,
         "PAN": 0.0,
         "GHA": 0.0
       }
     },
-    "inputsHash": "2ab424828512c85e",
-    "updated": "2026-07-11T23:26:36+00:00",
+    "inputsHash": "0afc8fa2db6173bd",
+    "updated": "2026-07-11T23:31:41+00:00",
     "pool": {
       "win": {
         "Aaron R.": 0.7491,
