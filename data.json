@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-11T22:46:45+00:00"
+    "lastUpdated": "2026-07-11T22:48:49+00:00"
   },
   "teams": [
     [
@@ -567,51 +567,11 @@
         "advanced"
       ]
     },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
     "PAN": {
       "state": "out",
       "ach": []
     },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
+    "JOR": {
       "state": "out",
       "ach": []
     },
@@ -619,7 +579,15 @@
       "state": "out",
       "ach": []
     },
-    "URU": {
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
       "state": "out",
       "ach": []
     },
@@ -627,7 +595,39 @@
       "state": "out",
       "ach": []
     },
-    "JOR": {
+    "CZE": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
       "state": "out",
       "ach": []
     }
@@ -2121,11 +2121,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.246,
-        "wsf": 0.068,
-        "w3rd": 0.034,
-        "wf": 0.015,
-        "exp": 34.9
+        "wqf": 0.243,
+        "wsf": 0.072,
+        "w3rd": 0.033,
+        "wf": 0.016,
+        "exp": 35.1
       },
       "CAN": {
         "advanced": 1.0,
@@ -2362,10 +2362,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.406,
-        "w3rd": 0.343,
-        "wf": 0.217,
-        "exp": 98.6
+        "wsf": 0.399,
+        "w3rd": 0.352,
+        "wf": 0.211,
+        "exp": 97.8
       },
       "URU": {
         "advanced": 0.0,
@@ -2402,20 +2402,20 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.594,
-        "w3rd": 0.276,
-        "wf": 0.386,
-        "exp": 123.2
+        "wsf": 0.602,
+        "w3rd": 0.274,
+        "wf": 0.399,
+        "exp": 124.9
       },
       "NOR": {
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.446,
-        "wsf": 0.202,
-        "w3rd": 0.082,
-        "wf": 0.063,
-        "exp": 52.6
+        "wqf": 0.44,
+        "wsf": 0.206,
+        "w3rd": 0.081,
+        "wf": 0.064,
+        "exp": 52.7
       },
       "SEN": {
         "advanced": 1.0,
@@ -2441,11 +2441,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.754,
-        "wsf": 0.415,
-        "w3rd": 0.161,
-        "wf": 0.186,
-        "exp": 85.2
+        "wqf": 0.757,
+        "wsf": 0.414,
+        "w3rd": 0.155,
+        "wf": 0.179,
+        "exp": 84.4
       },
       "AUT": {
         "advanced": 1.0,
@@ -2521,11 +2521,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.554,
-        "wsf": 0.316,
-        "w3rd": 0.104,
-        "wf": 0.134,
-        "exp": 68.7
+        "wqf": 0.56,
+        "wsf": 0.307,
+        "w3rd": 0.105,
+        "wf": 0.131,
+        "exp": 68.1
       },
       "CRO": {
         "advanced": 1.0,
@@ -2563,7 +2563,7 @@
     "anchored": true,
     "champ": {
       "ESP": 0.21,
-      "ENG": 0.134,
+      "ENG": 0.121,
       "FRA": 0.383,
       "BRA": 0.001,
       "ARG": 0.178,
@@ -2709,11 +2709,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "ce7fd2cf6a58a601",
-    "updated": "2026-07-11T22:46:45+00:00",
+    "inputsHash": "4bf158ec5adefb5d",
+    "updated": "2026-07-11T22:48:49+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.7014,
+        "Aaron R.": 0.7044,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2721,13 +2721,13 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.1123,
+        "Brian H.": 0.1075,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
-        "Chris K. (#1)": 0.0313,
+        "Chris K. (#1)": 0.0316,
         "Chris K. (#2)": 0.0,
-        "Dan R.": 0.0609,
+        "Dan R.": 0.0624,
         "David O'D.": 0.0,
         "David Or.": 0.0,
         "Graham B.": 0.0,
@@ -2754,18 +2754,18 @@
         "Aaron R.": 0.9233,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
-        "Andrew M.": 0.5997,
+        "Andrew M.": 0.6085,
         "Andy C.": 0.0,
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.6988,
+        "Brian H.": 0.6948,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
-        "Chris K. (#1)": 0.1332,
+        "Chris K. (#1)": 0.1342,
         "Chris K. (#2)": 0.0,
-        "Dan R.": 0.1686,
+        "Dan R.": 0.1689,
         "David O'D.": 0.0,
         "David Or.": 0.0,
         "Graham B.": 0.0,
@@ -2777,7 +2777,7 @@
         "Kevin B.": 0.0,
         "Kieran S.": 0.0,
         "Luke D.": 0.0,
-        "Marcus SK. (#1)": 0.2194,
+        "Marcus SK. (#1)": 0.2213,
         "Marcus SK. (#2)": 0.0,
         "Marcus SK. (#3)": 0.0,
         "Neal P.": 0.0,
@@ -2786,7 +2786,7 @@
         "Reilly P.": 0.0,
         "Sarah C.": 0.0,
         "Steve K.": 0.0,
-        "Tommy W.": 0.257
+        "Tommy W.": 0.249
       },
       "eliminated": [
         "Andrew B. (#1)",
@@ -2821,45 +2821,45 @@
       ],
       "byChamp": {
         "SUI": {
-          "p": 0.0133,
+          "p": 0.0135,
           "top": [
             [
               "Marcus SK. (#1)",
-              0.617
+              0.597
             ],
             [
               "Dan R.",
-              0.383
+              0.403
             ]
           ]
         },
         "ESP": {
-          "p": 0.2145,
+          "p": 0.2174,
           "top": [
             [
               "Aaron R.",
-              0.766
+              0.767
             ],
             [
               "Marcus SK. (#1)",
-              0.15
+              0.148
             ],
             [
               "Chris K. (#1)",
-              0.055
+              0.054
             ]
           ]
         },
         "FRA": {
-          "p": 0.3912,
+          "p": 0.3965,
           "top": [
             [
               "Aaron R.",
-              0.869
+              0.868
             ],
             [
               "Dan R.",
-              0.112
+              0.113
             ],
             [
               "Marcus SK. (#1)",
@@ -2868,15 +2868,15 @@
           ]
         },
         "ENG": {
-          "p": 0.1368,
+          "p": 0.1252,
           "top": [
             [
               "Aaron R.",
-              0.632
+              0.636
             ],
             [
               "Brian H.",
-              0.301
+              0.297
             ],
             [
               "Dan R.",
@@ -2885,28 +2885,28 @@
           ]
         },
         "NOR": {
-          "p": 0.0623,
+          "p": 0.0632,
           "top": [
             [
               "Marcus SK. (#1)",
-              0.686
+              0.685
             ],
             [
               "Chris K. (#1)",
-              0.314
+              0.315
             ]
           ]
         },
         "ARG": {
-          "p": 0.1818,
+          "p": 0.1843,
           "top": [
             [
               "Aaron R.",
-              0.609
+              0.618
             ],
             [
               "Brian H.",
-              0.391
+              0.382
             ]
           ]
         }
