@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-11T23:43:58+00:00"
+    "lastUpdated": "2026-07-11T23:47:02+00:00"
   },
   "teams": [
     [
@@ -567,59 +567,7 @@
         "advanced"
       ]
     },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
     "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "SCO": {
-      "state": "out",
-      "ach": []
-    },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
       "state": "out",
       "ach": []
     },
@@ -627,7 +575,59 @@
       "state": "out",
       "ach": []
     },
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
+      "state": "out",
+      "ach": []
+    },
     "PAN": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
       "state": "out",
       "ach": []
     }
@@ -2121,11 +2121,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.246,
-        "wsf": 0.075,
-        "w3rd": 0.037,
+        "wqf": 0.234,
+        "wsf": 0.07,
+        "w3rd": 0.033,
         "wf": 0.013,
-        "exp": 35.1
+        "exp": 34.5
       },
       "CAN": {
         "advanced": 1.0,
@@ -2362,10 +2362,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.409,
-        "w3rd": 0.346,
-        "wf": 0.219,
-        "exp": 99.0
+        "wsf": 0.4,
+        "w3rd": 0.357,
+        "wf": 0.21,
+        "exp": 97.9
       },
       "URU": {
         "advanced": 0.0,
@@ -2402,20 +2402,20 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.591,
-        "w3rd": 0.287,
-        "wf": 0.395,
-        "exp": 124.2
+        "wsf": 0.6,
+        "w3rd": 0.284,
+        "wf": 0.397,
+        "exp": 124.8
       },
       "NOR": {
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.218,
-        "wsf": 0.053,
-        "w3rd": 0.028,
-        "wf": 0.008,
-        "exp": 32.6
+        "wqf": 0.214,
+        "wsf": 0.049,
+        "w3rd": 0.025,
+        "wf": 0.007,
+        "exp": 32.1
       },
       "SEN": {
         "advanced": 1.0,
@@ -2441,11 +2441,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.754,
-        "wsf": 0.42,
-        "w3rd": 0.146,
-        "wf": 0.17,
-        "exp": 83.5
+        "wqf": 0.765,
+        "wsf": 0.418,
+        "w3rd": 0.153,
+        "wf": 0.173,
+        "exp": 84.1
       },
       "AUT": {
         "advanced": 1.0,
@@ -2521,11 +2521,11 @@
         "advanced": 1.0,
         "w32": 1.0,
         "w16": 1.0,
-        "wqf": 0.782,
-        "wsf": 0.452,
-        "w3rd": 0.156,
-        "wf": 0.196,
-        "exp": 88.7
+        "wqf": 0.786,
+        "wsf": 0.463,
+        "w3rd": 0.148,
+        "wf": 0.2,
+        "exp": 89.5
       },
       "CRO": {
         "advanced": 1.0,
@@ -2693,7 +2693,7 @@
         "CPV": 0.0,
         "FRA": 1.0,
         "SEN": 0.0,
-        "NOR": 0.06,
+        "NOR": 0.035,
         "IRQ": 0.0,
         "ARG": 0.755,
         "AUT": 0.0,
@@ -2703,14 +2703,14 @@
         "COL": 0.001,
         "UZB": 0.0,
         "COD": 0.0,
-        "ENG": 0.93,
+        "ENG": 0.965,
         "CRO": 0.0,
         "PAN": 0.0,
         "GHA": 0.0
       }
     },
-    "inputsHash": "c62094ce3d381d4d",
-    "updated": "2026-07-11T23:43:58+00:00",
+    "inputsHash": "9e2634c23d993808",
+    "updated": "2026-07-11T23:47:02+00:00",
     "pool": {
       "win": {
         "Aaron R.": 0.7639,
