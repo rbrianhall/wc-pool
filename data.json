@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-12T03:48:13+00:00"
+    "lastUpdated": "2026-07-12T06:38:03+00:00"
   },
   "teams": [
     [
@@ -569,14 +569,6 @@
         "advanced"
       ]
     },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
     "TUR": {
       "state": "out",
       "ach": []
@@ -585,39 +577,7 @@
       "state": "out",
       "ach": []
     },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
     "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
       "state": "out",
       "ach": []
     },
@@ -629,7 +589,47 @@
       "state": "out",
       "ach": []
     },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
     "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
       "state": "out",
       "ach": []
     }
@@ -2046,9 +2046,9 @@
       "status": "scheduled",
       "venue": "Mercedes-Benz Stadium",
       "odds": [
-        0.341,
-        0.313,
-        0.347
+        0.372,
+        0.316,
+        0.311
       ]
     },
     {
@@ -2359,10 +2359,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.395,
-        "w3rd": 0.299,
-        "wf": 0.199,
-        "exp": 95.1
+        "wsf": 0.402,
+        "w3rd": 0.3,
+        "wf": 0.208,
+        "exp": 96.4
       },
       "URU": {
         "advanced": 0.0,
@@ -2399,10 +2399,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.605,
-        "w3rd": 0.25,
-        "wf": 0.386,
-        "exp": 123.1
+        "wsf": 0.598,
+        "w3rd": 0.263,
+        "wf": 0.394,
+        "exp": 123.9
       },
       "NOR": {
         "advanced": 1.0,
@@ -2439,10 +2439,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.496,
-        "w3rd": 0.222,
-        "wf": 0.208,
-        "exp": 99.2
+        "wsf": 0.474,
+        "w3rd": 0.23,
+        "wf": 0.193,
+        "exp": 96.8
       },
       "AUT": {
         "advanced": 1.0,
@@ -2519,10 +2519,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.504,
-        "w3rd": 0.229,
-        "wf": 0.206,
-        "exp": 99.5
+        "wsf": 0.526,
+        "w3rd": 0.206,
+        "wf": 0.205,
+        "exp": 100.0
       },
       "CRO": {
         "advanced": 1.0,
@@ -2555,7 +2555,7 @@
         "exp": 3.0
       }
     },
-    "btK": 2.0,
+    "btK": 1.8,
     "nSims": 8000,
     "anchored": true,
     "champ": {
@@ -2563,7 +2563,7 @@
       "ENG": 0.207,
       "FRA": 0.383,
       "BRA": 0.001,
-      "ARG": 0.209,
+      "ARG": 0.192,
       "GER": 0.003,
       "POR": 0.004,
       "NED": 0.001,
@@ -2706,11 +2706,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "610773a94c214176",
-    "updated": "2026-07-12T03:48:13+00:00",
+    "inputsHash": "9c75c164a1302c15",
+    "updated": "2026-07-12T06:38:03+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.819,
+        "Aaron R.": 0.8273,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2718,7 +2718,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.181,
+        "Brian H.": 0.1727,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2751,7 +2751,7 @@
         "Aaron R.": 1.0,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
-        "Andrew M.": 0.7923,
+        "Andrew M.": 0.7886,
         "Andy C.": 0.0,
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
@@ -2783,7 +2783,7 @@
         "Reilly P.": 0.0,
         "Sarah C.": 0.0,
         "Steve K.": 0.0,
-        "Tommy W.": 0.2077
+        "Tommy W.": 0.2114
       },
       "eliminated": [
         "Andrew B. (#1)",
@@ -2821,20 +2821,20 @@
       ],
       "byChamp": {
         "ARG": {
-          "p": 0.2097,
+          "p": 0.1959,
           "top": [
             [
               "Aaron R.",
-              0.566
+              0.582
             ],
             [
               "Brian H.",
-              0.434
+              0.418
             ]
           ]
         },
         "ESP": {
-          "p": 0.2005,
+          "p": 0.2039,
           "top": [
             [
               "Aaron R.",
@@ -2843,7 +2843,7 @@
           ]
         },
         "FRA": {
-          "p": 0.3821,
+          "p": 0.3888,
           "top": [
             [
               "Aaron R.",
@@ -2852,15 +2852,15 @@
           ]
         },
         "ENG": {
-          "p": 0.2077,
+          "p": 0.2114,
           "top": [
             [
               "Aaron R.",
-              0.566
+              0.57
             ],
             [
               "Brian H.",
-              0.434
+              0.43
             ]
           ]
         }
