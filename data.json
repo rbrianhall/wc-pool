@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-13T18:02:16+00:00"
+    "lastUpdated": "2026-07-14T10:18:03+00:00"
   },
   "teams": [
     [
@@ -569,55 +569,7 @@
         "advanced"
       ]
     },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "PAN": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
     "JOR": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
       "state": "out",
       "ach": []
     },
@@ -625,11 +577,59 @@
       "state": "out",
       "ach": []
     },
-    "KSA": {
+    "IRQ": {
       "state": "out",
       "ach": []
     },
     "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
+      "state": "out",
+      "ach": []
+    },
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
       "state": "out",
       "ach": []
     }
@@ -2359,10 +2359,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.405,
-        "w3rd": 0.325,
-        "wf": 0.217,
-        "exp": 98.1
+        "wsf": 0.403,
+        "w3rd": 0.318,
+        "wf": 0.218,
+        "exp": 97.9
       },
       "URU": {
         "advanced": 0.0,
@@ -2399,10 +2399,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.595,
-        "w3rd": 0.264,
-        "wf": 0.391,
-        "exp": 123.5
+        "wsf": 0.597,
+        "w3rd": 0.267,
+        "wf": 0.403,
+        "exp": 124.8
       },
       "NOR": {
         "advanced": 1.0,
@@ -2439,10 +2439,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.457,
-        "w3rd": 0.211,
-        "wf": 0.171,
-        "exp": 93.2
+        "wsf": 0.458,
+        "w3rd": 0.219,
+        "wf": 0.165,
+        "exp": 92.9
       },
       "AUT": {
         "advanced": 1.0,
@@ -2519,10 +2519,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.543,
-        "w3rd": 0.2,
-        "wf": 0.221,
-        "exp": 102.2
+        "wsf": 0.542,
+        "w3rd": 0.196,
+        "wf": 0.213,
+        "exp": 101.3
       },
       "CRO": {
         "advanced": 1.0,
@@ -2561,7 +2561,7 @@
     "champ": {
       "ESP": 0.21,
       "ENG": 0.218,
-      "FRA": 0.383,
+      "FRA": 0.394,
       "BRA": 0.001,
       "ARG": 0.168,
       "GER": 0.003,
@@ -2706,11 +2706,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "edd549909c97e4d2",
-    "updated": "2026-07-13T18:02:16+00:00",
+    "inputsHash": "a9258e8e58736e3e",
+    "updated": "2026-07-14T10:18:03+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.8401,
+        "Aaron R.": 0.8431,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2718,7 +2718,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.1599,
+        "Brian H.": 0.1569,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2751,7 +2751,7 @@
         "Aaron R.": 1.0,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
-        "Andrew M.": 0.777,
+        "Andrew M.": 0.7794,
         "Andy C.": 0.0,
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
@@ -2783,7 +2783,7 @@
         "Reilly P.": 0.0,
         "Sarah C.": 0.0,
         "Steve K.": 0.0,
-        "Tommy W.": 0.223
+        "Tommy W.": 0.2206
       },
       "eliminated": [
         "Andrew B. (#1)",
@@ -2821,20 +2821,20 @@
       ],
       "byChamp": {
         "ARG": {
-          "p": 0.1718,
+          "p": 0.17,
           "top": [
             [
               "Aaron R.",
-              0.575
+              0.578
             ],
             [
               "Brian H.",
-              0.425
+              0.422
             ]
           ]
         },
         "ESP": {
-          "p": 0.2155,
+          "p": 0.2132,
           "top": [
             [
               "Aaron R.",
@@ -2843,7 +2843,7 @@
           ]
         },
         "FRA": {
-          "p": 0.3897,
+          "p": 0.3962,
           "top": [
             [
               "Aaron R.",
@@ -2852,15 +2852,15 @@
           ]
         },
         "ENG": {
-          "p": 0.223,
+          "p": 0.2206,
           "top": [
             [
               "Aaron R.",
-              0.611
+              0.614
             ],
             [
               "Brian H.",
-              0.389
+              0.386
             ]
           ]
         }
