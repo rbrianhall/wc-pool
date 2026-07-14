@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-14T20:56:20+00:00"
+    "lastUpdated": "2026-07-14T21:00:25+00:00"
   },
   "teams": [
     [
@@ -417,7 +417,7 @@
       ]
     },
     "FRA": {
-      "state": "alive",
+      "state": "third",
       "ach": [
         "advanced",
         "w32",
@@ -492,7 +492,8 @@
         "advanced",
         "w32",
         "w16",
-        "wqf"
+        "wqf",
+        "wsf"
       ]
     },
     "AUT": {
@@ -569,59 +570,7 @@
         "advanced"
       ]
     },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "SCO": {
-      "state": "out",
-      "ach": []
-    },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
     "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
       "state": "out",
       "ach": []
     },
@@ -629,7 +578,59 @@
       "state": "out",
       "ach": []
     },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
     "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
       "state": "out",
       "ach": []
     }
@@ -2028,13 +2029,8 @@
       "away": "ESP",
       "hs": 0,
       "as": 2,
-      "status": "live",
-      "venue": "AT&T Stadium",
-      "odds": [
-        0.381,
-        0.312,
-        0.307
-      ]
+      "status": "finished",
+      "venue": "AT&T Stadium"
     },
     {
       "date": "2026-07-15T19:00:00Z",
@@ -2359,10 +2355,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.618,
-        "w3rd": 0.345,
-        "wf": 0.557,
-        "exp": 143.2
+        "wsf": 1.0,
+        "w3rd": 0.0,
+        "wf": 0.562,
+        "exp": 154.2
       },
       "URU": {
         "advanced": 0.0,
@@ -2399,10 +2395,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.382,
-        "w3rd": 0.003,
-        "wf": 0.002,
-        "exp": 67.4
+        "wsf": 0.0,
+        "w3rd": 0.251,
+        "wf": 0.0,
+        "exp": 54.3
       },
       "NOR": {
         "advanced": 1.0,
@@ -2439,10 +2435,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.46,
-        "w3rd": 0.349,
-        "wf": 0.198,
-        "exp": 99.5
+        "wsf": 0.47,
+        "w3rd": 0.384,
+        "wf": 0.195,
+        "exp": 100.6
       },
       "AUT": {
         "advanced": 1.0,
@@ -2519,10 +2515,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.54,
-        "w3rd": 0.303,
+        "wsf": 0.53,
+        "w3rd": 0.365,
         "wf": 0.243,
-        "exp": 106.9
+        "exp": 107.9
       },
       "CRO": {
         "advanced": 1.0,
@@ -2555,7 +2551,7 @@
         "exp": 3.0
       }
     },
-    "btK": 12.0,
+    "btK": 4.2,
     "nSims": 8000,
     "anchored": true,
     "champ": {
@@ -2706,11 +2702,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "45150de75f3b3cf0",
-    "updated": "2026-07-14T20:56:20+00:00",
+    "inputsHash": "d8210741a7042f31",
+    "updated": "2026-07-14T21:00:25+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.9022,
+        "Aaron R.": 0.6717,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2718,7 +2714,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.0978,
+        "Brian H.": 0.3283,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2751,7 +2747,7 @@
         "Aaron R.": 1.0,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
-        "Andrew M.": 0.7559,
+        "Andrew M.": 0.7569,
         "Andy C.": 0.0,
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
@@ -2783,7 +2779,7 @@
         "Reilly P.": 0.0,
         "Sarah C.": 0.0,
         "Steve K.": 0.0,
-        "Tommy W.": 0.2441
+        "Tommy W.": 0.2431
       },
       "eliminated": [
         "Andrew B. (#1)",
@@ -2821,29 +2817,20 @@
       ],
       "byChamp": {
         "ARG": {
-          "p": 0.1966,
+          "p": 0.1963,
           "top": [
             [
-              "Aaron R.",
-              0.782
+              "Brian H.",
+              0.768
             ],
             [
-              "Brian H.",
-              0.218
+              "Aaron R.",
+              0.232
             ]
           ]
         },
         "ESP": {
-          "p": 0.5573,
-          "top": [
-            [
-              "Aaron R.",
-              1.0
-            ]
-          ]
-        },
-        "FRA": {
-          "p": 0.002,
+          "p": 0.5606,
           "top": [
             [
               "Aaron R.",
@@ -2852,15 +2839,15 @@
           ]
         },
         "ENG": {
-          "p": 0.2441,
+          "p": 0.2431,
           "top": [
             [
-              "Aaron R.",
-              0.775
+              "Brian H.",
+              0.73
             ],
             [
-              "Brian H.",
-              0.225
+              "Aaron R.",
+              0.27
             ]
           ]
         }
