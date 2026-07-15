@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-15T20:58:39+00:00"
+    "lastUpdated": "2026-07-15T21:03:44+00:00"
   },
   "teams": [
     [
@@ -445,7 +445,7 @@
       ]
     },
     "ENG": {
-      "state": "alive",
+      "state": "third",
       "ach": [
         "advanced",
         "w32",
@@ -548,7 +548,8 @@
         "advanced",
         "w32",
         "w16",
-        "wqf"
+        "wqf",
+        "wsf"
       ]
     },
     "CPV": {
@@ -570,15 +571,11 @@
         "advanced"
       ]
     },
-    "NZL": {
+    "SCO": {
       "state": "out",
       "ach": []
     },
     "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
       "state": "out",
       "ach": []
     },
@@ -590,15 +587,7 @@
       "state": "out",
       "ach": []
     },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
     "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
       "state": "out",
       "ach": []
     },
@@ -606,11 +595,35 @@
       "state": "out",
       "ach": []
     },
-    "KOR": {
+    "CZE": {
       "state": "out",
       "ach": []
     },
     "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
       "state": "out",
       "ach": []
     },
@@ -619,18 +632,6 @@
       "ach": []
     },
     "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "SCO": {
       "state": "out",
       "ach": []
     }
@@ -2039,13 +2040,8 @@
       "away": "ARG",
       "hs": 1,
       "as": 2,
-      "status": "live",
-      "venue": "Mercedes-Benz Stadium",
-      "odds": [
-        0.343,
-        0.331,
-        0.326
-      ]
+      "status": "finished",
+      "venue": "Mercedes-Benz Stadium"
     },
     {
       "date": "2026-07-18T21:00:00Z",
@@ -2357,8 +2353,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.587,
-        "exp": 156.7
+        "wf": 0.584,
+        "exp": 156.4
       },
       "URU": {
         "advanced": 0.0,
@@ -2396,9 +2392,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.674,
+        "w3rd": 0.526,
         "wf": 0.0,
-        "exp": 64.8
+        "exp": 61.1
       },
       "NOR": {
         "advanced": 1.0,
@@ -2435,10 +2431,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.639,
-        "w3rd": 0.26,
-        "wf": 0.393,
-        "exp": 125.8
+        "wsf": 1.0,
+        "w3rd": 0.0,
+        "wf": 0.416,
+        "exp": 139.6
       },
       "AUT": {
         "advanced": 1.0,
@@ -2515,10 +2511,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.361,
-        "w3rd": 0.066,
-        "wf": 0.02,
-        "exp": 69.7
+        "wsf": 0.0,
+        "w3rd": 0.474,
+        "wf": 0.0,
+        "exp": 59.9
       },
       "CRO": {
         "advanced": 1.0,
@@ -2551,15 +2547,15 @@
         "exp": 3.0
       }
     },
-    "btK": 12.0,
+    "btK": 7.0,
     "nSims": 8000,
     "anchored": true,
     "champ": {
       "ESP": 0.582,
-      "ENG": 0.024,
+      "ENG": 0.001,
       "FRA": 0.002,
       "BRA": 0.001,
-      "ARG": 0.39,
+      "ARG": 0.415,
       "GER": 0.003,
       "POR": 0.004,
       "NED": 0.001,
@@ -2702,11 +2698,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "2fa7ef532b6337fa",
-    "updated": "2026-07-15T20:58:39+00:00",
+    "inputsHash": "231a00830d38097d",
+    "updated": "2026-07-15T21:03:44+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.9421,
+        "Aaron R.": 0.8019,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2714,7 +2710,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.0579,
+        "Brian H.": 0.1981,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2747,7 +2743,7 @@
         "Aaron R.": 1.0,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
-        "Andrew M.": 0.9758,
+        "Andrew M.": 1.0,
         "Andy C.": 0.0,
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
@@ -2779,7 +2775,7 @@
         "Reilly P.": 0.0,
         "Sarah C.": 0.0,
         "Steve K.": 0.0,
-        "Tommy W.": 0.0242
+        "Tommy W.": 0.0
       },
       "eliminated": [
         "Andrew B. (#1)",
@@ -2813,41 +2809,29 @@
         "Pete C. (#2)",
         "Reilly P.",
         "Sarah C.",
-        "Steve K."
+        "Steve K.",
+        "Tommy W."
       ],
       "byChamp": {
         "ARG": {
-          "p": 0.3911,
+          "p": 0.4168,
           "top": [
             [
               "Aaron R.",
-              0.896
+              0.525
             ],
             [
               "Brian H.",
-              0.104
+              0.475
             ]
           ]
         },
         "ESP": {
-          "p": 0.5847,
+          "p": 0.5832,
           "top": [
             [
               "Aaron R.",
               1.0
-            ]
-          ]
-        },
-        "ENG": {
-          "p": 0.0242,
-          "top": [
-            [
-              "Brian H.",
-              0.714
-            ],
-            [
-              "Aaron R.",
-              0.286
             ]
           ]
         }
