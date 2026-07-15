@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-15T20:43:21+00:00"
+    "lastUpdated": "2026-07-15T20:47:26+00:00"
   },
   "teams": [
     [
@@ -570,31 +570,11 @@
         "advanced"
       ]
     },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
     "TUR": {
       "state": "out",
       "ach": []
     },
-    "PAN": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "SCO": {
+    "IRN": {
       "state": "out",
       "ach": []
     },
@@ -602,23 +582,27 @@
       "state": "out",
       "ach": []
     },
+    "JOR": {
+      "state": "out",
+      "ach": []
+    },
     "CZE": {
       "state": "out",
       "ach": []
     },
-    "CUW": {
+    "NZL": {
       "state": "out",
       "ach": []
     },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
+    "PAN": {
       "state": "out",
       "ach": []
     },
     "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
       "state": "out",
       "ach": []
     },
@@ -630,7 +614,23 @@
       "state": "out",
       "ach": []
     },
-    "IRN": {
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
       "state": "out",
       "ach": []
     }
@@ -2038,7 +2038,7 @@
       "home": "ENG",
       "away": "ARG",
       "hs": 1,
-      "as": 0,
+      "as": 1,
       "status": "live",
       "venue": "Mercedes-Benz Stadium",
       "odds": [
@@ -2396,9 +2396,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.515,
+        "w3rd": 0.507,
         "wf": 0.0,
-        "exp": 60.9
+        "exp": 60.7
       },
       "NOR": {
         "advanced": 1.0,
@@ -2435,9 +2435,9 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.398,
-        "w3rd": 0.224,
-        "wf": 0.102,
+        "wsf": 0.405,
+        "w3rd": 0.226,
+        "wf": 0.098,
         "exp": 83.7
       },
       "AUT": {
@@ -2515,10 +2515,10 @@
         "w32": 1.0,
         "w16": 1.0,
         "wqf": 1.0,
-        "wsf": 0.602,
-        "w3rd": 0.262,
-        "wf": 0.318,
-        "exp": 116.5
+        "wsf": 0.595,
+        "w3rd": 0.267,
+        "wf": 0.323,
+        "exp": 116.7
       },
       "CRO": {
         "advanced": 1.0,
@@ -2702,8 +2702,8 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "8c520a539f66509d",
-    "updated": "2026-07-15T20:43:21+00:00",
+    "inputsHash": "50b8e2fa315ad2d0",
+    "updated": "2026-07-15T20:47:26+00:00",
     "pool": {
       "win": {
         "Aaron R.": 0.8146,
