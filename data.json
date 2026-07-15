@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-15T19:52:45+00:00"
+    "lastUpdated": "2026-07-15T20:16:58+00:00"
   },
   "teams": [
     [
@@ -574,11 +574,7 @@
       "state": "out",
       "ach": []
     },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
+    "KSA": {
       "state": "out",
       "ach": []
     },
@@ -586,23 +582,11 @@
       "state": "out",
       "ach": []
     },
-    "CZE": {
+    "CUW": {
       "state": "out",
       "ach": []
     },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
+    "HAI": {
       "state": "out",
       "ach": []
     },
@@ -614,7 +598,11 @@
       "state": "out",
       "ach": []
     },
-    "PAN": {
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
       "state": "out",
       "ach": []
     },
@@ -622,7 +610,11 @@
       "state": "out",
       "ach": []
     },
-    "TUR": {
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "URU": {
       "state": "out",
       "ach": []
     },
@@ -630,7 +622,15 @@
       "state": "out",
       "ach": []
     },
-    "HAI": {
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
       "state": "out",
       "ach": []
     }
@@ -2037,7 +2037,7 @@
       "stage": "Semi-final",
       "home": "ENG",
       "away": "ARG",
-      "hs": 0,
+      "hs": 1,
       "as": 0,
       "status": "live",
       "venue": "Mercedes-Benz Stadium",
@@ -2357,8 +2357,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.573,
-        "exp": 155.3
+        "wf": 0.579,
+        "exp": 155.9
       },
       "URU": {
         "advanced": 0.0,
@@ -2396,9 +2396,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.168,
+        "w3rd": 0.171,
         "wf": 0.0,
-        "exp": 52.2
+        "exp": 52.3
       },
       "NOR": {
         "advanced": 1.0,
@@ -2436,9 +2436,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.482,
-        "w3rd": 0.428,
-        "wf": 0.204,
-        "exp": 103.2
+        "w3rd": 0.429,
+        "wf": 0.195,
+        "exp": 102.3
       },
       "AUT": {
         "advanced": 1.0,
@@ -2516,9 +2516,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.518,
-        "w3rd": 0.405,
-        "wf": 0.223,
-        "exp": 106.3
+        "w3rd": 0.4,
+        "wf": 0.226,
+        "exp": 106.5
       },
       "CRO": {
         "advanced": 1.0,
@@ -2702,8 +2702,8 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "a039f0f842df0317",
-    "updated": "2026-07-15T19:52:45+00:00",
+    "inputsHash": "ae763f82f25dafba",
+    "updated": "2026-07-15T20:16:58+00:00",
     "pool": {
       "win": {
         "Aaron R.": 0.6513,
