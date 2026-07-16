@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-15T22:13:59+00:00"
+    "lastUpdated": "2026-07-16T09:03:27+00:00"
   },
   "teams": [
     [
@@ -571,59 +571,7 @@
         "advanced"
       ]
     },
-    "SCO": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "PAN": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
     "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
       "state": "out",
       "ach": []
     },
@@ -632,6 +580,58 @@
       "ach": []
     },
     "CZE": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
       "state": "out",
       "ach": []
     }
@@ -2053,9 +2053,9 @@
       "status": "scheduled",
       "venue": "Hard Rock Stadium",
       "odds": [
-        0.483,
-        0.258,
-        0.258
+        0.507,
+        0.246,
+        0.246
       ]
     },
     {
@@ -2363,8 +2363,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.588,
-        "exp": 156.8
+        "wf": 0.593,
+        "exp": 157.3
       },
       "URU": {
         "advanced": 0.0,
@@ -2402,9 +2402,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.655,
+        "w3rd": 0.67,
         "wf": 0.0,
-        "exp": 64.4
+        "exp": 64.8
       },
       "NOR": {
         "advanced": 1.0,
@@ -2443,8 +2443,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.412,
-        "exp": 139.2
+        "wf": 0.407,
+        "exp": 138.7
       },
       "AUT": {
         "advanced": 1.0,
@@ -2522,9 +2522,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.345,
+        "w3rd": 0.33,
         "wf": 0.0,
-        "exp": 56.6
+        "exp": 56.2
       },
       "CRO": {
         "advanced": 1.0,
@@ -2708,11 +2708,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "2ef54393b89b5156",
-    "updated": "2026-07-15T22:13:59+00:00",
+    "inputsHash": "53284e51b5e540bd",
+    "updated": "2026-07-16T09:03:27+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.8572,
+        "Aaron R.": 0.8638,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2720,7 +2720,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.1428,
+        "Brian H.": 0.1362,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2828,11 +2828,11 @@
           "top": [
             [
               "Aaron R.",
-              0.655
+              0.671
             ],
             [
               "Brian H.",
-              0.345
+              0.329
             ]
           ]
         },
