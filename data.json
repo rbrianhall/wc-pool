@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-18T20:59:36+00:00"
+    "lastUpdated": "2026-07-18T21:54:51+00:00"
   },
   "teams": [
     [
@@ -571,42 +571,6 @@
         "advanced"
       ]
     },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "JOR": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
     "IRN": {
       "state": "out",
       "ach": []
@@ -615,15 +579,35 @@
       "state": "out",
       "ach": []
     },
+    "CZE": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
     "TUN": {
       "state": "out",
       "ach": []
     },
-    "SCO": {
+    "URU": {
       "state": "out",
       "ach": []
     },
-    "KOR": {
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
       "state": "out",
       "ach": []
     },
@@ -631,7 +615,23 @@
       "state": "out",
       "ach": []
     },
-    "PAN": {
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "QAT": {
       "state": "out",
       "ach": []
     }
@@ -2048,9 +2048,9 @@
       "stage": "Third-place match",
       "home": "FRA",
       "away": "ENG",
-      "hs": null,
-      "as": null,
-      "status": "scheduled",
+      "hs": 0,
+      "as": 4,
+      "status": "live",
       "venue": "Hard Rock Stadium",
       "odds": [
         0.559,
@@ -2363,8 +2363,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.597,
-        "exp": 157.7
+        "wf": 0.583,
+        "exp": 156.3
       },
       "URU": {
         "advanced": 0.0,
@@ -2402,9 +2402,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.717,
+        "w3rd": 0.713,
         "wf": 0.0,
-        "exp": 65.9
+        "exp": 65.8
       },
       "NOR": {
         "advanced": 1.0,
@@ -2443,8 +2443,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.403,
-        "exp": 138.3
+        "wf": 0.417,
+        "exp": 139.7
       },
       "AUT": {
         "advanced": 1.0,
@@ -2522,9 +2522,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.283,
+        "w3rd": 0.287,
         "wf": 0.0,
-        "exp": 55.1
+        "exp": 55.2
       },
       "CRO": {
         "advanced": 1.0,
@@ -2708,8 +2708,8 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "2ced76eb4e27797b",
-    "updated": "2026-07-18T20:59:36+00:00",
+    "inputsHash": "6db34c702ed406b9",
+    "updated": "2026-07-18T21:54:51+00:00",
     "pool": {
       "win": {
         "Aaron R.": 0.8846,
