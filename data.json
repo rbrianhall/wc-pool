@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-18T19:53:24+00:00"
+    "lastUpdated": "2026-07-18T20:59:36+00:00"
   },
   "teams": [
     [
@@ -571,11 +571,15 @@
         "advanced"
       ]
     },
-    "JOR": {
+    "TUR": {
       "state": "out",
       "ach": []
     },
-    "PAN": {
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "JOR": {
       "state": "out",
       "ach": []
     },
@@ -583,15 +587,19 @@
       "state": "out",
       "ach": []
     },
-    "SCO": {
+    "UZB": {
       "state": "out",
       "ach": []
     },
-    "CUW": {
+    "CZE": {
       "state": "out",
       "ach": []
     },
-    "URU": {
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
       "state": "out",
       "ach": []
     },
@@ -603,15 +611,15 @@
       "state": "out",
       "ach": []
     },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
+    "CUW": {
       "state": "out",
       "ach": []
     },
     "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
       "state": "out",
       "ach": []
     },
@@ -623,15 +631,7 @@
       "state": "out",
       "ach": []
     },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
+    "PAN": {
       "state": "out",
       "ach": []
     }
@@ -2053,9 +2053,9 @@
       "status": "scheduled",
       "venue": "Hard Rock Stadium",
       "odds": [
-        0.537,
-        0.237,
-        0.226
+        0.559,
+        0.231,
+        0.21
       ]
     },
     {
@@ -2402,9 +2402,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.69,
+        "w3rd": 0.717,
         "wf": 0.0,
-        "exp": 65.2
+        "exp": 65.9
       },
       "NOR": {
         "advanced": 1.0,
@@ -2522,9 +2522,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.31,
+        "w3rd": 0.283,
         "wf": 0.0,
-        "exp": 55.8
+        "exp": 55.1
       },
       "CRO": {
         "advanced": 1.0,
@@ -2708,11 +2708,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "b3fc1693c7694a64",
-    "updated": "2026-07-18T19:53:24+00:00",
+    "inputsHash": "2ced76eb4e27797b",
+    "updated": "2026-07-18T20:59:36+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.8773,
+        "Aaron R.": 0.8846,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2720,7 +2720,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.1227,
+        "Brian H.": 0.1154,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2828,11 +2828,11 @@
           "top": [
             [
               "Aaron R.",
-              0.695
+              0.713
             ],
             [
               "Brian H.",
-              0.305
+              0.287
             ]
           ]
         },
