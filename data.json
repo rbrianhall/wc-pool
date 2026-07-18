@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-18T22:50:24+00:00"
+    "lastUpdated": "2026-07-18T22:59:31+00:00"
   },
   "teams": [
     [
@@ -571,23 +571,15 @@
         "advanced"
       ]
     },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
     "CZE": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "KOR": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "PAN": {
       "state": "out",
       "ach": []
     },
@@ -595,7 +587,7 @@
       "state": "out",
       "ach": []
     },
-    "TUR": {
+    "NZL": {
       "state": "out",
       "ach": []
     },
@@ -603,27 +595,23 @@
       "state": "out",
       "ach": []
     },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
     "JOR": {
       "state": "out",
       "ach": []
     },
-    "UZB": {
+    "TUN": {
       "state": "out",
       "ach": []
     },
-    "SCO": {
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "KOR": {
       "state": "out",
       "ach": []
     },
@@ -632,6 +620,18 @@
       "ach": []
     },
     "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "TUR": {
       "state": "out",
       "ach": []
     }
@@ -2048,7 +2048,7 @@
       "stage": "Third-place match",
       "home": "FRA",
       "away": "ENG",
-      "hs": 3,
+      "hs": 4,
       "as": 5,
       "status": "live",
       "venue": "Hard Rock Stadium",
@@ -2363,8 +2363,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.603,
-        "exp": 158.3
+        "wf": 0.599,
+        "exp": 157.9
       },
       "URU": {
         "advanced": 0.0,
@@ -2402,9 +2402,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.713,
+        "w3rd": 0.709,
         "wf": 0.0,
-        "exp": 65.8
+        "exp": 65.7
       },
       "NOR": {
         "advanced": 1.0,
@@ -2443,8 +2443,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.397,
-        "exp": 137.7
+        "wf": 0.401,
+        "exp": 138.1
       },
       "AUT": {
         "advanced": 1.0,
@@ -2522,9 +2522,9 @@
         "w16": 1.0,
         "wqf": 1.0,
         "wsf": 0.0,
-        "w3rd": 0.287,
+        "w3rd": 0.291,
         "wf": 0.0,
-        "exp": 55.2
+        "exp": 55.3
       },
       "CRO": {
         "advanced": 1.0,
@@ -2708,8 +2708,8 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "d350fb2724be9884",
-    "updated": "2026-07-18T22:50:24+00:00",
+    "inputsHash": "70541069d94fbf0b",
+    "updated": "2026-07-18T22:59:31+00:00",
     "pool": {
       "win": {
         "Aaron R.": 0.8846,
