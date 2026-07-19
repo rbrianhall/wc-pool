@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-19T20:57:45+00:00"
+    "lastUpdated": "2026-07-19T21:01:49+00:00"
   },
   "teams": [
     [
@@ -572,35 +572,7 @@
         "advanced"
       ]
     },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "TUR": {
+    "KOR": {
       "state": "out",
       "ach": []
     },
@@ -608,11 +580,15 @@
       "state": "out",
       "ach": []
     },
-    "TUN": {
+    "QAT": {
       "state": "out",
       "ach": []
     },
-    "IRN": {
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
       "state": "out",
       "ach": []
     },
@@ -624,15 +600,39 @@
       "state": "out",
       "ach": []
     },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
     "PAN": {
       "state": "out",
       "ach": []
     },
-    "KOR": {
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
       "state": "out",
       "ach": []
     }
@@ -2359,8 +2359,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.63,
-        "exp": 161.0
+        "wf": 0.655,
+        "exp": 163.5
       },
       "URU": {
         "advanced": 0.0,
@@ -2439,8 +2439,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.37,
-        "exp": 135.0
+        "wf": 0.345,
+        "exp": 132.5
       },
       "AUT": {
         "advanced": 1.0,
@@ -2553,15 +2553,15 @@
         "exp": 3.0
       }
     },
-    "btK": 1.2,
+    "btK": 1.4,
     "nSims": 8000,
     "anchored": true,
     "champ": {
-      "ESP": 0.627,
+      "ESP": 0.66,
       "ENG": 0.001,
       "FRA": 0.002,
       "BRA": 0.001,
-      "ARG": 0.366,
+      "ARG": 0.346,
       "GER": 0.003,
       "POR": 0.004,
       "NED": 0.001,
@@ -2704,11 +2704,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "f825a4811f449ffa",
-    "updated": "2026-07-19T20:57:45+00:00",
+    "inputsHash": "64f531b0bb97eb69",
+    "updated": "2026-07-19T21:01:49+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.6292,
+        "Aaron R.": 0.6539,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2716,7 +2716,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.3708,
+        "Brian H.": 0.3461,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2820,7 +2820,7 @@
       ],
       "byChamp": {
         "ARG": {
-          "p": 0.3708,
+          "p": 0.3461,
           "top": [
             [
               "Brian H.",
@@ -2829,7 +2829,7 @@
           ]
         },
         "ESP": {
-          "p": 0.6292,
+          "p": 0.6539,
           "top": [
             [
               "Aaron R.",
