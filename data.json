@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-19T22:02:41+00:00"
+    "lastUpdated": "2026-07-19T22:03:44+00:00"
   },
   "teams": [
     [
@@ -494,7 +494,8 @@
         "w32",
         "w16",
         "wqf",
-        "wsf"
+        "wsf",
+        "wf"
       ]
     },
     "AUT": {
@@ -544,7 +545,7 @@
       ]
     },
     "ARG": {
-      "state": "alive",
+      "state": "out",
       "ach": [
         "advanced",
         "w32",
@@ -572,7 +573,43 @@
         "advanced"
       ]
     },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
     "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
+      "state": "out",
+      "ach": []
+    },
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
+    "IRQ": {
       "state": "out",
       "ach": []
     },
@@ -584,23 +621,11 @@
       "state": "out",
       "ach": []
     },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "PAN": {
-      "state": "out",
-      "ach": []
-    },
     "KOR": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
       "state": "out",
       "ach": []
     },
@@ -608,31 +633,7 @@
       "state": "out",
       "ach": []
     },
-    "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "CZE": {
+    "PAN": {
       "state": "out",
       "ach": []
     }
@@ -2061,13 +2062,8 @@
       "away": "ARG",
       "hs": 1,
       "as": 0,
-      "status": "live",
-      "venue": "MetLife Stadium",
-      "odds": [
-        0.412,
-        0.321,
-        0.267
-      ]
+      "status": "finished",
+      "venue": "MetLife Stadium"
     }
   ],
   "probs": {
@@ -2359,8 +2355,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.735,
-        "exp": 171.5
+        "wf": 1.0,
+        "exp": 198.0
       },
       "URU": {
         "advanced": 0.0,
@@ -2439,8 +2435,8 @@
         "wqf": 1.0,
         "wsf": 1.0,
         "w3rd": 0.0,
-        "wf": 0.265,
-        "exp": 124.5
+        "wf": 0.0,
+        "exp": 98.0
       },
       "AUT": {
         "advanced": 1.0,
@@ -2553,9 +2549,9 @@
         "exp": 3.0
       }
     },
-    "btK": 8.0,
+    "btK": 7.0,
     "nSims": 8000,
-    "anchored": true,
+    "anchored": false,
     "champ": {
       "ESP": 0.97,
       "ENG": 0.001,
@@ -2704,11 +2700,11 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "06694bdcc0bb3341",
-    "updated": "2026-07-19T22:02:41+00:00",
+    "inputsHash": "a447aa6eeb20f188",
+    "updated": "2026-07-19T22:03:44+00:00",
     "pool": {
       "win": {
-        "Aaron R.": 0.733,
+        "Aaron R.": 1.0,
         "Andrew B. (#1)": 0.0,
         "Andrew B. (#2)": 0.0,
         "Andrew M.": 0.0,
@@ -2716,7 +2712,7 @@
         "Ben W.": 0.0,
         "Brett M. (#1)": 0.0,
         "Brett M. (#2)": 0.0,
-        "Brian H.": 0.267,
+        "Brian H.": 0.0,
         "Brook S.": 0.0,
         "Calvin R.": 0.0,
         "Charles V.": 0.0,
@@ -2819,17 +2815,8 @@
         "Tommy W."
       ],
       "byChamp": {
-        "ARG": {
-          "p": 0.267,
-          "top": [
-            [
-              "Brian H.",
-              1.0
-            ]
-          ]
-        },
         "ESP": {
-          "p": 0.733,
+          "p": 1.0,
           "top": [
             [
               "Aaron R.",
