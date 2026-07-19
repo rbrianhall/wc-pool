@@ -8,7 +8,7 @@
       0.35,
       0.15
     ],
-    "lastUpdated": "2026-07-19T22:03:44+00:00"
+    "lastUpdated": "2026-07-19T23:01:28+00:00"
   },
   "teams": [
     [
@@ -573,51 +573,7 @@
         "advanced"
       ]
     },
-    "UZB": {
-      "state": "out",
-      "ach": []
-    },
-    "KSA": {
-      "state": "out",
-      "ach": []
-    },
-    "CUW": {
-      "state": "out",
-      "ach": []
-    },
-    "IRN": {
-      "state": "out",
-      "ach": []
-    },
-    "TUN": {
-      "state": "out",
-      "ach": []
-    },
-    "NZL": {
-      "state": "out",
-      "ach": []
-    },
-    "HAI": {
-      "state": "out",
-      "ach": []
-    },
-    "URU": {
-      "state": "out",
-      "ach": []
-    },
-    "TUR": {
-      "state": "out",
-      "ach": []
-    },
     "IRQ": {
-      "state": "out",
-      "ach": []
-    },
-    "QAT": {
-      "state": "out",
-      "ach": []
-    },
-    "SCO": {
       "state": "out",
       "ach": []
     },
@@ -625,7 +581,43 @@
       "state": "out",
       "ach": []
     },
-    "CZE": {
+    "URU": {
+      "state": "out",
+      "ach": []
+    },
+    "NZL": {
+      "state": "out",
+      "ach": []
+    },
+    "IRN": {
+      "state": "out",
+      "ach": []
+    },
+    "CUW": {
+      "state": "out",
+      "ach": []
+    },
+    "SCO": {
+      "state": "out",
+      "ach": []
+    },
+    "KSA": {
+      "state": "out",
+      "ach": []
+    },
+    "UZB": {
+      "state": "out",
+      "ach": []
+    },
+    "PAN": {
+      "state": "out",
+      "ach": []
+    },
+    "TUN": {
+      "state": "out",
+      "ach": []
+    },
+    "HAI": {
       "state": "out",
       "ach": []
     },
@@ -633,7 +625,15 @@
       "state": "out",
       "ach": []
     },
-    "PAN": {
+    "QAT": {
+      "state": "out",
+      "ach": []
+    },
+    "TUR": {
+      "state": "out",
+      "ach": []
+    },
+    "CZE": {
       "state": "out",
       "ach": []
     }
@@ -2553,11 +2553,11 @@
     "nSims": 8000,
     "anchored": false,
     "champ": {
-      "ESP": 0.97,
+      "ESP": 1.0,
       "ENG": 0.001,
       "FRA": 0.002,
       "BRA": 0.001,
-      "ARG": 0.031,
+      "ARG": 0.001,
       "GER": 0.003,
       "POR": 0.004,
       "NED": 0.001,
@@ -2700,8 +2700,8 @@
         "GHA": 0.0
       }
     },
-    "inputsHash": "a447aa6eeb20f188",
-    "updated": "2026-07-19T22:03:44+00:00",
+    "inputsHash": "7cfa0685e570ee7f",
+    "updated": "2026-07-19T23:01:28+00:00",
     "pool": {
       "win": {
         "Aaron R.": 1.0,
